@@ -25,6 +25,7 @@ Open only the guides your task needs.
 | [documentation/agents/cross-boundary-changes.md](documentation/agents/cross-boundary-changes.md) | A change that touches both C# and TypeScript (bridge, saves, build)                |
 | [documentation/agents/issues-and-decisions.md](documentation/agents/issues-and-decisions.md)     | Picking up a GitHub issue, writing issue notes, settling a `decision needed` issue |
 | [documentation/agents/decisions/](documentation/agents/decisions/README.md)                      | Before changing something an accepted decision covers                              |
+| [documentation/agents/learnings/log.md](documentation/agents/learnings/log.md) (top entries)     | When a command or tool misbehaves: someone may have hit it already                 |
 
 Project and design notes (not agent-specific) are in [documentation/](documentation/README.md).
 
@@ -34,3 +35,4 @@ Project and design notes (not agent-specific) are in [documentation/](documentat
 - Drive the running Unity Editor through the Unity CLI; never hand-edit `.unity`, `.prefab`, `.asset` or `ProjectSettings` files.
 - A change is done when it is verified: `pnpm run check` for TypeScript, compile + EditMode tests for C#, and a browser check for anything the player sees.
 - Commit, push, check in, merge, tag or release only when the user asks.
+- After an error that cost a retry, a correction from the user, or a surprise: add a one-line entry to `documentation/agents/learnings/log.md` and update the guide it affects, as [learnings/README.md](documentation/agents/learnings/README.md) describes. Claude Code can use the `record-learning` skill.

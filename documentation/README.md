@@ -10,6 +10,7 @@ Project notes for Vibe Space Mining Fleet.
 
 - [../AGENTS.md](../AGENTS.md): the entry point (`CLAUDE.md` imports it). It lists the guides in [agents/](agents/): repo layout, driving the Unity Editor, Unity Version Control, the web shell and GitHub, the web build, changes across C# and TypeScript, and issues.
 - [agents/decisions/](agents/decisions/README.md): accepted decisions (ADRs) and the open `decision needed` issues.
+- [agents/learnings/](agents/learnings/README.md): one-line log of errors, findings and approaches, promoted into the guides.
 
 ## Issue notes
 
