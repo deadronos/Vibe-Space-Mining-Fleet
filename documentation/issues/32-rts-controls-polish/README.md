@@ -1,7 +1,7 @@
 # #32 RTS controls polish (and #34 deploy smoke check)
 
 - Issues: [#32](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/32), [#34](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/34)
-- UVCS: branch `/main/feature-32-rts-controls-polish`, changeset **cs:18** (verified with `cm diff cs:18`: nine changed files, all under `Assets/_Game`)
+- UVCS: branch `/main/feature-32-rts-controls-polish`, changeset **cs:18** (verified with `cm diff cs:18`: nine changed files, all under `Assets/_Game`); merged to `/main` as **cs:19**
 - git: branch `feature/32-34-rts-controls-and-smoke-check`
 - Decision: [ADR 0007](../../agents/decisions/0007-stop-hold-and-escape.md) (answers part of #8, which stays open)
 
