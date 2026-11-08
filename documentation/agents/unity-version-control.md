@@ -52,9 +52,12 @@ Do it like this:
 
 ```zsh
 "$U" cm switch /main
-"$U" cm merge br:/main/feature-<n>-<slug> --merge -c="Merge GitHub #<n>: <title>"
+"$U" cm merge br:/main/feature-<n>-<slug> --merge   # applies the merge to the workspace only
+"$U" cm ci --all -c="Merge GitHub #<n>: <title>"     # creates the merge changeset
 "$U" cm diff cs:<merge changeset>     # check the merge contains every file from the branch
 ```
+
+If files are pending (leftovers you're not checking in), `cm switch` asks whether to shelve, bring or cancel: `echo b | "$U" cm switch /main` brings them along. `cm merge` refuses outright. Shelve them (`cm shelveset create <paths> -c="…"`, which prints `sh:<n>`), `cm undo <paths>`, merge and check in, then `cm shelveset apply sh:<n>` to put them back. Never undo pending changes without shelving them first.
 
 Merge only when the user asks. After the merge, the GitHub side (issue notes, a new web build in `web/public/unity`) is a separate git commit. See [cross-boundary-changes.md](cross-boundary-changes.md).
 
