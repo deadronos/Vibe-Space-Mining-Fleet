@@ -69,4 +69,28 @@ Actions can't run Unity without a license, so the Unity output stays committed. 
 ## Known limits
 
 - Control groups use Shift+1–0 to assign (ADR 0006), because Chrome on Windows and Linux keeps Ctrl+1–9 for tabs. Ctrl/Cmd still works where the browser passes it through.
-- Tested in Chrome (WebGPU). Safari and Firefox untested.
+
+## Browser QA
+
+v0.5.0, macOS, 9 Nov 2026. Renderer values came from the game menu.
+[QA issue #33](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/33).
+
+| Browser | Default renderer | Forced WebGL2 | Save flow |
+| --- | --- | --- | --- |
+| Chrome 144.0.7559.133 | WebGPU started | Started | Both paths passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
+| Safari 27.2 | WebGPU started | Started | Verified a v3 JSON download on WebGPU and New Game reload on WebGL2. The native picker opened for Import. Import completion remains unverified. |
+| Firefox 150.0 | WebGPU failed during startup ([#44](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44)) | Started | WebGL2 passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
+| Firefox 158.0 | WebGPU started locally and on Pages | Started | Both paths passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
+
+The v2 fixture was exported from the v0.4.1 player. WebGL2 was forced by
+hiding `navigator.gpu` before Unity initialized in Chrome and Safari, and
+by setting `dom.webgpu.enabled` to false in an isolated Firefox profile.
+Chrome WebGL2 logged a URP warning about the Edge Adaptive Spatial
+Upsampling shader and skipped post-processing passes.
+
+The owner previously reported hardware-accelerated startup in Chrome on
+Android with v0.4.0. Current phone and tablet layout, touch input, and
+performance still need device testing. Touch controls and the mobile HUD
+are tracked in [#41](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41).
+Non-QWERTY hotkeys and the remaining combat interactions (squadron groups,
+offscreen wave marker and carrier loss) still need a browser pass.
