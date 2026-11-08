@@ -4,7 +4,8 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
 
 ```
 .                                  git
-├── AGENTS.md, CLAUDE.md
+├── AGENTS.md, CLAUDE.md           agent entry point (CLAUDE.md imports AGENTS.md)
+├── .agents/skills/                project skills (pi, Codex…); .claude/skills/ symlinks them for Claude Code
 ├── package.json, pnpm-lock.yaml   web shell (Vite 8, TypeScript 7, oxlint, oxfmt, pnpm)
 ├── vite.config.ts, tsconfig.json, .oxlintrc.json, .oxfmtrc.json
 ├── web/

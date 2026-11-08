@@ -35,4 +35,8 @@ Project and design notes (not agent-specific) are in [documentation/](documentat
 - Drive the running Unity Editor through the Unity CLI; never hand-edit `.unity`, `.prefab`, `.asset` or `ProjectSettings` files.
 - A change is done when it is verified: `pnpm run check` for TypeScript, compile + EditMode tests for C#, and a browser check for anything the player sees.
 - Commit, push, check in, merge, tag or release only when the user asks.
-- After an error that cost a retry, a correction from the user, or a surprise: add a one-line entry to `documentation/agents/learnings/log.md` and update the guide it affects, as [learnings/README.md](documentation/agents/learnings/README.md) describes. Claude Code can use the `record-learning` skill.
+- After an error that cost a retry, a correction from the user, or a surprise: add a one-line entry to `documentation/agents/learnings/log.md` and update the guide it affects, as [learnings/README.md](documentation/agents/learnings/README.md) describes. Agents that support skills can use `record-learning`.
+
+## Skills
+
+Project skills live in `.agents/skills/` (the shared Agent Skills location that pi and Codex read). `.claude/skills/` holds symlinks to them for Claude Code. Add new skills under `.agents/skills/<name>/SKILL.md` and symlink them from `.claude/skills/`.
