@@ -71,7 +71,7 @@ export interface BridgeState {
   retreats: number;
   carrierHull: number;
   carrierHullMax: number;
-  /** Cargo heat, 0..1: ore held in the field, which draws bigger pirate waves. */
+  /** Cargo heat, 0..1: field cargo plus half the carrier raw ore. */
   heat: number;
   /** Seconds until the next wave (paused while one is being fought). */
   nextWaveIn: number;
@@ -97,8 +97,18 @@ export interface BridgeLoaded {
   time: number;
 }
 
+/** A player-facing fleet event. */
+export interface FleetNotice {
+  kind: string;
+  severity: 'info' | 'warning' | 'alert';
+  message: string;
+  position: { x: number; y: number; z: number };
+  time: number;
+}
+
 /** Unity -> page events, dispatched on window as `spacemining:<name>`. */
 export interface BridgeEvents {
+  event: FleetNotice;
   ready: BridgeReady;
   state: BridgeState;
   save: SaveFile;
