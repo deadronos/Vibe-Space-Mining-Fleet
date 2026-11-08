@@ -12,7 +12,7 @@ export type BridgeCommand =
   | { type: 'build'; unit: UnitKind };
 
 /** What the carrier can build (C# SpaceMining.Sim.UnitKind). */
-export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery';
+export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery' | 'squadron';
 
 /** The link that limits income (C# SpaceMining.Sim.Bottleneck). */
 export type Bottleneck =
@@ -26,6 +26,8 @@ export type Bottleneck =
 /** Sent once when the scene has started (C# BridgeReady). */
 export interface BridgeReady {
   saveVersion: number;
+  /** Oldest save version this build still loads; older saves are migrated by Unity. */
+  minSaveVersion: number;
   renderer: string;
   drones: number;
   rocks: number;
@@ -59,6 +61,20 @@ export interface BridgeState {
   /** Estimated income from the throughput model, t/s. */
   estimatedIncome: number;
   bottleneck: Bottleneck;
+  /** Fighter squadrons alive (phase 4). */
+  squadrons: number;
+  /** Pirate raiders alive. */
+  pirates: number;
+  /** Waves spawned so far. */
+  wave: number;
+  /** Times the carrier was destroyed and jumped home. */
+  retreats: number;
+  carrierHull: number;
+  carrierHullMax: number;
+  /** Cargo heat, 0..1: ore held in the field, which draws bigger pirate waves. */
+  heat: number;
+  /** Seconds until the next wave (paused while one is being fought). */
+  nextWaveIn: number;
 }
 
 /**

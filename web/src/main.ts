@@ -78,7 +78,7 @@ async function start(): Promise<void> {
     lastState = state;
   });
   wireMenu(bridge, info);
-  await continueFromSave(bridge, info.saveVersion);
+  await continueFromSave(bridge, info.minSaveVersion ?? info.saveVersion, info.saveVersion);
 
   const autosave = () => void saveNow(bridge, true);
   window.setInterval(autosave, AUTOSAVE_MS);
@@ -91,13 +91,13 @@ async function start(): Promise<void> {
   Object.assign(window, { spaceMining: { bridge, unity, info } });
 }
 
-async function continueFromSave(bridge: Bridge, version: number): Promise<void> {
+/** Loads the stored save if this build can read its version (older ones are migrated by Unity). */
+async function continueFromSave(bridge: Bridge, oldest: number, newest: number): Promise<void> {
   const save = readSave();
   if (!save) return;
-  if (save.version !== version) {
-    showToast(
-      `Stored save is version ${save.version}; this build reads ${version}. Started fresh.`,
-    );
+  if (save.version < oldest || save.version > newest) {
+    const reads = oldest === newest ? `${newest}` : `${oldest} to ${newest}`;
+    showToast(`Stored save is version ${save.version}; this build reads ${reads}. Started fresh.`);
     return;
   }
   const result = await bridge.load(save);

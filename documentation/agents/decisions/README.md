@@ -15,6 +15,8 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0005](0005-ui-toolkit-hud.md) | In-game HUD in UI Toolkit; the page keeps only a gear menu for saves | Accepted |
 | [0006](0006-control-group-keys.md) | Control groups: Shift+1–0 assigns (Ctrl/Cmd too where allowed), 1–0 recalls, plus a group bar | Accepted |
 | [0007](0007-stop-hold-and-escape.md) | S stops (back to automation), H holds position, Escape cancels modes and drags before clearing the selection | Accepted |
+| [0008](0008-pirate-waves-and-carrier-loss.md) | Pirate waves scaled by heat and distance; a destroyed carrier jumps home and loses the field fleet; save version 3 still reads version 2 | Accepted |
+| [0009](0009-squadrons-stances-formations.md) | Fighter squadrons as one unit; attack, escort and dock orders; four stances, three formations | Accepted |
 
 ## Open decisions (GitHub `decision needed`)
 
@@ -24,6 +26,5 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | #6 | Meta-progression (research, prestige) or none |
 | #7 | Offline / idle progress |
 | #8 | How far direct control goes vs automation (stop / hold settled in [0007](0007-stop-hold-and-escape.md); the rest is open) |
-| #9 | Enemy design: pirate waves, rival faction or both |
 | #10 | asteroid-fleet's hangar slot board in an RTS |
 | #12 | Where the Unity web build lives (affects 0002) |
