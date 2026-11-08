@@ -14,6 +14,7 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0004](0004-gzip-with-decompression-fallback.md) | Gzip + Decompression Fallback on Pages; no service worker for now | Accepted |
 | [0005](0005-ui-toolkit-hud.md) | In-game HUD in UI Toolkit; the page keeps only a gear menu for saves | Accepted |
 | [0006](0006-control-group-keys.md) | Control groups: Shift+1–0 assigns (Ctrl/Cmd too where allowed), 1–0 recalls, plus a group bar | Accepted |
+| [0007](0007-stop-hold-and-escape.md) | S stops (back to automation), H holds position, Escape cancels modes and drags before clearing the selection | Accepted |
 
 ## Open decisions (GitHub `decision needed`)
 
@@ -22,7 +23,7 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | #5 | Run structure: endless field, system map or mission campaign |
 | #6 | Meta-progression (research, prestige) or none |
 | #7 | Offline / idle progress |
-| #8 | How far direct control goes vs automation |
+| #8 | How far direct control goes vs automation (stop / hold settled in [0007](0007-stop-hold-and-escape.md); the rest is open) |
 | #9 | Enemy design: pirate waves, rival faction or both |
 | #10 | asteroid-fleet's hangar slot board in an RTS |
 | #12 | Where the Unity web build lives (affects 0002) |

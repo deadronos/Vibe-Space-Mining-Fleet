@@ -39,7 +39,7 @@ pnpm run build       # tsc + vite build → dist/
 ## CI and deploy
 
 - `.github/workflows/ci.yml` runs on pushes to main, on PRs, and when deploy calls it. It runs install (frozen lockfile), lint, format check, a check that the Unity build is present, and the build.
-- `.github/workflows/deploy.yml` runs on a `v*` tag or by hand. It reruns CI, checks the tag equals `v` + the `package.json` version, builds, and deploys `dist/` to Pages.
+- `.github/workflows/deploy.yml` runs on a `v*` tag or by hand. It reruns CI, checks the tag equals `v` + the `package.json` version, builds, deploys `dist/` to Pages, and then polls the live page until it serves that version (`scripts/verify-deploy.sh`).
 - Actions has no Unity license. The Unity player is always built locally and committed.
 
 ## Release (only when the user asks)
@@ -47,4 +47,4 @@ pnpm run build       # tsc + vite build → dist/
 1. Build the Unity player and commit `web/public/unity` ([unity-web-build.md](unity-web-build.md)).
 2. Bump `version` in `package.json`, then commit and push to `main`.
 3. Tag the release: `git tag v<version> && git push origin v<version>`.
-4. Check the live site at https://deadronos.github.io/Vibe-Space-Mining-Fleet/: the `assets/index-*.js` name in the served `index.html` should match your local `dist/`, and `unity/Build/*` should carry a new `last-modified` (`curl -sI`). A tag deploy once reported success while Pages kept serving the old build, and rerunning the workflow from `main` fixed it (issue #34 adds a check for this).
+4. Check the live site at https://deadronos.github.io/Vibe-Space-Mining-Fleet/: the `assets/index-*.js` name in the served `index.html` should match your local `dist/`, and `unity/Build/*` should carry a new `last-modified` (`curl -sI`). A tag deploy once reported success while Pages kept serving the old build, and rerunning the workflow from `main` fixed it (the deploy job now polls for this with `scripts/verify-deploy.sh`; if it fails, rerun the workflow from `main`, see [web-shell.md](../web-shell.md)).

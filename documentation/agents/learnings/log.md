@@ -2,6 +2,10 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-08 · unity-cli · error · `unity command … test run` right after `unity recompile` → `No Pipeline instance found for project` (domain reload still running); wait ~20 s (`unity status` says `ready`), then retry. → using-unity-mcp.md
+- 2026-11-08 · web-build · finding · the built-in browser's `left_click_drag` presses and releases in one frame, so a box-select never starts (a plain click works); also keep the pane shown (`show_pane preview`) or the game stalls at "Starting…". → unity-web-build.md
+- 2026-11-08 · web-build · error · Chrome DevTools MCP `new_page` → `The browser is already running for …chrome-profile`; use the built-in browser pane (`mcp__Claude_Browser__*`) after showing it. → unity-web-build.md
+- 2026-11-08 · process · error · `grep -rn … --include=*.cs` in zsh → `no matches found` (the glob is expanded); quote it: `--include='*.cs'`. → not promoted
 - 2026-11-08 · uvcs · error · `cm merge` refused while files were pending, and `cm switch` stopped at a prompt (s/b/c) → `echo b | cm switch` brings pending files along; for a merge, `cm shelveset create <paths>`, `cm undo <paths>`, merge and check in, then `cm shelveset apply sh:<n>`. → unity-version-control.md
 - 2026-11-08 · web-build · finding · the built-in browser pane was hidden, so the Unity page stalled at "Starting…" (no frames) → test the web build in the Chrome DevTools browser, or ask the user to show the pane. → unity-web-build.md
 - 2026-11-08 · unity-editor · error · UI Toolkit with a custom empty theme: the UIDocument root had height 0, so bottom-anchored panels were off screen → the theme must stretch `.unity-ui-document__root`. → decisions/0005

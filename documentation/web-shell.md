@@ -56,6 +56,10 @@ After changing the game: Unity menu **Space Mining Fleet → Build Web (into web
 2. Bump `version` in `package.json`, commit, push.
 3. `git tag v<version> && git push origin v<version>`. The deploy workflow refuses a tag that doesn't match `package.json`.
 
+4. The deploy job ends with a **smoke check** (`scripts/verify-deploy.sh`, GitHub #34). The page carries `<meta name="version">` from `package.json`; the script polls the live URL every 15 s for up to 5 minutes until it serves that version and this build's `assets/index-*.js`. It fails the job with an error if it doesn't. Run it by hand with `scripts/verify-deploy.sh https://deadronos.github.io/Vibe-Space-Mining-Fleet/ dist` (needs a local `pnpm run build`; `TIMEOUT` and `INTERVAL` are in seconds).
+
+**If the smoke check fails** (the v0.3.0 deploy reported success but Pages kept serving the old page): open Actions → **Deploy Pages** → **Run workflow** on `main` and wait for it, or run `gh workflow run deploy.yml --ref main`. A rerun from `main` fixed it last time. A deploy of the same version with the same script hash can't be told from the old one; bump the version if you need to be sure.
+
 Actions can't run Unity without a license, so the Unity output stays committed. If its history gets heavy (about 10 MB per release), Git LFS for `web/public/unity/Build/*.unityweb` or attaching builds to GitHub Releases are the next steps.
 
 ## Known limits

@@ -48,3 +48,7 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
+      # Pages once reported success while still serving the old build (v0.3.0, GitHub #34).
+      # Poll the live page until it serves this version and this build's script.
+      - name: Live site serves this build
+        run: bash scripts/verify-deploy.sh "${{ steps.deployment.outputs.page_url }}" dist
