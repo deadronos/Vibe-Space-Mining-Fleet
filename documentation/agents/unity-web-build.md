@@ -48,4 +48,15 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
 7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
 
+For Safari, use the installed browser UI if WebDriver reports that Allow
+Remote Automation is disabled. For a forced WebGL2 test without changing
+Safari settings, serve a disposable copy of the build with this script in
+the page head before the loader runs:
+
+```html
+<script>
+  Object.defineProperty(Navigator.prototype, 'gpu', { get: () => undefined });
+</script>
+```
+
 Before you commit a new build, compare its size with the previous one. A package added to the project shows up here.

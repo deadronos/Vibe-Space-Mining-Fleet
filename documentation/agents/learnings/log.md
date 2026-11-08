@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · web-build · approach · Safari WebDriver needs Allow Remote Automation. Use the installed Safari UI and serve a disposable page without `navigator.gpu` to test WebGL2. → unity-web-build.md
+
 - 2026-11-08 · unity-cli · finding · the Hub's bundled CLI was beta.13 while beta.17 was out; the standalone `~/.unity/bin/unity` self-updates (`self-update`) and agent shells don't have it on PATH → call it by path. → using-unity-mcp.md
 - 2026-11-08 · unity-cli · error · `recompile` right after `script eval … AssetDatabase.Refresh()` → `No Pipeline instance` (the Refresh had started the reload) → `status --until-ready` between steps; then `recompile` says `up_to_date`, so confirm the compile from `console get` before trusting tests. → using-unity-mcp.md
 - 2026-11-08 · unity-cli · error · `capture game_view --output …` wrote nothing (no error) → the flag is `--output-path`, as the guide's table already said; read the table first. → not promoted
