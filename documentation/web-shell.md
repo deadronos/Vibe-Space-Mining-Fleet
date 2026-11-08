@@ -26,9 +26,10 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
          state   4×/s: ore, refined ore, income, bottleneck, sorties, auto-launch, unit counts,
                  build queue length, selection, renderer; combat: carrier hull, heat, raiders,
                  squadrons, wave number, seconds to the next wave, carrier losses
+         event   fleet notification with kind, severity, message, world position and sim time
 ```
 
-- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs` and `Sim/SimSave.cs`. Keep them in step.
+- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/SimSave.cs`. Keep them in step.
 - `SendMessage` runs C# synchronously and the reply event fires before it returns, so `Bridge.requestSave()` and `Bridge.load()` subscribe first, then send.
 - In the browser console, `spaceMining.bridge` is the live bridge.
 
