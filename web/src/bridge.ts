@@ -1,4 +1,4 @@
-import type { BridgeEvents, Command, LoadedEvent, SaveFile } from './protocol';
+import type { BridgeEvents, BridgeCommand, BridgeLoaded, SaveFile } from './protocol';
 import type { UnityInstance } from './unity';
 
 /** GameObject the page talks to (WebBridge.ObjectName in C#). */
@@ -43,7 +43,7 @@ export class Bridge {
     this.#unity = unity;
   }
 
-  send(command: Command): void {
+  send(command: BridgeCommand): void {
     this.#unity.SendMessage(OBJECT, 'Command', JSON.stringify(command));
   }
 
@@ -53,7 +53,7 @@ export class Bridge {
     return reply;
   }
 
-  load(save: SaveFile): Promise<LoadedEvent> {
+  load(save: SaveFile): Promise<BridgeLoaded> {
     const reply = once('loaded', 5000);
     this.#unity.SendMessage(OBJECT, 'LoadSave', JSON.stringify(save));
     return reply;

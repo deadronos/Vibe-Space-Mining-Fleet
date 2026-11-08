@@ -1,6 +1,6 @@
 import './styles.css';
 import { Bridge, on, once } from './bridge';
-import type { Command, FleetState, SaveFile } from './protocol';
+import type { BridgeCommand, BridgeState, SaveFile } from './protocol';
 import { clearSave, downloadSave, readSave, readSaveFile, writeSave } from './save';
 import { loadUnity } from './unity';
 
@@ -26,7 +26,7 @@ const importFile = $('import-file') as HTMLInputElement;
 
 const oreFormat = new Intl.NumberFormat(undefined, { maximumFractionDigits: 0 });
 let toastTimer = 0;
-let lastState: FleetState | null = null;
+let lastState: BridgeState | null = null;
 // Set while starting a new game, so the unload autosave doesn't write the old game back.
 let discarding = false;
 
@@ -159,7 +159,7 @@ function wireToolbar(bridge: Bridge): void {
 }
 
 /** The toolbar's one-click commands (data-cmd); anything else is ignored. */
-function simpleCommand(type: string | undefined): Command | null {
+function simpleCommand(type: string | undefined): BridgeCommand | null {
   switch (type) {
     case 'launch':
     case 'recall':
@@ -171,7 +171,7 @@ function simpleCommand(type: string | undefined): Command | null {
   }
 }
 
-function render(state: FleetState): void {
+function render(state: BridgeState): void {
   lastState = state;
   statOre.textContent = `${oreFormat.format(state.ore)} t`;
   statFleet.textContent = `${state.drones - state.hangar}/${state.drones} out`;

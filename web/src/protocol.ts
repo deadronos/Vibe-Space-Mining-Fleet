@@ -2,16 +2,16 @@
 // Vibe-Space-Mining-Fleet/Assets/_Game/Scripts/Web/WebBridge.cs (payload classes at the bottom)
 // and Sim/SimSave.cs; keep the two in step.
 
-/** Commands the page can send (WebBridge.Command). */
-export type Command =
+/** Commands the page can send (C# WebBridge.BridgeCommand, run by WebBridge.Command). */
+export type BridgeCommand =
   | { type: 'launch' }
   | { type: 'recall' }
   | { type: 'toggleAutoLaunch' }
   | { type: 'setAutoLaunch'; value: boolean }
   | { type: 'resumeAuto' };
 
-/** Sent once when the scene has started. */
-export interface ReadyEvent {
+/** Sent once when the scene has started (C# BridgeReady). */
+export interface BridgeReady {
   saveVersion: number;
   renderer: string;
   drones: number;
@@ -19,8 +19,8 @@ export interface ReadyEvent {
   unityVersion: string;
 }
 
-/** Live snapshot, a few times a second. */
-export interface FleetState {
+/** Live snapshot, a few times a second (C# BridgeState). */
+export interface BridgeState {
   time: number;
   ore: number;
   sorties: number;
@@ -48,8 +48,8 @@ export interface SaveFile {
   [key: string]: unknown;
 }
 
-/** Outcome of a LoadSave call. */
-export interface LoadedEvent {
+/** Outcome of a LoadSave call (C# BridgeLoaded). */
+export interface BridgeLoaded {
   ok: boolean;
   error: string;
   time: number;
@@ -57,8 +57,8 @@ export interface LoadedEvent {
 
 /** Unity -> page events, dispatched on window as `spacemining:<name>`. */
 export interface BridgeEvents {
-  ready: ReadyEvent;
-  state: FleetState;
+  ready: BridgeReady;
+  state: BridgeState;
   save: SaveFile;
-  loaded: LoadedEvent;
+  loaded: BridgeLoaded;
 }
