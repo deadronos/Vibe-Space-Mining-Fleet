@@ -12,7 +12,7 @@ The Unity project `Vibe-Space-Mining-Fleet/` is versioned in UVCS (Plastic SCM),
 Run `cm` through the Unity CLI, from inside the project folder:
 
 ```zsh
-U="/Applications/Unity Hub.app/Contents/Resources/unity"
+U=~/.unity/bin/unity   # standalone CLI, see using-unity-mcp.md
 cd "$HOME/Github/Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet"
 "$U" cm wi              # which branch and changeset the workspace is on
 "$U" cm status          # pending changes

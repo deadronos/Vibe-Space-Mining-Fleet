@@ -9,10 +9,11 @@ The Editor for this project is usually open. Drive it live; don't edit scene or 
 
 If you have a shell, use the **Unity CLI**. It reaches every Pipeline command. The `unity-mcp` MCP server exposes the same Editor to clients without a shell. Use it only when the CLI is unavailable, and follow the same rules.
 
-The CLI is not on PATH:
+Use the standalone CLI in `~/.unity/bin` (installed with `curl -fsSL https://unity.com/install.sh | bash`). It updates itself; Unity Hub ships an older copy at `/Applications/Unity Hub.app/Contents/Resources/unity` that lags behind. Agent shells don't load `~/.zshrc`, so call it by path:
 
 ```zsh
-U="/Applications/Unity Hub.app/Contents/Resources/unity"
+U=~/.unity/bin/unity           # 1.0.0-beta.17 on 2026-11-08; check with "$U" self-update --check
+
 P="$HOME/Github/Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet"
 F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 "$U" status --no-banner        # expect: ready, this project path, 6000.6.8f1
@@ -78,7 +79,8 @@ The project's menu items are under **Space Mining Fleet**:
 
 ## When it goes wrong
 
-- **`No Pipeline instance found for project` right after `recompile`:** the domain reload is still running. Wait ~20 s until `unity status` says `ready`, then retry.
+- **`No Pipeline instance found for project` right after `recompile`:** the domain reload is still running. Run `"$U" status --until-ready --project-path "$P" --no-banner` (it blocks until the Editor is ready), then retry. `AssetDatabase.Refresh()` through `script eval` starts the compile and reload itself, so wait the same way before the next command; `recompile` then says `up_to_date`.
+- **`up_to_date` doesn't prove the code compiled.** If the Refresh compile failed, tests run against the old assemblies and pass. Check `console get` (`groundTruth.compilationFailed`, error count) or that a new type exists (`script eval` with `typeof(...)`) before trusting a test run.
 - **Connection refused or timeouts right after an edit:** the Editor may be in Safe Mode because of compile errors. `"$U" status` lists them. Fix them, and the Editor recovers.
 - **A long import or build:** pass a larger `--timeout` (seconds), or `--detach` and poll with `job`.
 - **Still failing:** tell the user what you ran and what failed. Don't loop on retries, don't switch to another Editor, and don't fall back to editing files by hand.

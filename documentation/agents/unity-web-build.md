@@ -7,7 +7,7 @@ The Unity player is built locally and written to `web/public/unity/` in the git 
 Run the menu item **Space Mining Fleet → Build Web (into web/public/unity)**:
 
 ```zsh
-U="/Applications/Unity Hub.app/Contents/Resources/unity"
+U=~/.unity/bin/unity   # standalone CLI, see using-unity-mcp.md
 P="$HOME/Github/Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet"
 F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 "$U" command editor invoke_menu --path "Space Mining Fleet/Build Web (into web/public/unity)" "${F[@]}" --timeout 900
@@ -44,7 +44,7 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 2. Open http://localhost:5173/ in a browser. A hidden built-in browser pane renders no frames, so the game stalls at "Starting…". Ask the user to show the pane, or use the Chrome DevTools browser.
 3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Then check that the console shows no errors.
 4. In the built-in browser, real clicks and keys (`computer` tool) reach the game and are enough for click-select, hover, M/S/H/Esc. `left_click_drag` presses and releases in one frame, so it can't box-select; use a plain click, or dispatch DOM pointer events with delays between press, move and release. If the Chrome DevTools browser says `The browser is already running for …chrome-profile`, use the built-in pane (show it with `show_pane preview`).
-5. Drive the game with synthetic DOM events on the canvas (pointer and keyboard events). This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
+5. Drive the game with synthetic DOM events on the canvas. Dispatch `MouseEvent`s (`mousemove`, `mousedown`, `mouseup`, with `button`/`buttons` set): `PointerEvent`s alone didn't reach the Input System. Wait ~80 ms between steps; for a box-select, send several `mousemove`s while the button is down. HUD buttons and selection-list rows take the same clicks. The idle camera keeps orbiting, so a unit moves between a screenshot and the click: box-select a large area, then click its row in the selection list. This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
 6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
 7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
 

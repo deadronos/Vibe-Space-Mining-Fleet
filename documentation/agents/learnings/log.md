@@ -2,6 +2,12 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-08 · unity-cli · finding · the Hub's bundled CLI was beta.13 while beta.17 was out; the standalone `~/.unity/bin/unity` self-updates (`self-update`) and agent shells don't have it on PATH → call it by path. → using-unity-mcp.md
+- 2026-11-08 · unity-cli · error · `recompile` right after `script eval … AssetDatabase.Refresh()` → `No Pipeline instance` (the Refresh had started the reload) → `status --until-ready` between steps; then `recompile` says `up_to_date`, so confirm the compile from `console get` before trusting tests. → using-unity-mcp.md
+- 2026-11-08 · unity-cli · error · `capture game_view --output …` wrote nothing (no error) → the flag is `--output-path`, as the guide's table already said; read the table first. → not promoted
+- 2026-11-08 · web-build · finding · DOM `PointerEvent`s alone don't reach the Unity web player's Input System; dispatching `MouseEvent`s (`mousemove/down/up`) on the canvas does, including HUD buttons and selection-list rows. Synthetic key presses from DevTools didn't reach it (canvas not focused). → unity-web-build.md
+- 2026-11-08 · sim · approach · balance by headless bots in `script eval`: build a `FleetSim` from the open scene's `Carrier.DescribeLayout()`, run 40 sim-minutes in a few seconds and log events; it found that squadrons never repaired and drones didn't flee. → documentation/issues/16-combat
+
 - 2026-11-08 · unity-cli · error · `unity command … test run` right after `unity recompile` → `No Pipeline instance found for project` (domain reload still running); wait ~20 s (`unity status` says `ready`), then retry. → using-unity-mcp.md
 - 2026-11-08 · web-build · finding · the built-in browser's `left_click_drag` presses and releases in one frame, so a box-select never starts (a plain click works); also keep the pane shown (`show_pane preview`) or the game stalls at "Starting…". → unity-web-build.md
 - 2026-11-08 · web-build · error · Chrome DevTools MCP `new_page` → `The browser is already running for …chrome-profile`; use the built-in browser pane (`mcp__Claude_Browser__*`) after showing it. → unity-web-build.md
