@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="theme-color" content="#04060c" />
+    <meta
+      name="description"
+      content="A carrier launches autonomous mining drones into an asteroid belt. Homeworld-style RTS controls, in the browser on WebGPU with a WebGL2 fallback."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2304060c'/%3E%3Cpath d='M6 20h20l-3 4H9z' fill='%238fa3b8'/%3E%3Ccircle cx='22' cy='10' r='4' fill='%23ffb347'/%3E%3Cpath d='M12 18l8-6' stroke='%237fd8ff' stroke-width='2'/%3E%3C/svg%3E"
+    />
+    <title>Vibe Space Mining Fleet</title>
+  </head>
+  <body>
+    <canvas id="game" tabindex="-1" aria-label="Game view"></canvas>
+
+    <div id="loading">
+      <div class="loading-title">VIBE SPACE MINING FLEET</div>
+      <div class="bar"><div id="loading-fill"></div></div>
+      <div id="loading-text">Loading…</div>
+    </div>
+
+    <div id="toolbar" hidden>
+      <button type="button" data-cmd="launch" title="Launch one drone (L)">Launch</button>
+      <button type="button" data-cmd="recall" title="Recall the whole fleet (R)">Recall</button>
+      <button type="button" id="auto" title="Toggle auto-launch (Space)">Auto</button>
+      <button type="button" data-cmd="resumeAuto" title="Drop all orders, back to automation">
+        All auto
+      </button>
+      <span class="sep"></span>
+      <span id="stat-ore" class="stat" title="Ore delivered">0 t</span>
+      <span id="stat-fleet" class="stat muted" title="Drones out / total">0/0</span>
+      <span class="sep"></span>
+      <button type="button" id="save" title="Save now (also autosaves every 30 s)">Save</button>
+      <button type="button" id="export" title="Download the save as a .json file">Export</button>
+      <button type="button" id="import" title="Load a save from a .json file">Import</button>
+      <button type="button" id="new" class="danger" title="Delete the save and start over">
+        New
+      </button>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div id="fatal" role="alert" hidden></div>
+    <input type="file" id="import-file" accept="application/json,.json" hidden />
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

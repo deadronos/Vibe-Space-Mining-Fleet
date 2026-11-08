@@ -1,6 +1,10 @@
 # Documentation
 
-Project notes for Vibe Space Mining Fleet. (`docs/` is the GitHub Pages build output, written by the Unity build, so notes live here instead.)
+Project notes for Vibe Space Mining Fleet. Notes live here, not in `docs/`, which held the old GitHub Pages output.
+
+## Project
+
+- [web-shell.md](web-shell.md): the web page around the Unity build, the TypeScript ↔ Unity bridge, saves, and how to release.
 
 ## Research
 

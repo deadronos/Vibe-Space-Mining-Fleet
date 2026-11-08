@@ -1,1 +1,4 @@
 Vibe-Space-Mining-Fleet/
+node_modules/
+dist/
+.DS_Store

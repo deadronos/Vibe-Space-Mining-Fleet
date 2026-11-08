@@ -1,0 +1,25 @@
+{
+  "name": "vibe-space-mining-fleet",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Web shell around the Unity build: full-window canvas, TypeScript bridge, saves.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p . && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p .",
+    "lint": "oxlint --type-aware --deny-warnings",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.77.0",
+    "oxlint": "^1.92.0",
+    "oxlint-tsgolint": "^7.0.2006",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6"
+  },
+  "packageManager": "pnpm@12.15.0"
+}

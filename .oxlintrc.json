@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "rules": {
+    // Casts are used deliberately at the Unity and DOM boundaries.
+    "typescript/no-unsafe-type-assertion": "off",
+    // Side-effect imports (styles.css) are intended.
+    "import/no-unassigned-import": "off",
+    // tsc already checks that every path returns the declared type.
+    "typescript/consistent-return": "off"
+  },
+  "ignorePatterns": ["dist", "node_modules", "docs", "web/public/unity", "Vibe-Space-Mining-Fleet"]
+}
