@@ -78,6 +78,7 @@ The project's menu items are under **Space Mining Fleet**:
 
 ## When it goes wrong
 
+- **`No Pipeline instance found for project` right after `recompile`:** the domain reload is still running. Wait ~20 s until `unity status` says `ready`, then retry.
 - **Connection refused or timeouts right after an edit:** the Editor may be in Safe Mode because of compile errors. `"$U" status` lists them. Fix them, and the Editor recovers.
 - **A long import or build:** pass a larger `--timeout` (seconds), or `--detach` and poll with `job`.
 - **Still failing:** tell the user what you ran and what failed. Don't loop on retries, don't switch to another Editor, and don't fall back to editing files by hand.

@@ -43,8 +43,9 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 1. Run `pnpm dev` from the repo root, in the background.
 2. Open http://localhost:5173/ in a browser. A hidden built-in browser pane renders no frames, so the game stalls at "Starting…". Ask the user to show the pane, or use the Chrome DevTools browser.
 3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Then check that the console shows no errors.
-4. Drive the game with synthetic DOM events on the canvas (pointer and keyboard events). This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
-5. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
-6. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
+4. In the built-in browser, real clicks and keys (`computer` tool) reach the game and are enough for click-select, hover, M/S/H/Esc. `left_click_drag` presses and releases in one frame, so it can't box-select; use a plain click, or dispatch DOM pointer events with delays between press, move and release. If the Chrome DevTools browser says `The browser is already running for …chrome-profile`, use the built-in pane (show it with `show_pane preview`).
+5. Drive the game with synthetic DOM events on the canvas (pointer and keyboard events). This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
+6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
+7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
 
 Before you commit a new build, compare its size with the previous one. A package added to the project shows up here.
