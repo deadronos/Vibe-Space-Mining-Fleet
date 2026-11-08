@@ -8,7 +8,7 @@ This also settles [#9](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issu
 | --- | --- |
 | git branch | `feature/16-combat` |
 | UVCS branch | `/main/feature-16-combat` |
-| Changeset | `cs:20` (30 added, 22 changed, 2 deleted; the deletes are the Volume profile the scene builder recreates) |
+| Changeset | `cs:20` (30 added, 22 changed, 2 deleted; the deletes are the Volume profile the scene builder recreates); merged to `/main` as `cs:21` |
 
 ## Decisions (the user)
 
