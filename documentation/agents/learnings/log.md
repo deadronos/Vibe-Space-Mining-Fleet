@@ -2,6 +2,10 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-08 · web-build · finding · the built-in browser pane was hidden, so the Unity page stalled at "Starting…" (no frames) → test the web build in the Chrome DevTools browser, or ask the user to show the pane. → unity-web-build.md
+- 2026-11-08 · unity-editor · error · UI Toolkit with a custom empty theme: the UIDocument root had height 0, so bottom-anchored panels were off screen → the theme must stretch `.unity-ui-document__root`. → decisions/0005
+- 2026-11-08 · unity-editor · error · `HaulerView` and `BargeView` were in one .cs file → the prefab silently lost `HaulerView` (no error); one MonoBehaviour per file, named after the class. → using-unity-mcp.md
+- 2026-11-08 · unity-cli · error · `unity recompile` said `up_to_date` after editing .cs files from the shell → the unfocused Editor hadn't noticed; run `script eval` with `AssetDatabase.Refresh()` first. → using-unity-mcp.md
 - 2026-11-08 · unity-cli · error · `script eval` warned CS0618 for `FindFirstObjectByType` → obsolete in 6000.6, use `FindAnyObjectByType`. → using-unity-mcp.md
 - 2026-11-08 · unity-cli · error · `unity command tests list` → `Command Not Found`; the listing shows tags, and the command is `test list` / `test run`. → using-unity-mcp.md
 - 2026-11-08 · uvcs · error · the #31 notes claimed a `Packages/manifest.json` change that cs:13 doesn't contain, while cs:13 does contain a stray `Screenshots/phase1.png` → write notes from `cm diff cs:<n>`, not from memory. → unity-version-control.md

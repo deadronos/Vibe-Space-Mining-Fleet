@@ -26,24 +26,44 @@
       <div id="loading-text">Loading…</div>
     </div>
 
-    <div id="toolbar" hidden>
-      <button type="button" data-cmd="launch" title="Launch one drone (L)">Launch</button>
-      <button type="button" data-cmd="recall" title="Recall the whole fleet (R)">Recall</button>
-      <button type="button" id="auto" title="Toggle auto-launch (Space)">Auto</button>
-      <button type="button" data-cmd="resumeAuto" title="Drop all orders, back to automation">
-        All auto
-      </button>
-      <span class="sep"></span>
-      <span id="stat-ore" class="stat" title="Ore delivered">0 t</span>
-      <span id="stat-fleet" class="stat muted" title="Drones out / total">0/0</span>
-      <span class="sep"></span>
-      <button type="button" id="save" title="Save now (also autosaves every 30 s)">Save</button>
-      <button type="button" id="export" title="Download the save as a .json file">Export</button>
-      <button type="button" id="import" title="Load a save from a .json file">Import</button>
-      <button type="button" id="new" class="danger" title="Delete the save and start over">
-        New
-      </button>
-    </div>
+    <!-- Game controls and stats live in the Unity HUD; the page keeps only what needs the
+         browser: saving to storage and files. -->
+    <button
+      type="button"
+      id="menu-button"
+      title="Game menu: save, export, import, new game"
+      aria-label="Game menu"
+      aria-haspopup="dialog"
+      hidden
+    >
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"
+          transform="translate(-1 0)"
+        />
+      </svg>
+    </button>
+
+    <dialog id="menu" aria-labelledby="menu-title">
+      <h2 id="menu-title">Game</h2>
+      <p id="menu-info" class="muted"></p>
+      <div class="menu-buttons">
+        <button type="button" id="save" title="Save now (also autosaves every 30 s)">
+          Save now
+        </button>
+        <button type="button" id="export" title="Download the save as a .json file">
+          Export save
+        </button>
+        <button type="button" id="import" title="Load a save from a .json file">Import save</button>
+        <button type="button" id="new" class="danger" title="Delete the save and start over">
+          New game
+        </button>
+      </div>
+      <form method="dialog">
+        <button type="submit" id="menu-close">Close</button>
+      </form>
+    </dialog>
 
     <div id="toast" role="status" aria-live="polite"></div>
     <div id="fatal" role="alert" hidden></div>
