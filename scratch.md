@@ -4,14 +4,14 @@ Written 8 Nov 2026 from the open issues. Phases 1 and 2 (#1, #2) and the web she
 
 ## Suggested order
 
-| # | Issue | Why now | Size |
-| --- | --- | --- | --- |
-| 1 | #31 EditMode tests for FleetSim | Safety net before the sim grows in phases 3 and 4. Add `com.unity.test-framework` (not in the manifest yet). The perf test gives the ms-per-tick number that decides whether Burst or ECS is ever needed. | S |
-| 2 | #8 Decision: direct control vs automation | Cheap to settle, and it shapes #20, #15 and #16. Write the rules into `documentation/`. | S |
-| 3 | #13 Decision: HUD technology | Phase 3 adds the build queue and throughput panel, the first big UI. Pick uGUI, UI Toolkit or HTML before building it. | S |
-| 4 | #11 Control-group keys, then #32 RTS controls polish | Ctrl+1-9 is unusable in Chrome on Windows and Linux. Fix it together with the hotbar and stop order. | S-M |
-| 5 | #15 Phase 3: logistics chain | The main gameplay step. Barges, haulers, throughput bottleneck, build queue, save version bump. | L |
-| 6 | #34 Post-deploy smoke check | Small and independent. Do it before the next tag release. | S |
+| #   | Issue                                                | Why now                                                                                                                                                                                                   | Size |
+| --- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| 1   | #31 EditMode tests for FleetSim                      | Safety net before the sim grows in phases 3 and 4. Add `com.unity.test-framework` (not in the manifest yet). The perf test gives the ms-per-tick number that decides whether Burst or ECS is ever needed. | S    |
+| 2   | #8 Decision: direct control vs automation            | Cheap to settle, and it shapes #20, #15 and #16. Write the rules into `documentation/`.                                                                                                                   | S    |
+| 3   | #13 Decision: HUD technology                         | Phase 3 adds the build queue and throughput panel, the first big UI. Pick uGUI, UI Toolkit or HTML before building it.                                                                                    | S    |
+| 4   | #11 Control-group keys, then #32 RTS controls polish | Ctrl+1-9 is unusable in Chrome on Windows and Linux. Fix it together with the hotbar and stop order.                                                                                                      | S-M  |
+| 5   | #15 Phase 3: logistics chain                         | The main gameplay step. Barges, haulers, throughput bottleneck, build queue, save version bump.                                                                                                           | L    |
+| 6   | #34 Post-deploy smoke check                          | Small and independent. Do it before the next tag release.                                                                                                                                                 | S    |
 
 ## After that
 
