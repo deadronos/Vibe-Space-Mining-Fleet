@@ -1,6 +1,6 @@
 # Documentation
 
-Project notes for Vibe Space Mining Fleet. Notes live here, not in `docs/`, which held the old GitHub Pages output.
+Project notes for Vibe Space Mining Fleet.
 
 ## Project
 

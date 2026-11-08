@@ -10,7 +10,6 @@ Covers GitHub issues #3 (full-window canvas) and #4 (TypeScript ↔ Unity bridge
 | `web/index.html`, `web/src/` | The page: full-window canvas, toolbar, loading screen, saves (Vite + TypeScript 7) |
 | `web/public/unity/Build/` | Unity web build, written by Unity and committed to git. Vite copies it to `dist/unity/` untouched |
 | `.github/workflows/` | `ci.yml` (lint, format, typecheck, build) and `deploy.yml` (Pages on `v*` tags) |
-| `docs/` | Old Pages output from the branch-based deploy. Delete it once Pages runs from Actions |
 
 The page replaces Unity's own web template: Unity's `index.html` and `TemplateData/` are deleted after each build, and `web/src/unity.ts` calls `createUnityInstance` itself. The canvas is `position: fixed; inset: 0; 100vw × 100dvh`, `matchWebGLToCanvasSize` keeps Unity's back buffer at the canvas size, and the device pixel ratio is capped at 1.5.
 
