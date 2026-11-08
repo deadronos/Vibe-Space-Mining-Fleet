@@ -12,6 +12,8 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0002](0002-two-version-control-systems.md) | Unity project in UVCS, everything else in git; the web build is committed | Accepted |
 | [0003](0003-vite-typescript-shell-and-tag-deploys.md) | Vite + TypeScript page around the Unity build; deploy to Pages on `v*` tags | Accepted |
 | [0004](0004-gzip-with-decompression-fallback.md) | Gzip + Decompression Fallback on Pages; no service worker for now | Accepted |
+| [0005](0005-ui-toolkit-hud.md) | In-game HUD in UI Toolkit; the page keeps only a gear menu for saves | Accepted |
+| [0006](0006-control-group-keys.md) | Control groups: Shift+1–0 assigns (Ctrl/Cmd too where allowed), 1–0 recalls, plus a group bar | Accepted |
 
 ## Open decisions (GitHub `decision needed`)
 
@@ -23,6 +25,4 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | #8 | How far direct control goes vs automation |
 | #9 | Enemy design: pirate waves, rival faction or both |
 | #10 | asteroid-fleet's hangar slot board in an RTS |
-| #11 | Control-group shortcuts in browsers |
 | #12 | Where the Unity web build lives (affects 0002) |
-| #13 | HUD technology: uGUI, UI Toolkit or HTML overlay |

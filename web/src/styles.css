@@ -75,59 +75,76 @@ body {
   color: var(--muted);
 }
 
-#toolbar {
+#menu-button {
   position: fixed;
-  top: max(10px, env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  max-width: calc(100vw - 32px);
-  padding: 5px;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--panel);
-  backdrop-filter: blur(6px);
+  color: var(--text);
+  cursor: pointer;
 }
-#toolbar[hidden] {
+#menu-button[hidden] {
   display: none;
 }
-#toolbar button {
-  padding: 5px 10px;
-  border: 1px solid transparent;
+#menu-button:hover {
+  background: var(--panel-hover);
+  color: var(--accent);
+}
+
+#menu {
+  width: min(360px, calc(100vw - 32px));
+  padding: 18px 20px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgb(8 12 20 / 0.94);
+  color: var(--text);
+}
+#menu::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+#menu h2 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+#menu p {
+  margin: 0 0 14px;
+}
+.menu-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+#menu button {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
   border-radius: 6px;
-  background: transparent;
+  background: rgb(40 52 68 / 0.9);
   color: var(--text);
   font: inherit;
   cursor: pointer;
 }
-#toolbar button:hover {
+#menu button:hover {
   background: var(--panel-hover);
-  border-color: var(--line);
 }
-#toolbar button.on {
-  color: var(--ok);
-}
-#toolbar button.danger:hover {
+#menu button.danger:hover {
   color: var(--bad);
 }
-.stat {
-  padding: 0 6px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
+#menu form {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 .muted {
   color: var(--muted);
-  font-weight: 400;
-}
-.sep {
-  width: 1px;
-  height: 18px;
-  margin: 0 4px;
-  background: var(--line);
 }
 
 #toast {
@@ -163,32 +180,4 @@ body {
   border-radius: 8px;
   background: rgb(40 10 10 / 0.9);
   color: var(--bad);
-}
-
-/* Narrower windows: the top centre collides with the HUD, so dock the toolbar as a vertical
-   strip on the right edge, which the game leaves free at every size. */
-@media (max-width: 1200px) {
-  #toolbar {
-    top: 50%;
-    right: max(10px, env(safe-area-inset-right));
-    left: auto;
-    transform: translateY(-50%);
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    max-width: none;
-    font-size: 12px;
-  }
-  #toolbar button {
-    padding: 5px 8px;
-  }
-  .stat {
-    padding: 2px 6px;
-    text-align: center;
-  }
-  .sep {
-    width: auto;
-    height: 1px;
-    margin: 3px 0;
-  }
 }

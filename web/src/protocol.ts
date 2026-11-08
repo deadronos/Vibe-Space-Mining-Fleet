@@ -8,7 +8,20 @@ export type BridgeCommand =
   | { type: 'recall' }
   | { type: 'toggleAutoLaunch' }
   | { type: 'setAutoLaunch'; value: boolean }
-  | { type: 'resumeAuto' };
+  | { type: 'resumeAuto' }
+  | { type: 'build'; unit: UnitKind };
+
+/** What the carrier can build (C# SpaceMining.Sim.UnitKind). */
+export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery';
+
+/** The link that limits income (C# SpaceMining.Sim.Bottleneck). */
+export type Bottleneck =
+  | 'None'
+  | 'Mining'
+  | 'DroneTravel'
+  | 'HangarLaunch'
+  | 'Haulers'
+  | 'Refinery';
 
 /** Sent once when the scene has started (C# BridgeReady). */
 export interface BridgeReady {
@@ -33,6 +46,19 @@ export interface BridgeState {
   returning: number;
   selected: number;
   renderer: string;
+  barges: number;
+  haulers: number;
+  /** Build queue length. */
+  queue: number;
+  /** Refined ore available to spend, t. */
+  refined: number;
+  /** Raw ore waiting for the refinery, t. */
+  rawOre: number;
+  /** Measured refined ore per second. */
+  income: number;
+  /** Estimated income from the throughput model, t/s. */
+  estimatedIncome: number;
+  bottleneck: Bottleneck;
 }
 
 /**

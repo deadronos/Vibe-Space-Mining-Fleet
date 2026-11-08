@@ -63,8 +63,8 @@ The project's menu items are under **Space Mining Fleet**:
 
 ## The edit loop for C#
 
-1. Edit the `.cs` file.
-2. Run `"$U" recompile --project-path "$P"`. It must report 0 errors. A recompile with errors leaves the Editor running the old code.
+1. Edit the `.cs` file. One `MonoBehaviour` or `ScriptableObject` per file, named after the class, or Unity silently drops the component from prefabs.
+2. If the Editor isn't focused, it may not have noticed the edit: run `"$U" command script eval --code 'UnityEditor.AssetDatabase.Refresh(); return "ok";' "${F[@]}"` first. Then run `"$U" recompile --project-path "$P"`. It must report 0 errors. A recompile with errors leaves the Editor running the old code.
 3. If you changed the sim or saves, run the EditMode tests: 11 tests in `Assets/_Game/Tests/EditMode/FleetSimTests.cs`, about 3 s.
 4. If the scene layout changed, run **Build Demo Scene**.
 5. Check the behaviour (next section).

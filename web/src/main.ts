@@ -1,6 +1,6 @@
 import './styles.css';
 import { Bridge, on, once } from './bridge';
-import type { BridgeCommand, BridgeState, SaveFile } from './protocol';
+import type { BridgeReady, BridgeState, SaveFile } from './protocol';
 import { clearSave, downloadSave, readSave, readSaveFile, writeSave } from './save';
 import { loadUnity } from './unity';
 
@@ -16,16 +16,16 @@ const canvas = $('game') as HTMLCanvasElement;
 const loading = $('loading');
 const loadingFill = $('loading-fill');
 const loadingText = $('loading-text');
-const toolbar = $('toolbar');
-const autoButton = $('auto');
-const statOre = $('stat-ore');
-const statFleet = $('stat-fleet');
+const menuButton = $('menu-button');
+const menu = $('menu') as HTMLDialogElement;
+const menuInfo = $('menu-info');
 const toast = $('toast');
 const fatal = $('fatal');
 const importFile = $('import-file') as HTMLInputElement;
 
 const oreFormat = new Intl.NumberFormat(undefined, { maximumFractionDigits: 0 });
 let toastTimer = 0;
+let lastSavedAt = '';
 let lastState: BridgeState | null = null;
 // Set while starting a new game, so the unload autosave doesn't write the old game back.
 let discarding = false;
@@ -49,9 +49,9 @@ canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 canvas.addEventListener('mousedown', (e) => {
   if (e.button === 1) e.preventDefault();
 });
-// Toolbar buttons must not take keyboard focus, or Space/Enter would press them as well as
+// The gear button must not keep keyboard focus, or Space/Enter would press it as well as
 // reaching the game.
-toolbar.addEventListener('mousedown', (e) => e.preventDefault());
+menuButton.addEventListener('mousedown', (e) => e.preventDefault());
 
 async function start(): Promise<void> {
   // "ready" is emitted from the scene's Start(), which can run before the instance promise
@@ -71,11 +71,13 @@ async function start(): Promise<void> {
   const info = await ready;
   const bridge = new Bridge(unity);
   loading.classList.add('done');
-  toolbar.hidden = false;
+  menuButton.hidden = false;
   canvas.focus();
 
-  on('state', render);
-  wireToolbar(bridge);
+  on('state', (state) => {
+    lastState = state;
+  });
+  wireMenu(bridge, info);
   await continueFromSave(bridge, info.saveVersion);
 
   const autosave = () => void saveNow(bridge, true);
@@ -108,6 +110,7 @@ async function saveNow(bridge: Bridge, silent: boolean): Promise<SaveFile | null
   try {
     const save = await bridge.requestSave();
     const ok = writeSave(save);
+    lastSavedAt = save.savedAt;
     if (!silent)
       showToast(
         ok ? 'Saved' : 'Saved in memory only: browser storage is blocked',
@@ -120,14 +123,13 @@ async function saveNow(bridge: Bridge, silent: boolean): Promise<SaveFile | null
   }
 }
 
-function wireToolbar(bridge: Bridge): void {
-  for (const button of toolbar.querySelectorAll<HTMLButtonElement>('button[data-cmd]')) {
-    const command = simpleCommand(button.dataset.cmd);
-    if (command) button.addEventListener('click', () => bridge.send(command));
-  }
-  autoButton.addEventListener('click', () =>
-    bridge.send({ type: 'setAutoLaunch', value: !(lastState?.autoLaunch ?? true) }),
-  );
+function wireMenu(bridge: Bridge, info: BridgeReady): void {
+  menuButton.addEventListener('click', () => {
+    menuInfo.textContent = menuSummary(info);
+    menu.showModal();
+  });
+  // Hand the keyboard back to the game when the dialog closes.
+  menu.addEventListener('close', () => canvas.focus());
 
   $('save').addEventListener('click', () => void saveNow(bridge, false));
   $('export').addEventListener('click', async () => {
@@ -147,6 +149,7 @@ function wireToolbar(bridge: Bridge): void {
     const result = await bridge.load(save);
     if (result.ok) {
       writeSave(save);
+      menu.close();
       showToast(`Loaded ${file.name}`);
     } else showToast(`Could not load ${file.name}: ${result.error}`, 'error');
   });
@@ -158,25 +161,15 @@ function wireToolbar(bridge: Bridge): void {
   });
 }
 
-/** The toolbar's one-click commands (data-cmd); anything else is ignored. */
-function simpleCommand(type: string | undefined): BridgeCommand | null {
-  switch (type) {
-    case 'launch':
-    case 'recall':
-    case 'toggleAutoLaunch':
-    case 'resumeAuto':
-      return { type };
-    default:
-      return null;
-  }
-}
-
-function render(state: BridgeState): void {
-  lastState = state;
-  statOre.textContent = `${oreFormat.format(state.ore)} t`;
-  statFleet.textContent = `${state.drones - state.hangar}/${state.drones} out`;
-  autoButton.textContent = state.autoLaunch ? 'Auto: on' : 'Auto: off';
-  autoButton.classList.toggle('on', state.autoLaunch);
+function menuSummary(info: BridgeReady): string {
+  const parts = [`v${import.meta.env.APP_VERSION}`, info.renderer, `Unity ${info.unityVersion}`];
+  if (lastState)
+    parts.push(
+      `${formatTime(lastState.time)} played`,
+      `${oreFormat.format(lastState.refined)} t refined`,
+    );
+  parts.push(lastSavedAt ? savedAgo({ savedAt: lastSavedAt } as SaveFile) : 'not saved yet');
+  return parts.join(' · ');
 }
 
 function formatTime(seconds: number): string {
