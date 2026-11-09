@@ -2,6 +2,10 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · uvcs · finding · `cm status` on `/main` showed a pending merge from a stray cs:42 on an already merged feature branch (six "Replaced" files). Run `cm status` before branching; if a merge is pending, ask the user, then check it in on its own with explicit paths before branching (`cm ci <merge paths>` left the other pending files alone) → documentation/issues/58-offline-credit
+
+- 2026-11-09 · web-build · finding · A page that loaded while the browser pane was hidden stayed at "Starting…" after the pane was shown; reload it once the pane is visible → unity-web-build.md
+
 - 2026-11-09 · web-build · finding · The built-in browser pane was hidden: real clicks didn't reach Unity, and DOM-dispatched mouse events only worked after one real click focused the canvas. Scale screenshot coordinates to CSS pixels (`innerWidth` / frame width) → unity-web-build.md
 
 - 2026-11-09 · web-build · error · Editing `spacemining.save.v1` in localStorage and reloading lost the edit: the page autosaves on unload. Write the save, stub `Storage.prototype.setItem` for that page, then reload → unity-web-build.md

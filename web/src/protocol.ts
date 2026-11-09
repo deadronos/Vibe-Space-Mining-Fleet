@@ -112,6 +112,7 @@ export interface BridgeLoaded {
 
 /** A player-facing fleet event. */
 export interface FleetNotice {
+  /** A C# SimEventKind name, such as `WaveWarning` or `OfflineCredit`. */
   kind: string;
   severity: 'info' | 'warning' | 'alert';
   message: string;
