@@ -66,7 +66,7 @@ After changing the game: Unity menu **Space Mining Fleet → Build Web (into web
 
 **If the smoke check fails** (the v0.3.0 deploy reported success but Pages kept serving the old page): open Actions → **Deploy Pages** → **Run workflow** on `main` and wait for it, or run `gh workflow run deploy.yml --ref main`. A rerun from `main` fixed it last time. A deploy of the same version with the same script hash can't be told from the old one; bump the version if you need to be sure.
 
-Actions can't run Unity without a license, so the Unity output stays committed. If its history gets heavy (about 10 MB per release), Git LFS for `web/public/unity/Build/*.unityweb` or attaching builds to GitHub Releases are the next steps.
+Actions can't run Unity without a license, so the Unity output stays committed ([ADR 0014](agents/decisions/0014-keep-committing-unity-build.md), #12). Each release adds about 10 MB of history. Revisit when history passes about 1 GB or checkout gets slow; attaching builds to GitHub Releases is the first option to try, Git LFS the second.
 
 ## Renderer choice and WebGL2 fallback
 
