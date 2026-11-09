@@ -54,6 +54,8 @@ canvas.addEventListener('mousedown', (e) => {
 menuButton.addEventListener('mousedown', (e) => e.preventDefault());
 
 const webgl2Reason: Webgl2Reason = applyRendererChoice();
+// Banner errors before "ready" may be a failed WebGPU start; after it, a reload would lose play.
+let started = false;
 
 async function start(): Promise<void> {
   // "ready" is emitted from the scene's Start(), which can run before the instance promise
@@ -66,13 +68,17 @@ async function start(): Promise<void> {
       loadingText.textContent = p < 0.9 ? `Loading ${Math.round(p * 100)}%` : 'Starting…';
     },
     (message, type) => {
-      if (type === 'error') showFatal(message);
-      else showToast(message);
+      if (type === 'error') {
+        // Unity often reports a failed start here and leaves its promise pending (#44).
+        if (!started && fallBackToWebgl2(webgl2Reason)) return;
+        showFatal(message);
+      } else showToast(message);
     },
   );
   const info = await ready;
+  started = true;
   if (webgl2Reason === 'fallback')
-    showToast('WebGPU failed to start in this browser, so the game is running on WebGL2.');
+    showToast('The game could not start with WebGPU, so it restarted on WebGL2.');
   const bridge = new Bridge(unity);
   loading.classList.add('done');
   menuButton.hidden = false;
@@ -193,7 +199,7 @@ function savedAgo(save: SaveFile): string {
 }
 
 start().catch((e: unknown) => {
-  if (fallBackToWebgl2(webgl2Reason)) return;
+  if (fallBackToWebgl2(webgl2Reason, e)) return;
   loading.classList.add('done');
   showFatal(`The game could not start: ${e instanceof Error ? e.message : String(e)}`);
 });

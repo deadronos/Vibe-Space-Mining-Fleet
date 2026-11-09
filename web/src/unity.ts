@@ -55,12 +55,17 @@ export function applyRendererChoice(): Webgl2Reason {
   return reason;
 }
 
+/** `createUnityInstance` rejected: the player started but failed, which may be WebGPU's fault. */
+export class PlayerStartError extends Error {}
+
 /**
- * Called when startup threw while WebGPU was available (Firefox 150 throws from its adapter
- * code, #44). Remembers the choice for this tab and reloads. Returns false when WebGPU was not
- * in play or the retry already happened.
+ * Called when the player itself failed to start (or reported a fatal error before it was ready)
+ * while WebGPU was available, as on Firefox 150 (#44). Remembers the choice for this tab and
+ * reloads. Returns false when WebGPU was not in play, the retry already happened, or `error` is
+ * something else (a failed download, the `ready` timeout), which WebGL2 would not fix.
  */
-export function fallBackToWebgl2(reason: Webgl2Reason): boolean {
+export function fallBackToWebgl2(reason: Webgl2Reason, error: unknown = null): boolean {
+  if (error !== null && !(error instanceof PlayerStartError)) return false;
   if (reason || !('gpu' in navigator) || !navigator.gpu) return false;
   try {
     sessionStorage.setItem(RENDERER_KEY, 'webgl2');
@@ -85,7 +90,7 @@ export async function loadUnity(
   onBanner: (message: string, type: 'error' | 'warning' | 'info') => void,
 ): Promise<UnityInstance> {
   await loadScript(`${BUILD}.loader.js`);
-  return createUnityInstance(
+  return createInstance(
     canvas,
     {
       dataUrl: `${BUILD}.data.unityweb`,
@@ -103,6 +108,16 @@ export async function loadUnity(
     },
     onProgress,
   );
+}
+
+async function createInstance(
+  ...args: Parameters<typeof createUnityInstance>
+): Promise<UnityInstance> {
+  try {
+    return await createUnityInstance(...args);
+  } catch (e) {
+    throw new PlayerStartError(e instanceof Error ? e.message : String(e), { cause: e });
+  }
 }
 
 function loadScript(src: string): Promise<void> {
