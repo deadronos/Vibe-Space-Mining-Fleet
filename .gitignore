@@ -1,4 +1,5 @@
 Vibe-Space-Mining-Fleet/
 node_modules/
 dist/
+.playwright-cli/
 .DS_Store
