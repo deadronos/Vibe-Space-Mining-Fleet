@@ -2,6 +2,10 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · unity-cli · finding · `Screen.width/height` in `script eval` report the Editor window (792×563), not the Game view, so screen-to-panel checks such as `BlocksPointer` look wrong from the CLI; test pointer blocking in the web build. → using-unity-mcp.md
+
+- 2026-11-09 · unity-editor · finding · `PanelRenderer.RegisterUIReloadCallback(UIReloadCallback)` is already obsolete in 6000.6.8 (CS0618); use the versioned `(PanelRenderer, VisualElement, int)` callback. Its root keeps the `unity-ui-document__root` class. → documentation/issues/51-panel-renderer
+
 - 2026-11-09 · web-build · error · Playwright rejected `e7` for a snapshot's `f1e7`; use the complete current element reference, including its frame prefix. → unity-web-build.md
 
 - 2026-11-09 · sim · finding · `JsonUtility.FromJson` turns null class-list elements into default objects; validate required fields and test raw JSON imports. → cross-boundary-changes.md
