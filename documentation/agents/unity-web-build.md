@@ -51,6 +51,12 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
    check: its YAML files are included by the repo's format check.
    Use the complete element reference from the latest snapshot, including any
    frame prefix (such as `f1e7`).
+   If the built-in pane is hidden, real clicks may not reach Unity. Click the
+   canvas once for real, then dispatch DOM events, scaling screenshot
+   coordinates to CSS pixels (`innerWidth` / screenshot frame width).
+   To seed a test save, edit `spacemining.save.v1` in localStorage, then stub
+   `Storage.prototype.setItem` before `location.reload()`: the page autosaves
+   on unload and would overwrite the edit.
 6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
 7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
 

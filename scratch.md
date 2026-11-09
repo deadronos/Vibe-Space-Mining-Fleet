@@ -22,6 +22,12 @@ Manager, run structure, and revisitable systems with fleet warp.
    scouts and veins now exist. [#22 Carrier energy][22] and [#23 Ship
    modules][23] are the next larger slices.
 
+## In progress
+
+- **[#56 Research tree][56].** Built on `feature/56-research-tree` and UVCS
+  `/main/feature-56-research-tree`: Data currency, nine nodes, the Research tab
+  and save v6. Not merged. Notes: `documentation/issues/56-research-tree/`.
+
 ## Other tracks
 
 - **Mobile.** Use the device pass in [#33][33] to inform [#41][41]. On a

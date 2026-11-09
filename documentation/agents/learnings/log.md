@@ -2,6 +2,14 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · web-build · finding · The built-in browser pane was hidden: real clicks didn't reach Unity, and DOM-dispatched mouse events only worked after one real click focused the canvas. Scale screenshot coordinates to CSS pixels (`innerWidth` / frame width) → unity-web-build.md
+
+- 2026-11-09 · web-build · error · Editing `spacemining.save.v1` in localStorage and reloading lost the edit: the page autosaves on unload. Write the save, stub `Storage.prototype.setItem` for that page, then reload → unity-web-build.md
+
+- 2026-11-09 · unity-editor · finding · Roboto in the web player has no "→" (U+2192); the Editor drew it from a system fallback font, so it only showed as a box in the browser. Keep HUD text to glyphs already used ("−", "·") or ASCII → documentation/issues/56-research-tree
+
+- 2026-11-09 · unity-editor · finding · With the minimal `HudTheme.tss`, a ScrollView's viewport didn't clip, so content past `max-height` spilled out of the panel. Fixed with `.unity-scroll-view__content-viewport { overflow: hidden; }` in the theme → documentation/issues/56-research-tree
+
 - 2026-11-09 · uvcs · error · `L="a b"; cm shelveset create $L` shelved nothing: zsh doesn't word-split `$L`, so `cm switch` then stopped at its s/b/c prompt → name the paths explicitly (or use an array). → unity-version-control.md
 
 - 2026-11-09 · unity-cli · finding · `Screen.width/height` in `script eval` report the Editor window (792×563), not the Game view, so screen-to-panel checks such as `BlocksPointer` look wrong from the CLI; test pointer blocking in the web build. → using-unity-mcp.md
