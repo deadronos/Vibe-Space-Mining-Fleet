@@ -3,7 +3,7 @@
 [GitHub issue #17](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/17)
 
 Git branch `feature/17-sensors-manager` and UVCS branch
-`/main/feature-17-sensors-manager` at Unity changeset `cs:24`.
+`/main/feature-17-sensors-manager` at Unity changeset `cs:24`, merged into Unity `/main` as `cs:25`.
 
 - Space and the Sensors HUD button toggle the angled tactical plot. The mouse wheel
   enters it at 210 units and returns to the fleet view at 170. Shift+Space and
