@@ -11,6 +11,7 @@ LOD are not implemented yet.
 | --- | --- |
 | UVCS branch | `/main/feature-30-render-baseline` |
 | Changeset | `cs:36` |
+| Merged to `/main` | `cs:37` |
 | Git branch | `feature/30-render-baseline` (web shell, these notes, the web build) |
 
 ## What changed
