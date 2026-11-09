@@ -1,46 +1,72 @@
 # What to do next
 
-Updated 9 Nov 2026 against v0.10.0 and the open GitHub issues. Shipped so far:
-the research tree (#56), logistics, RTS controls polish, combat, cargo heat, the event log, the Sensors
-Manager, run structure, and revisitable systems with fleet warp.
+Updated 9 Nov 2026 against v0.11.0 and the open GitHub issues. Shipped so far:
+offline ore credit (#58), the research tree (#56), logistics, RTS controls
+polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
+revisitable systems with fleet warp, batched drone rendering, and the WebGL2
+fallback for a failed WebGPU start.
 
 ## Recommended order
 
-1. **[#44 Firefox 150 WebGPU startup][44].** A real startup failure with a
-   known workaround. Add a WebGL2 fallback (or a retry-with-WebGL2 prompt in
-   the web shell) when WebGPU initialisation throws. This also unblocks the
-   Firefox row of the matrix in [#33][33].
-2. **[#33 Cross-browser and device testing][33].** Finish the remaining
-   rows (Safari, non-QWERTY hotkeys, phone/tablet) and record them in
-   `documentation/web-shell.md`. Close it once the matrix is complete.
-3. **[#48 Warp recall, ore and pirate balance][48].** Build the headless
-   `FleetSim` scenario runner with fixed seeds, sweep deployments and combat
-   pressure, then tune the 90 s charge, ore bonus and pirate scaling. Validate
-   in the player.
-4. **Pick the next gameplay feature.** The sensors and systems work makes
-   [#24 Hazards][24] (debris, radiation, storms) the natural follow-up, since
-   scouts and veins now exist. [#22 Carrier energy][22] and [#23 Ship
-   modules][23] are the next larger slices.
+1. **Check v0.11.0 in the live game.** It is the first build with UVCS cs:43:
+   Run In Background off and the `_EMISSION` keyword removed from `Ore.mat`.
+   Neither was checked in the player. Look at the ore glow, and at what
+   happens to the sim and the autosave when the tab is in the background.
+   Also tune the offline credit if it is too generous: 8 h at 11 t/s pays
+   about 158,000 t (constants in `FleetSim.Offline.cs`).
+2. **[#33 Cross-browser and device testing][33].** Close it out. Left:
+   Safari import completion, non-QWERTY hotkeys, the phone and tablet pass,
+   and the remaining browser combat cases. Add offline credit on forced
+   WebGL2 to the matrix in `documentation/web-shell.md`.
+3. **[#8 Direct control vs automation][8].** A decision, not code. ADR 0007
+   settled Stop and Hold for miners. Still open: whether combat ships fall
+   back to automation after an order, and how stances and rule cards rank
+   against a direct order. [#20][20] and [#19][19] wait on this.
+4. **[#59 Carrier modules and HUD pass][59].** The largest open item. Split
+   it before starting:
+   - a short UI plan (mock or notes) for the user to agree;
+   - carrier modules (slots, effects, cost, research unlock, saved);
+   - the HUD pass itself, checked on WebGPU and WebGL2.
+5. **[#24 Hazards][24].** The next gameplay slice that needs no decision
+   first: scouts and veins exist, so charted hazards have something to build
+   on. Start with one hazard type (debris, damage over time) and the storm
+   warning through the existing event log.
 
 ## Other tracks
 
-- **Mobile.** Use the device pass in [#33][33] to inform [#41][41]. On a
-  real Android phone, check what input the Unity player sees and whether HUD
-  taps work, then choose gestures and a compact landscape HUD.
-- **Automation.** Settle [#8][8] before expanding [#20][20] beyond the
-  existing squadron stances or adding [#19][19] rule cards. Stop and Hold
-  already have defined behavior in
-  [ADR 0007](documentation/agents/decisions/0007-stop-hold-and-escape.md).
-- **Decisions settled (ADRs 0011–0014).** Research without resets
-  ([#56][56], prestige revisit in [#57][57]), light offline ore credit
-  ([#58][58]), hangar types as carrier modules with a Homeworld-style HUD
-  pass ([#59][59]), and the Unity build stays committed. [#26][26] salvage
-  and [#25][25] gas giants can now be planned against these.
-- **Rendering and art.** Start [#30][30] with a 500-drone browser baseline
-  on WebGPU and WebGL2. Measure frame time separately from the sim tick
-  before implementing instancing or LOD. Use [#14][14] to compare one ship
-  both ways before expanding the procedural hull work in [#28][28] or adding
-  a runtime glTF dependency in [#29][29].
+- **Automation, after #8.** [#20 stance scopes][20] first (fleet, class,
+  group), then [#19 rule cards][19] with presets only.
+- **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and
+  H2][25], which feeds it. [#23 ship modules][23] comes before [#26
+  salvage][26], which needs the tractor beam. Plan #23 together with the
+  carrier modules in #59 so ships and the carrier share one module model.
+- **Long-term balance.** [#57 prestige][57] stays parked until the research
+  tree and offline credit have been played for a while. Use the headless
+  scenario runner (`WarpBalanceScenarios.cs`) to measure late-game pacing
+  first.
+- **Mobile.** [#41][41] follows the device pass in #33. On a real Android
+  phone, find out what input the Unity player sees and whether HUD taps
+  work, then choose gestures and a compact landscape HUD.
+- **Rendering.** [#30][30] is still open although batched rendering is
+  merged. Measure 500 drones against its target (above 50 fps on a mid
+  laptop in Chrome, WebGPU and WebGL2), then close it or list what is left.
+- **Art.** [#14][14] decides between procedural hulls and the Foundry glTF
+  models. Try one ship both ways; the result unblocks [#28][28] and
+  [#29][29].
+
+## Housekeeping
+
+- **Umbrella checklists are out of date.** [#35][35], [#36][36], [#37][37]
+  and [#38][38] still show closed issues as unticked (for example #15 to #18,
+  #21, #27, #31, #32, #34) and don't list #56 to #59.
+- **CI runs no C# tests.** The Unity half is in UVCS and Actions has no
+  licence, so the 119 EditMode tests only run locally before a build.
+- **The web shell has no tests.** `save.ts` and `protocol.ts` would take unit
+  tests cheaply; fixture saves from versions 2 to 6 would be the most useful.
+- **Large files.** `FleetSim.cs` (about 1,600 lines) and `HudController.cs`
+  (about 900) are worth splitting before #59.
+- `documentation/agents/using-unity-mcp.md` still says the EditMode suite is
+  11 tests in about 3 s.
 
 [8]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
@@ -55,10 +81,10 @@ Manager, run structure, and revisitable systems with fleet warp.
 [29]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/29
 [30]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/30
 [33]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/33
+[35]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/35
+[36]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/36
+[37]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/37
+[38]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/38
 [41]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41
-[44]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44
-[48]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/48
-[56]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/56
 [57]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/57
-[58]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/58
 [59]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59
