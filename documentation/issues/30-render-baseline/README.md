@@ -14,7 +14,7 @@ WebGPU from 41 to 60 fps.
 | Changeset | `cs:36` |
 | Merged to `/main` | `cs:37` |
 | Git branch | `feature/30-render-baseline` (web shell, these notes, the web build) |
-| Batched rendering, UVCS | `/main/feature-30-instanced-drones`, `cs:38` |
+| Batched rendering, UVCS | `/main/feature-30-instanced-drones`, `cs:38`; merged to `/main` as `cs:39` |
 | Batched rendering, git | `feature/30-instanced-drones` (web build, readout position, these notes) |
 
 ## What changed
