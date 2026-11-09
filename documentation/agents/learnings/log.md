@@ -2,6 +2,14 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · web-build · error · Playwright rejected `e7` for a snapshot's `f1e7`; use the complete current element reference, including its frame prefix. → unity-web-build.md
+
+- 2026-11-09 · sim · finding · `JsonUtility.FromJson` turns null class-list elements into default objects; validate required fields and test raw JSON imports. → cross-boundary-changes.md
+
+- 2026-11-09 · web-build · error · `pnpm run check` found unformatted Playwright CLI snapshots in `.playwright-cli/`; remove the generated snapshots after testing. → unity-web-build.md
+
+- 2026-11-09 · web-build · finding · The warp button moved while the ships-out list wrapped, causing missed clicks; place controls above changing lists and refresh the capture. → unity-web-build.md
+
 - 2026-11-09 · web-build · approach · Overlapping Sensors markers made the scout click select another ship. Isolate the drone in a disposable save and confirm its class before ordering. → unity-web-build.md
 
 - 2026-11-09 · web-build · approach · Safari WebDriver needs Allow Remote Automation. Use the installed Safari UI and serve a disposable page without `navigator.gpu` to test WebGL2. → unity-web-build.md

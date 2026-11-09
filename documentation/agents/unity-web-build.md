@@ -45,6 +45,12 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Then check that the console shows no errors.
 4. In the built-in browser, real clicks and keys (`computer` tool) reach the game and are enough for click-select, hover, M/S/H/Esc. `left_click_drag` presses and releases in one frame, so it can't box-select; use a plain click, or dispatch DOM pointer events with delays between press, move and release. If the Chrome DevTools browser says `The browser is already running for …chrome-profile`, use the built-in pane (show it with `show_pane preview`).
 5. Drive the game with synthetic DOM events on the canvas. Dispatch `MouseEvent`s (`mousemove`, `mousedown`, `mouseup`, with `button`/`buttons` set): `PointerEvent`s alone didn't reach the Input System. Wait ~80 ms between steps; for a box-select, send several `mousemove`s while the button is down. HUD buttons and selection-list rows take the same clicks. The idle camera keeps orbiting, so a unit moves between a screenshot and the click: box-select a large area, then click its row in the selection list. This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
+   A changing HUD list can also move a button between capture and click; keep
+   buttons above variable-length lists and capture again before clicking.
+   Remove Playwright CLI's generated `.playwright-cli/` snapshots after the
+   check: its YAML files are included by the repo's format check.
+   Use the complete element reference from the latest snapshot, including any
+   frame prefix (such as `f1e7`).
 6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
 7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
 
