@@ -1,7 +1,7 @@
 # What to do next
 
-Updated 9 Nov 2026 against v0.8.0 and the open GitHub issues. Shipped so far:
-logistics, RTS controls polish, combat, cargo heat, the event log, the Sensors
+Updated 9 Nov 2026 against v0.10.0 and the open GitHub issues. Shipped so far:
+the research tree (#56), logistics, RTS controls polish, combat, cargo heat, the event log, the Sensors
 Manager, run structure, and revisitable systems with fleet warp.
 
 ## Recommended order
@@ -21,12 +21,6 @@ Manager, run structure, and revisitable systems with fleet warp.
    [#24 Hazards][24] (debris, radiation, storms) the natural follow-up, since
    scouts and veins now exist. [#22 Carrier energy][22] and [#23 Ship
    modules][23] are the next larger slices.
-
-## In progress
-
-- **[#56 Research tree][56].** Built on `feature/56-research-tree` and UVCS
-  `/main/feature-56-research-tree`: Data currency, nine nodes, the Research tab
-  and save v6. Not merged. Notes: `documentation/issues/56-research-tree/`.
 
 ## Other tracks
 

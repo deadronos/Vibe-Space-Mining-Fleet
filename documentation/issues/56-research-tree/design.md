@@ -3,7 +3,7 @@
 - **Issue:** [#56 Research tree without resets: first nodes](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/56)
 - **Governing decision:** [ADR 0011](../../agents/decisions/0011-research-without-resets.md) (research with permanent unlocks, no run reset; prestige revisited in #57)
 - **UI decision:** [ADR 0005](../../agents/decisions/0005-ui-toolkit-hud.md) (all game UI in UI Toolkit)
-- **Status:** design agreed with the user, 9 Nov 2026. Built on `/main/feature-56-research-tree` (see [README.md](README.md)), checked in as cs:40.
+- **Status:** design agreed with the user, 9 Nov 2026. Built on `/main/feature-56-research-tree` (see [README.md](README.md)), checked in as cs:40 and merged to `/main` as cs:41.
 
 ## Intent
 

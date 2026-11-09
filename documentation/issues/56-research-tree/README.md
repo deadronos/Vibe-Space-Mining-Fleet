@@ -4,7 +4,7 @@
 
 - **Design:** [design.md](design.md) (approved by the user, 9 Nov 2026).
 - **Plan:** [plan.md](plan.md).
-- **UVCS branch:** `/main/feature-56-research-tree`, from cs:39. Changeset: cs:40 (not yet merged to `/main`).
+- **UVCS branch:** `/main/feature-56-research-tree`, from cs:39. Changeset: cs:40, merged to `/main` as cs:41.
 - **Git branch:** `feature/56-research-tree`. It holds these notes, `.gitignore` and the web build.
 
 ## What changed
