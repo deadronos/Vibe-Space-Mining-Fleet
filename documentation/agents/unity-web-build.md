@@ -7,7 +7,7 @@ The Unity player is built locally and written to `web/public/unity/` in the git 
 Run the menu item **Space Mining Fleet → Build Web (into web/public/unity)**:
 
 ```zsh
-U=~/.unity/bin/unity   # standalone CLI, see using-unity-mcp.md
+U=~/.unity/bin/unity   # standalone CLI, see driving-unity-editor.md
 P="$HOME/Github/Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet"
 F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 "$U" command editor invoke_menu --path "Space Mining Fleet/Build Web (into web/public/unity)" "${F[@]}" --timeout 900
@@ -40,40 +40,39 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 
 ## Check it in a browser
 
-1. Run `pnpm dev` from the repo root, in the background.
-2. Open http://localhost:5173/ in a browser. A hidden built-in browser pane renders no frames, so the game stalls at "Starting…". Ask the user to show the pane, or use the Chrome DevTools browser. A page that loaded while the pane was hidden does not recover when it is shown: reload it.
-3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Then check that the console shows no errors.
-4. In the built-in browser, real clicks and keys (`computer` tool) reach the game and are enough for click-select, hover, M/S/H/Esc. `left_click_drag` presses and releases in one frame, so it can't box-select; use a plain click, or dispatch DOM pointer events with delays between press, move and release. If the Chrome DevTools browser says `The browser is already running for …chrome-profile`, use the built-in pane (show it with `show_pane preview`).
-5. Drive the game with synthetic DOM events on the canvas. Dispatch `MouseEvent`s (`mousemove`, `mousedown`, `mouseup`, with `button`/`buttons` set): `PointerEvent`s alone didn't reach the Input System. Wait ~80 ms between steps; for a box-select, send several `mousemove`s while the button is down. HUD buttons and selection-list rows take the same clicks. The idle camera keeps orbiting, so a unit moves between a screenshot and the click: box-select a large area, then click its row in the selection list. This is the only way to test RTS controls, because the Editor's play mode ignores injected input.
-   A changing HUD list can also move a button between capture and click; keep
-   buttons above variable-length lists and capture again before clicking.
-   Remove Playwright CLI's generated `.playwright-cli/` snapshots after the
-   check: its YAML files are included by the repo's format check.
-   Use the complete element reference from the latest snapshot, including any
-   frame prefix (such as `f1e7`).
-   If the built-in pane is hidden, real clicks may not reach Unity. Click the
-   canvas once for real, then dispatch DOM events, scaling screenshot
-   coordinates to CSS pixels (`innerWidth` / screenshot frame width).
-   To seed a test save, edit `spacemining.save.v1` in localStorage, then stub
-   `Storage.prototype.setItem` before `location.reload()`: the page autosaves
-   on unload and would overwrite the edit.
-6. Read the game state: listen for `spacemining:state` on `window`, or read the HUD in a screenshot.
-7. To test the WebGL2 fallback, open the page in a browser without WebGPU, or block `navigator.gpu` before the loader runs.
+1. **Use a clean origin.** `http://localhost:5173/` holds the user's own save, and the page autosaves into it; time away also earns offline ore. Start your own server on another port, which gives you empty storage: `pnpm dev --port 5199`, in the background.
+2. **Show the browser pane, then load the page.** A hidden built-in pane renders no frames, so the game stalls at "Starting…", and a page that loaded while the pane was hidden does not recover when it is shown: show the pane (`show_pane preview`), then reload. The Chrome DevTools browser is the alternative.
+3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Check that the console shows no errors.
+4. Read the game state: listen for `spacemining:state` and `spacemining:event` on `window`, or read the HUD in a screenshot. `spaceMining.bridge` in the console is the live bridge.
+5. Drive the game with input (next section), then look at the result.
+6. To test the WebGL2 path, open the page with `?renderer=webgl2`.
+7. Stop your server when you are done.
 
-For Safari, use the installed browser UI if WebDriver reports that Allow
-Remote Automation is disabled. For a forced WebGL2 test without changing
-Safari settings, serve a disposable copy of the build with this script in
-the page head before the loader runs:
+### Sending input
 
-```html
-<script>
-  Object.defineProperty(Navigator.prototype, 'gpu', { get: () => undefined });
-</script>
-```
+The Editor's play mode ignores injected input, so the web build is the only place to test RTS controls.
 
-For Sensors selection tests, load a disposable save with one deployed drone
-away from the other ships. A squadron can fly over a drone marker between
-the screenshot and the click. Check the selected class in the HUD before
-sending a class-specific order.
+- **Real clicks and keys** (`computer` tool) reach the game and are enough for click-select, hover, HUD buttons and the hotkeys (M, S, H, Esc).
+- **Box-select and drags:** `left_click_drag` presses and releases in one frame, so a drag never starts. Dispatch DOM `MouseEvent`s on the canvas instead (`mousemove`, `mousedown`, `mouseup`, with `button` and `buttons` set), about 80 ms apart, with several `mousemove`s while the button is down. `PointerEvent`s alone don't reach the Input System.
+- **Units move.** The idle camera keeps orbiting, so a unit is elsewhere by the time you click. Box-select a large area, then click the unit's row in the selection list. Check the selected class in the HUD before a class-specific order.
+- **HUD lists move buttons.** A list that grows or wraps shifts what is below it between the screenshot and the click. Take a new screenshot before clicking, and keep buttons above variable-length lists when you design HUD.
+- **Sensors view:** markers overlap, and a squadron can fly over a drone marker. Load a save with one deployed drone away from the other ships.
+
+### Seeding and editing saves
+
+- The page autosaves on unload, so an edit to `spacemining.save.v1` in localStorage is overwritten by the reload that should load it. Write the save, stub `Storage.prototype.setItem` for that page, then call `location.reload()`.
+- Offline credit (#58) needs a save at least 60 s old: set `savedAt` back in the stored JSON the same way.
+
+### Tool quirks
+
+- **Built-in pane, hidden:** real clicks may not reach Unity. Click the canvas once for real, then dispatch DOM events, scaling screenshot coordinates to CSS pixels (`innerWidth` / screenshot width).
+- **Built-in pane, background tab:** a tab that is not in front keeps running but slowly, so sim time falls behind wall time. Front the tab you are measuring.
+- **Chrome DevTools browser:** `The browser is already running for …chrome-profile` means it is taken; use the built-in pane.
+- **Playwright CLI:** use the complete element reference from the latest snapshot, including a frame prefix such as `f1e7`. Delete its generated `.playwright-cli/` snapshots afterwards: the repo's format check includes them.
+- **Safari:** WebDriver needs Allow Remote Automation; otherwise use the installed browser UI.
+
+### Emissive materials
+
+**Build Web** refuses to build while a material in `Assets/_Game/Materials` has an emission colour but the `_EMISSION` keyword off, and names them in `Library/WebBuildResult.txt`. Run **Build Demo Scene** to fix them ([driving-unity-editor.md](driving-unity-editor.md#emissive-materials)).
 
 Before you commit a new build, compare its size with the previous one. A package added to the project shows up here.

@@ -2,6 +2,8 @@
 
 Some changes need edits on both sides, which are under two version control systems. Each side then gets its own commit, and the two must stay in step.
 
+What the bridge and the saves are is described in [../web-shell.md](../web-shell.md). This guide is about changing them.
+
 ## The contract
 
 | Concern | C# (UVCS) | TypeScript (git) |
@@ -26,7 +28,7 @@ Keep the payloads flat. On the TypeScript side, type every field as required, ma
 
 ## Order of work
 
-1. **C# first.** Edit the payload class or the command, then recompile and test ([using-unity-mcp.md](using-unity-mcp.md)).
+1. **C# first.** Edit the payload class or the command, then recompile and test ([driving-unity-editor.md](driving-unity-editor.md)).
 2. **TypeScript to match.** Edit `protocol.ts` and the code that uses it, then run `pnpm run check`.
 3. **Build the player** into `web/public/unity` ([unity-web-build.md](unity-web-build.md)).
 4. **Check it in the browser:** the event arrives with the new shape and the command takes effect.

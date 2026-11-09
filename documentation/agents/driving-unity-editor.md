@@ -2,6 +2,7 @@
 
 The Editor for this project is usually open. Drive it live; don't edit scene or asset files by hand and don't start a second Editor.
 
+- **First, in every session that touches the project:** run `"$U" cm status` ([unity-version-control.md](unity-version-control.md)). If it shows changes or a pending merge you didn't make, ask the user before you edit, branch or build: a build includes whatever is in the workspace.
 - Unity 6000.6.8f1, URP, Input System, project `Vibe-Space-Mining-Fleet/`.
 - Package `com.unity.pipeline` is installed, which is what the CLI and the MCP server talk to.
 
@@ -45,7 +46,8 @@ F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 | Run a menu item | `"$U" command editor invoke_menu --path "Space Mining Fleet/Build Demo Scene" "${F[@]}"` |
 | Play / stop | `"$U" command editor.playmode start "${F[@]}"` / `... stop` |
 | Screenshot of the game | `"$U" command capture game_view --output-path "$P/Screenshots/x.png" "${F[@]}"` |
-| EditMode tests | `"$U" command test run --mode EditMode --timeout 300 "${F[@]}" --result-only` |
+| Recompile and EditMode tests, summarised | `scripts/unity-check.sh` (from the repo root) |
+| EditMode tests, raw JSON | `"$U" command test run --mode EditMode --timeout 300 "${F[@]}" --result-only` |
 | Packages | `"$U" command package …` (see `--query package`), never edit `manifest.json` by hand |
 
 The project's menu items are under **Space Mining Fleet**:
@@ -65,10 +67,24 @@ The project's menu items are under **Space Mining Fleet**:
 ## The edit loop for C#
 
 1. Edit the `.cs` file. One `MonoBehaviour` or `ScriptableObject` per file, named after the class, or Unity silently drops the component from prefabs.
-2. If the Editor isn't focused, it may not have noticed the edit: run `"$U" command script eval --code 'UnityEditor.AssetDatabase.Refresh(); return "ok";' "${F[@]}"` first. Then run `"$U" recompile --project-path "$P"`. It must report 0 errors. A recompile with errors leaves the Editor running the old code.
-3. If you changed the sim or saves, run the EditMode tests: 11 tests in `Assets/_Game/Tests/EditMode/FleetSimTests.cs`, about 3 s.
-4. If the scene layout changed, run **Build Demo Scene**.
-5. Check the behaviour (next section).
+2. Run the check from the repo root:
+
+   ```zsh
+   scripts/unity-check.sh              # refresh, recompile, EditMode tests
+   scripts/unity-check.sh --no-tests   # refresh and recompile only
+   ```
+
+   It prints `compiled` and `EditMode N of N passed`, or the compile errors, or each test that didn't pass with its message. Exit code 0 means compiled and all green. The whole suite takes a few seconds.
+3. If the scene layout changed, run **Build Demo Scene**.
+4. Check the behaviour (next section).
+
+What the script does, for when you need a step by hand:
+
+- `script eval` with `UnityEditor.AssetDatabase.Refresh()`, because an unfocused Editor doesn't notice edits made from the shell;
+- `status --until-ready`, because the Refresh starts the compile and the domain reload;
+- `recompile`, then `status --until-ready` again;
+- `console get`, reading `groundTruth.compilationFailed`: `recompile` can say `up_to_date` after a failed compile, and tests then pass against the old assemblies;
+- `test run --mode EditMode`, summarised (the raw result is several hundred lines of JSON).
 
 ## Checking behaviour
 
@@ -84,8 +100,7 @@ URP switches the `_EMISSION` keyword off whenever it validates a material whose 
 
 ## When it goes wrong
 
-- **`No Pipeline instance found for project` right after `recompile`:** the domain reload is still running. Run `"$U" status --until-ready --project-path "$P" --no-banner` (it blocks until the Editor is ready), then retry. `AssetDatabase.Refresh()` through `script eval` starts the compile and reload itself, so wait the same way before the next command; `recompile` then says `up_to_date`.
-- **`up_to_date` doesn't prove the code compiled.** If the Refresh compile failed, tests run against the old assemblies and pass. Check `console get` (`groundTruth.compilationFailed`, error count) or that a new type exists (`script eval` with `typeof(...)`) before trusting a test run.
+- **`No Pipeline instance found for project`:** a domain reload is still running (after `recompile`, or after `AssetDatabase.Refresh()` through `script eval`). Run `"$U" status --until-ready --project-path "$P" --no-banner`, then retry. `scripts/unity-check.sh` waits for you.
 - **Connection refused or timeouts right after an edit:** the Editor may be in Safe Mode because of compile errors. `"$U" status` lists them. Fix them, and the Editor recovers.
 - **A long import or build:** pass a larger `--timeout` (seconds), or `--detach` and poll with `job`.
 - **Still failing:** tell the user what you ran and what failed. Don't loop on retries, don't switch to another Editor, and don't fall back to editing files by hand.

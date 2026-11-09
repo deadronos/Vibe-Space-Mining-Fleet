@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Paths below are relative to `Vibe-Space-Mining-Fleet/Assets/_Game/` unless they start with `documentation/` or `web/`.
-- Drive the Editor through the Unity CLI ([using-unity-mcp.md](../../agents/using-unity-mcp.md)). Never hand-edit `.unity`, `.prefab`, `.asset`, `.meta` or `ProjectSettings`. UXML, USS and C# are hand-edited.
+- Drive the Editor through the Unity CLI ([driving-unity-editor.md](../../agents/driving-unity-editor.md)). Never hand-edit `.unity`, `.prefab`, `.asset`, `.meta` or `ProjectSettings`. UXML, USS and C# are hand-edited.
 - Every shell call sets `U=~/.unity/bin/unity; P="$HOME/Github/Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet"; F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)`.
 - The edit loop: `AssetDatabase.Refresh` via `script eval`, then `"$U" recompile --project-path "$P"` with 0 errors. Confirm that new types exist before you trust a test run (`up_to_date` doesn't prove a compile).
 - Tests: `"$U" command test run --mode EditMode --timeout 300 "${F[@]}" --result-only`. Expect all to pass: the existing suite plus the new ones.

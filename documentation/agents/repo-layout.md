@@ -5,6 +5,7 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
 ```
 .                                  git
 ├── AGENTS.md, CLAUDE.md           agent entry point (CLAUDE.md imports AGENTS.md)
+├── scratch.md                     what to work on next (suggested order of issues)
 ├── .agents/skills/                project skills (pi, Codex…); .claude/skills/ symlinks them for Claude Code
 ├── package.json, pnpm-lock.yaml   web shell (Vite 8, TypeScript 7, oxlint, oxfmt, pnpm)
 ├── vite.config.ts, tsconfig.json, .oxlintrc.json, .oxfmtrc.json
@@ -12,12 +13,14 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
 │   ├── index.html                 the page: canvas, loading screen, toolbar
 │   ├── src/                       main.ts, unity.ts, bridge.ts, protocol.ts, save.ts, styles.css
 │   └── public/unity/Build/        Unity player output (unity.loader.js, *.unityweb). Tracked in git.
+├── scripts/                       unity-check.sh (compile + EditMode tests), verify-deploy.sh (post-deploy smoke check)
 ├── dist/                          vite build output (gitignored)
 ├── documentation/                 notes, research, issue notes, agent guides, decisions
 ├── .github/workflows/             ci.yml (push/PR), deploy.yml (tag v*)
 └── Vibe-Space-Mining-Fleet/       Unity project. Gitignored. Under UVCS.
     ├── Assets/_Game/
     │   ├── Scripts/Sim/           deterministic sim, asmdef SpaceMining.Sim (no MonoBehaviours)
+    │   │                          FleetSim is one partial class: FleetSim.cs plus .Combat, .Research, .Offline
     │   ├── Scripts/               views and glue: FleetSimRunner, Carrier, MiningDrone, Asteroid…
     │   ├── Scripts/Rts/           selection, orders, overlay
     │   ├── Scripts/Web/           WebBridge.cs (page ↔ Unity)

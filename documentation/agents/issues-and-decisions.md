@@ -4,17 +4,17 @@
 
 | Label | Meaning |
 | --- | --- |
-| `umbrella` | A tracking issue that links its child issues. Don't implement it directly; work its children (#35 gameplay, #36 asteroid-fleet ports, #37 art/rendering/performance, #38 web/release/QA) |
-| `decision needed` | A question to settle before code (open: #8, #57). The outcome is an ADR in [decisions/](decisions/README.md) |
+| `umbrella` | A tracking issue that links its child issues. Don't implement it directly; work its children. List them with `gh issue list --label umbrella` |
+| `decision needed` | A question to settle before code. The outcome is an ADR in [decisions/](decisions/README.md). List the open ones with `gh issue list --label "decision needed"` |
 | `exploration` | A spike: find out and write it down. The result is notes, maybe a prototype, not a shipped feature |
 | `gameplay`, `tech`, `web`, `art`, `asteroid-fleet` | Area |
 
-`scratch.md` at the repo root has the current suggested order of work.
+[`scratch.md`](../../scratch.md) at the repo root has the current suggested order of work. Update it when an issue it lists is closed or a release changes the order.
 
 ## Working an issue
 
 1. Read the issue, its umbrella, and any ADR it touches.
-2. Branch on both sides if both change: `feature/<n>-<slug>` in git, `/main/feature-<n>-<slug>` in UVCS.
+2. Run `cm status` in the Unity project before you start ([unity-version-control.md](unity-version-control.md)). Branch on both sides if both change: `feature/<n>-<slug>` in git, `/main/feature-<n>-<slug>` in UVCS.
 3. Do the work and verify it ([AGENTS.md](../../AGENTS.md), "A change is done when it is verified").
 4. Write notes in `documentation/issues/<n>-<slug>/README.md` when the work is Unity-side (git can't show it) or when there are results worth keeping, such as numbers, trade-offs or follow-ups. Use [the #31 notes](../issues/31-unity-editmode-tests-for-fleetsim/README.md) as the model. Include:
    - the GitHub issue link;

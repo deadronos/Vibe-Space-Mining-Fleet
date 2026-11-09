@@ -36,6 +36,6 @@ Keep it to about 200 characters. Put command names and exact error text in backt
 
 ## Promote, then archive
 
-1. **Promote:** if the entry should change behaviour, edit the guide it belongs to, such as [using-unity-mcp.md](../using-unity-mcp.md), [unity-version-control.md](../unity-version-control.md) or an ADR. Then end the entry with `→ <file>`.
+1. **Promote:** if the entry should change behaviour, edit the guide it belongs to, such as [driving-unity-editor.md](../driving-unity-editor.md), [unity-version-control.md](../unity-version-control.md) or an ADR. Then end the entry with `→ <file>`.
 2. **Archive:** once `log.md` grows past about 40 entries, move the promoted ones (oldest first) to `archive/YYYY-MM.md`, keeping their text unchanged. Entries that weren't promoted stay in `log.md`.
 3. Only the archive step edits existing lines. Otherwise, change nothing but the top of the file. If an entry turns out wrong, add a new entry that corrects it (`kind: error`, "entry from <date> was wrong: …").

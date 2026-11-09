@@ -4,7 +4,7 @@ Project notes for Vibe Space Mining Fleet.
 
 ## Project
 
-- [web-shell.md](web-shell.md): the web page around the Unity build, the TypeScript ↔ Unity bridge, saves, and how to release.
+- [web-shell.md](web-shell.md): the web page around the Unity build, the TypeScript ↔ Unity bridge, saves, renderer fallback and the browser QA matrix. Releasing is in [agents/web-and-github.md](agents/web-and-github.md).
 
 ## For agents
 

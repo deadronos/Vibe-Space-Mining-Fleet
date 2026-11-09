@@ -61,13 +61,12 @@ fallback for a failed WebGPU start.
   and [#38][38] still show closed issues as unticked (for example #15 to #18,
   #21, #27, #31, #32, #34) and don't list #56 to #59.
 - **CI runs no C# tests.** The Unity half is in UVCS and Actions has no
-  licence, so the 119 EditMode tests only run locally before a build.
+  licence, so the EditMode tests only run locally (`scripts/unity-check.sh`)
+  before a build.
 - **The web shell has no tests.** `save.ts` and `protocol.ts` would take unit
   tests cheaply; fixture saves from versions 2 to 6 would be the most useful.
 - **Large files.** `FleetSim.cs` (about 1,600 lines) and `HudController.cs`
   (about 900) are worth splitting before #59.
-- `documentation/agents/using-unity-mcp.md` still says the EditMode suite is
-  11 tests in about 3 s.
 
 [8]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14

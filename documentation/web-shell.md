@@ -1,4 +1,4 @@
-# Web shell, bridge and releases
+# Web shell, bridge and saves
 
 Covers GitHub issues #3 (full-window canvas) and #4 (TypeScript ↔ Unity bridge).
 
@@ -20,6 +20,7 @@ page ──SendMessage("WebBridge", method, json)──► WebBridge.cs
          Command(json)    launch | recall | toggleAutoLaunch | setAutoLaunch | resumeAuto | build {unit}
          RequestSave("")  → emits "save" with the whole sim (SimSave) as JSON
          LoadSave(json)   → emits "loaded" { ok, error, time }
+         SettleOffline(s) seconds away since the save; credits ore next frame (#58, ADR 0012)
 
 WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib ──► window "spacemining:<type>"
          ready   once, when the scene starts
@@ -31,7 +32,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 
 `?bench=N` starts a render benchmark (#30): N drones, no pirate waves, no save loaded or written, and a timing readout. `ready.bench` echoes N, and `state` carries `fps`, `frameMs`, `frameMsP95`, `frameMsMax`, `simMs`, `tickMs` and `syncMs`. Results are in [issues/30-render-baseline](issues/30-render-baseline/README.md).
 
-- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/SimSave.cs`. Keep them in step.
+- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/SimSave.cs`. To change a payload, a command or the save format, follow [agents/cross-boundary-changes.md](agents/cross-boundary-changes.md).
 - `SendMessage` runs C# synchronously and the reply event fires before it returns, so `Bridge.requestSave()` and `Bridge.load()` subscribe first, then send.
 - In the browser console, `spaceMining.bridge` is the live bridge.
 
@@ -41,32 +42,20 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 - Saves are about 16–25 KB of JSON in `localStorage` (`spacemining.save.v1`), not in Unity: PlayerPrefs is capped at ~1 MB on the web, and Unity's IndexedDB folder is keyed to the page URL.
 - Autosave every 30 s, when the tab is hidden, and on page unload. On start the page continues from the stored save.
 - Gear menu (top right): Save now, Export (download `.json`), Import (load a `.json`), New game (delete the save and reload).
-- `SimSave.version` gates loading. Bump it when the shape changes; a save outside the readable range is refused with a message, not half-loaded.
-  - Version 2 (phase 3 logistics) can't read version 1 saves: the page starts a new game and says so.
-  - Version 3 (phase 4 combat) still reads version 2 saves. Unity migrates them: full hulls, the starting squadron and a fresh wave timer (ADR 0008).
-  - Version 4 adds surveyed veins and survey orders. Versions 2 and 3 load with no marked veins.
-  - The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
+- Continuing from the stored save credits refined ore for the time away: half the income rate in the save, nothing under 60 s, capped at 8 h (#58, [ADR 0012](agents/decisions/0012-light-offline-credit.md)). Importing a file does not.
+- `SimSave.version` gates loading: a save outside the readable range is refused with a message, not half-loaded, and the page starts a new game. The current build writes version 6 and reads 2 to 6; Unity migrates the older ones. The history of the versions is in the comment on `SimSave.CurrentVersion` (`Sim/SimSave.cs`).
+- The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
 
-## Develop
+## Develop and release
 
 ```sh
 pnpm install
-pnpm dev            # http://localhost:5173/ — uses whatever is in web/public/unity
-pnpm run check      # oxlint (type-aware) + oxfmt --check + tsc
-pnpm run build      # → dist/
+pnpm dev            # http://localhost:5173/, uses whatever is in web/public/unity
 ```
 
-After changing the game: Unity menu **Space Mining Fleet → Build Web (into web/public/unity)**, then reload `pnpm dev`.
+After changing the game: Unity menu **Space Mining Fleet → Build Web (into web/public/unity)**, then reload the page.
 
-## Release
-
-1. Build the Unity player (menu above) and commit `web/public/unity`.
-2. Bump `version` in `package.json`, commit, push.
-3. `git tag v<version> && git push origin v<version>`. The deploy workflow refuses a tag that doesn't match `package.json`.
-
-4. The deploy job ends with a **smoke check** (`scripts/verify-deploy.sh`, GitHub #34). The page carries `<meta name="version">` from `package.json`; the script polls the live URL every 15 s for up to 5 minutes until it serves that version and this build's `assets/index-*.js`. It fails the job with an error if it doesn't. Run it by hand with `scripts/verify-deploy.sh https://deadronos.github.io/Vibe-Space-Mining-Fleet/ dist` (needs a local `pnpm run build`; `TIMEOUT` and `INTERVAL` are in seconds).
-
-**If the smoke check fails** (the v0.3.0 deploy reported success but Pages kept serving the old page): open Actions → **Deploy Pages** → **Run workflow** on `main` and wait for it, or run `gh workflow run deploy.yml --ref main`. A rerun from `main` fixed it last time. A deploy of the same version with the same script hash can't be told from the old one; bump the version if you need to be sure.
+The toolchain, the checks, CI and the release steps are in [agents/web-and-github.md](agents/web-and-github.md). A release is a `v*` tag that matches `package.json`; the deploy workflow publishes `dist/` to GitHub Pages and then checks that the live page serves that version.
 
 Actions can't run Unity without a license, so the Unity output stays committed ([ADR 0014](agents/decisions/0014-keep-committing-unity-build.md), #12). Each release adds about 10 MB of history. Revisit when history passes about 1 GB or checkout gets slow; attaching builds to GitHub Releases is the first option to try, Git LFS the second.
 

@@ -23,9 +23,6 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0013](0013-hangar-types-as-carrier-modules.md) | Hangar types become carrier modules; implementation deferred to a HUD pass (#59) | Accepted |
 | [0014](0014-keep-committing-unity-build.md) | Keep committing the Unity web build; revisit past ~1 GB of history | Accepted |
 
-## Open decisions (GitHub `decision needed`)
+## Open decisions
 
-| Issue | Question |
-| --- | --- |
-| #57 | Revisit prestige and long-term balance (after the research tree) |
-| #8 | How far direct control goes vs automation (stop / hold settled in [0007](0007-stop-hold-and-escape.md); the rest is open) |
+Open questions are GitHub issues with the `decision needed` label: `gh issue list --label "decision needed"`. They are not listed here, so this file can't go stale.
