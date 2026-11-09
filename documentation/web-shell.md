@@ -68,6 +68,15 @@ After changing the game: Unity menu **Space Mining Fleet → Build Web (into web
 
 Actions can't run Unity without a license, so the Unity output stays committed. If its history gets heavy (about 10 MB per release), Git LFS for `web/public/unity/Build/*.unityweb` or attaching builds to GitHub Releases are the next steps.
 
+## Renderer choice and WebGL2 fallback
+
+Unity picks WebGPU when `navigator.gpu` exists, else WebGL2. The page controls that in `web/src/unity.ts`:
+
+- `?renderer=webgl2` hides `navigator.gpu` before Unity starts. Use it for QA instead of editing browser flags.
+- If the player fails to start while WebGPU is available (Firefox 150, [#44](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44)), the page sets `sessionStorage["spacemining.renderer"] = "webgl2"` and reloads once. "Fails" means `createUnityInstance` rejects, or Unity reports a fatal banner error before the game is ready. A failed `loader.js` download or the 180 s `ready` timeout does not trigger it. The result is a WebGL2 start with a toast (the start was seen on Firefox 150; the toast was not).
+- The flag lasts for the tab session. Clear it (or open a new tab) to try WebGPU again. A network failure while Unity downloads its data also counts as a failed start and sets the flag.
+- A start that hangs inside `createUnityInstance` without an error or banner is not retried; use `?renderer=webgl2`.
+
 ## Known limits
 
 - Control groups use Shift+1–0 to assign (ADR 0006), because Chrome on Windows and Linux keeps Ctrl+1–9 for tabs. Ctrl/Cmd still works where the browser passes it through.
@@ -83,6 +92,12 @@ v0.5.0, macOS, 9 Nov 2026. Renderer values came from the game menu.
 | Safari 27.2 | WebGPU started | Started | Verified a v3 JSON download on WebGPU and New Game reload on WebGL2. The native picker opened for Import. Import completion remains unverified. |
 | Firefox 150.0 | WebGPU failed during startup ([#44](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44)) | Started | WebGL2 passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
 | Firefox 158.0 | WebGPU started locally and on Pages | Started | Both paths passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
+
+Firefox 150.0 re-test (9 Nov 2026, macOS arm64, official build run from a temporary
+copy with a throwaway profile and `dom.webgpu.enabled` true): `main` reproduced #44
+exactly (fatal banner, `wgpu[adapterOrDevice] is undefined`). The #44 branch started
+the game on WebGL2 (HUD said "WebGL 2") with a fresh tab and no flags. Only the start
+was checked, not Save, Export or Import on that path.
 
 The v2 fixture was exported from the v0.4.1 player. WebGL2 was forced by
 hiding `navigator.gpu` before Unity initialized in Chrome and Safari, and
