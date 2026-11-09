@@ -88,6 +88,10 @@ async function start(): Promise<void> {
   on('state', (state) => {
     lastState = state;
   });
+  // The game's own HUD logs every notice; the page only announces the credit for time away.
+  on('event', (notice) => {
+    if (notice.kind === 'OfflineCredit') showToast(notice.message);
+  });
   wireMenu(bridge, info);
 
   // The render benchmark is a throwaway game: keep the player's save out of it.
@@ -121,8 +125,22 @@ async function continueFromSave(bridge: Bridge, oldest: number, newest: number):
     return;
   }
   const result = await bridge.load(save);
-  if (result.ok) showToast(`Continued from save (${formatTime(save.time)} in, ${savedAgo(save)})`);
-  else showToast(`Could not load the save: ${result.error}`, 'error');
+  if (!result.ok) {
+    showToast(`Could not load the save: ${result.error}`, 'error');
+    return;
+  }
+  showToast(`Continued from save (${formatTime(save.time)} in, ${savedAgo(save)})`);
+  // Ore for the time away (#58). Unity applies the minimum, the cap and the rate; the page only
+  // measures the time. An imported file is not settled: its age says nothing about time away.
+  const away = secondsSince(save.savedAt);
+  if (away > 0) bridge.settleOffline(away);
+}
+
+/** Whole seconds from an ISO time until now; 0 if it is unreadable or in the future. */
+function secondsSince(iso: string): number {
+  const at = Date.parse(iso);
+  if (Number.isNaN(at)) return 0;
+  return Math.max(0, Math.floor((Date.now() - at) / 1000));
 }
 
 async function saveNow(bridge: Bridge, silent: boolean): Promise<SaveFile | null> {

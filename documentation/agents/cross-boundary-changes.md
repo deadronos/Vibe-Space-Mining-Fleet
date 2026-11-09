@@ -6,7 +6,7 @@ Some changes need edits on both sides, which are under two version control syste
 
 | Concern | C# (UVCS) | TypeScript (git) |
 | --- | --- | --- |
-| Page → Unity calls | `WebBridge.Command / RequestSave / LoadSave` | `Bridge` in `web/src/bridge.ts` |
+| Page → Unity calls | `WebBridge.Command / RequestSave / LoadSave / SettleOffline` | `Bridge` in `web/src/bridge.ts` |
 | Unity → page events | `WebBridge.Emit` → `SpaceMining_Emit` in `Assets/Plugins/WebGL/SpaceMiningBridge.jslib` | `on` / `once` in `bridge.ts`, typed by `BridgeEvents` |
 | Payload shapes | `[Serializable]` classes in `WebBridge.cs` | same names in `web/src/protocol.ts` |
 | Save format | `SimSave` + `SimSave.CurrentVersion` in `Sim/SimSave.cs` | `SaveFile` in `protocol.ts`, storage in `save.ts` (`spacemining.save.v1`) |

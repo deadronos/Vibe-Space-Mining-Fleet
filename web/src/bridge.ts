@@ -58,4 +58,12 @@ export class Bridge {
     this.#unity.SendMessage(OBJECT, 'LoadSave', JSON.stringify(save));
     return reply;
   }
+
+  /**
+   * Credits ore for time away (#58). Send it straight after a successful `load`; Unity answers
+   * on its next frame with an `event` of kind `OfflineCredit`, or not at all when nothing is due.
+   */
+  settleOffline(seconds: number): void {
+    this.#unity.SendMessage(OBJECT, 'SettleOffline', String(seconds));
+  }
 }
