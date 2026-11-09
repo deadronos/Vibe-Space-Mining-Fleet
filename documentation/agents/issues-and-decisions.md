@@ -5,7 +5,7 @@
 | Label | Meaning |
 | --- | --- |
 | `umbrella` | A tracking issue that links its child issues. Don't implement it directly; work its children (#35 gameplay, #36 asteroid-fleet ports, #37 art/rendering/performance, #38 web/release/QA) |
-| `decision needed` | A question to settle before code: #5–#13. The outcome is an ADR in [decisions/](decisions/README.md) |
+| `decision needed` | A question to settle before code (open: #8, #57). The outcome is an ADR in [decisions/](decisions/README.md) |
 | `exploration` | A spike: find out and write it down. The result is notes, maybe a prototype, not a shipped feature |
 | `gameplay`, `tech`, `web`, `art`, `asteroid-fleet` | Area |
 

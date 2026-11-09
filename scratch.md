@@ -31,20 +31,18 @@ Manager, run structure, and revisitable systems with fleet warp.
   existing squadron stances or adding [#19][19] rule cards. Stop and Hold
   already have defined behavior in
   [ADR 0007](documentation/agents/decisions/0007-stop-hold-and-escape.md).
-- **Decisions waiting on you.** [#6][6] meta-progression, [#7][7] offline
-  progress, [#10][10] hangar slot board and [#12][12] where the web build
-  lives. [#26][26] salvage and [#25][25] gas giants depend on some of these.
+- **Decisions settled (ADRs 0011–0014).** Research without resets
+  ([#56][56], prestige revisit in [#57][57]), light offline ore credit
+  ([#58][58]), hangar types as carrier modules with a Homeworld-style HUD
+  pass ([#59][59]), and the Unity build stays committed. [#26][26] salvage
+  and [#25][25] gas giants can now be planned against these.
 - **Rendering and art.** Start [#30][30] with a 500-drone browser baseline
   on WebGPU and WebGL2. Measure frame time separately from the sim tick
   before implementing instancing or LOD. Use [#14][14] to compare one ship
   both ways before expanding the procedural hull work in [#28][28] or adding
   a runtime glTF dependency in [#29][29].
 
-[6]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/6
-[7]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/7
 [8]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8
-[10]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/10
-[12]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/12
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
 [19]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/19
 [20]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/20
@@ -60,3 +58,7 @@ Manager, run structure, and revisitable systems with fleet warp.
 [41]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41
 [44]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44
 [48]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/48
+[56]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/56
+[57]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/57
+[58]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/58
+[59]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59
