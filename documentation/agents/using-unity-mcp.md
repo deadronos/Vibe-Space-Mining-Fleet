@@ -78,6 +78,10 @@ The project's menu items are under **Space Mining Fleet**:
 - Add a temporary `Debug.Log` that shows what you expect (a position, a count), read it with `console get`, then remove it.
 - Stop play mode when you're done. Changes made in play mode are lost.
 
+## Emissive materials
+
+URP switches the `_EMISSION` keyword off whenever it validates a material whose `globalIlluminationFlags` has no emissive bit. `MiningFleetSceneBuilder.Lit` therefore sets `RealtimeEmissive`. A `.mat` file can list the keyword while the Editor (and so the build) has it off: check with `Material.IsKeywordEnabled("_EMISSION")`. **Build Web** refuses to build while any material in `Assets/_Game/Materials` has an emission colour and the keyword off, and names them in `Library/WebBuildResult.txt`.
+
 ## When it goes wrong
 
 - **`No Pipeline instance found for project` right after `recompile`:** the domain reload is still running. Run `"$U" status --until-ready --project-path "$P" --no-banner` (it blocks until the Editor is ready), then retry. `AssetDatabase.Refresh()` through `script eval` starts the compile and reload itself, so wait the same way before the next command; `recompile` then says `up_to_date`.

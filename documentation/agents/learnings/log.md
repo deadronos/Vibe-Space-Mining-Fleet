@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · unity-editor · finding · URP (6000.6) sets `_EMISSION` from `globalIlluminationFlags & AnyEmissive` whenever it validates a material, so `EnableKeyword("_EMISSION")` with flags `None` is undone and the web build has no glow, while the `.mat` on disk can still list the keyword. Set `RealtimeEmissive`; check `Material.IsKeywordEnabled` in the Editor, not the file → using-unity-mcp.md
+
 - 2026-11-09 · uvcs · finding · `cm status` on `/main` showed a pending merge from a stray cs:42 on an already merged feature branch (six "Replaced" files). Run `cm status` before branching; if a merge is pending, ask the user, then check it in on its own with explicit paths before branching (`cm ci <merge paths>` left the other pending files alone) → documentation/issues/58-offline-credit
 
 - 2026-11-09 · web-build · finding · A page that loaded while the browser pane was hidden stayed at "Starting…" after the pane was shown; reload it once the pane is visible → unity-web-build.md

@@ -1,19 +1,20 @@
 # What to do next
 
-Updated 9 Nov 2026 against v0.11.0 and the open GitHub issues. Shipped so far:
-offline ore credit (#58), the research tree (#56), logistics, RTS controls
+Updated 9 Nov 2026 against v0.11.1 and the open GitHub issues. Shipped so far:
+the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
 polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
 revisitable systems with fleet warp, batched drone rendering, and the WebGL2
 fallback for a failed WebGPU start.
 
 ## Recommended order
 
-1. **Check v0.11.0 in the live game.** It is the first build with UVCS cs:43:
-   Run In Background off and the `_EMISSION` keyword removed from `Ore.mat`.
-   Neither was checked in the player. Look at the ore glow, and at what
-   happens to the sim and the autosave when the tab is in the background.
-   Also tune the offline credit if it is too generous: 8 h at 11 t/s pays
-   about 158,000 t (constants in `FleetSim.Offline.cs`).
+1. **Look at v0.11.1 and tune.** The glows are back (engines, windows, nav
+   lights, pirate glow, ore; UVCS cs:46, merged as cs:47), so bloom has
+   bright sources again and the game looks different from v0.10.0 and
+   v0.11.0. Checked on WebGPU only: look at WebGL2, at pirates and at a
+   loaded barge. Then decide whether to keep the 8 h offline cap: a starting
+   fleet earns about 20 t/s, so 8 h pays about 290,000 t (constants in
+   `FleetSim.Offline.cs`).
 2. **[#33 Cross-browser and device testing][33].** Close it out. Left:
    Safari import completion, non-QWERTY hotkeys, the phone and tablet pass,
    and the remaining browser combat cases. Add offline credit on forced
