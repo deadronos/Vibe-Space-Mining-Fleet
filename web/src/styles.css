@@ -181,3 +181,19 @@ body {
   background: rgb(40 10 10 / 0.9);
   color: var(--bad);
 }
+
+/* Render benchmark readout (?bench=N, #30). */
+#bench {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  font:
+    12px/1.4 ui-monospace,
+    monospace;
+  pointer-events: none;
+}

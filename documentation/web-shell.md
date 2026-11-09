@@ -29,6 +29,8 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
          event   fleet notification with kind, severity, message, world position and sim time
 ```
 
+`?bench=N` starts a render benchmark (#30): N drones, no pirate waves, no save loaded or written, and a timing readout. `ready.bench` echoes N, and `state` carries `fps`, `frameMs`, `frameMsP95`, `frameMsMax`, `simMs`, `tickMs` and `syncMs`. Results are in [issues/30-render-baseline](issues/30-render-baseline/README.md).
+
 - Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/SimSave.cs`. Keep them in step.
 - `SendMessage` runs C# synchronously and the reply event fires before it returns, so `Bridge.requestSave()` and `Bridge.load()` subscribe first, then send.
 - In the browser console, `spaceMining.bridge` is the live bridge.

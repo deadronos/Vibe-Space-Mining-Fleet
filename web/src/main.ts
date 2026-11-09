@@ -1,4 +1,5 @@
 import './styles.css';
+import { startBench } from './bench';
 import { Bridge, on, once } from './bridge';
 import type { BridgeReady, BridgeState, SaveFile } from './protocol';
 import { clearSave, downloadSave, readSave, readSaveFile, writeSave } from './save';
@@ -88,6 +89,15 @@ async function start(): Promise<void> {
     lastState = state;
   });
   wireMenu(bridge, info);
+
+  // The render benchmark is a throwaway game: keep the player's save out of it.
+  if (info.bench > 0) {
+    discarding = true;
+    const bench = startBench(info);
+    Object.assign(window, { spaceMining: { bridge, unity, info, bench } });
+    return;
+  }
+
   await continueFromSave(bridge, info.minSaveVersion ?? info.saveVersion, info.saveVersion);
 
   const autosave = () => void saveNow(bridge, true);
