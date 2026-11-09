@@ -74,6 +74,7 @@ The project's menu items are under **Space Mining Fleet**:
 
 - **Input can't be injected into Editor play mode.** Synthetic mouse and keyboard events don't reach the Input System there. To test controls, build for the web and drive the browser page with DOM events. See [unity-web-build.md](unity-web-build.md).
 - Play mode can freeze when the Editor is unfocused, while `status` still says "playing". Prove the game is advancing: read a changing value twice through `script eval` (for example `return UnityEngine.Object.FindAnyObjectByType<SpaceMining.FleetSimRunner>().Sim.Time;`; `FindFirstObjectByType` is obsolete in 6000.6), or look at two captures.
+- `Screen.width`/`Screen.height` inside `script eval` are the Editor window's size, not the Game view's. Screen-to-panel checks (`HudController.BlocksPointer`) give wrong answers there; test them in the web build.
 - Add a temporary `Debug.Log` that shows what you expect (a position, a count), read it with `console get`, then remove it.
 - Stop play mode when you're done. Changes made in play mode are lost.
 
