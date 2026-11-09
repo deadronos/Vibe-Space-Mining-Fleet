@@ -32,6 +32,8 @@ export interface BridgeReady {
   drones: number;
   rocks: number;
   unityVersion: string;
+  /** Drone count of the render benchmark (`?bench=N`, #30), or 0 in a normal game. */
+  bench: number;
 }
 
 /** Live snapshot, a few times a second (C# BridgeState). */
@@ -75,6 +77,17 @@ export interface BridgeState {
   heat: number;
   /** Seconds until the next wave (paused while one is being fought). */
   nextWaveIn: number;
+  /** Timings over the last second (#30): frames per second. */
+  fps: number;
+  /** Frame time mean, 95th percentile and worst, ms. */
+  frameMs: number;
+  frameMsP95: number;
+  frameMsMax: number;
+  /** Sim step time per frame (all ticks) and per tick, ms. */
+  simMs: number;
+  tickMs: number;
+  /** View sync time per frame, ms. */
+  syncMs: number;
 }
 
 /**
