@@ -8,6 +8,7 @@ GitHub issue: [#53](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/
 | --- | --- |
 | UVCS branch | `/main/feature-53-squadron-tilt` |
 | Changeset | `cs:32` |
+| Merged to `/main` | `cs:33` (same 3 files as cs:32) |
 | Repository | `Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet@iridanblub@unity` |
 
 ## Cause
