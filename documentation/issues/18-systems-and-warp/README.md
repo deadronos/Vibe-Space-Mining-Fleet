@@ -4,7 +4,8 @@
 implements [ADR 0010](../../agents/decisions/0010-open-ended-systems-and-warp.md).
 
 Git branch: `feature/18-systems-and-warp`. UVCS branch:
-`/main/feature-18-systems-and-warp`, changeset `cs:26` (based on `cs:25`).
+`/main/feature-18-systems-and-warp`, changesets `cs:26` and `cs:27` (based on
+`cs:25`), merged into `/main` as `cs:28`.
 
 ## Changes
 
@@ -51,3 +52,18 @@ The 90-second charge has been tested at 90-unit deployed distances, not tuned
 across a broad set of player layouts or under combat. [#48](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/48)
 tracks a broader balance pass and possible headless scenarios. Later
 destinations and map revelation remain future work.
+
+## PR review follow-up
+
+- Reject invalid inactive rocks and pirates before loading. Tests cover both
+  null C# entries and raw JSON nulls, which `JsonUtility` turns into default
+  objects; rejected loads leave the live simulation unchanged.
+- Clear event history and its location links on a system change, including
+  notices emitted in the departure frame.
+- Unity compiled and **62/62 EditMode tests passed**. The rebuilt web player
+  succeeded at 10.2 MB. Chrome/WebGPU completed system 1 → 2, saved and
+  reloaded, then returned to system 1 with ten drones, one barge, one hauler,
+  one squadron and 193 t refined ore. For the return, a disposable copy of
+  the save brought a raid warning forward: its event-log row appeared before
+  departure and the log was empty after arrival. The warning timing was the
+  only intentional fixture change.

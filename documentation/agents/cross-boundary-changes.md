@@ -18,6 +18,9 @@ Some changes need edits on both sides, which are under two version control syste
 - no dictionaries;
 - no top-level arrays;
 - no `null` for nested classes (it writes defaults instead).
+- JSON `null` elements in lists of serializable classes deserialize as default
+  objects, so import validation must check required field invariants as well
+  as null references. Test the JSON path, not just constructed C# objects.
 
 Keep the payloads flat. On the TypeScript side, type every field as required, matching what `JsonUtility` actually writes.
 
