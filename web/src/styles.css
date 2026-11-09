@@ -186,7 +186,8 @@ body {
 #bench {
   position: fixed;
   top: 12px;
-  left: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   margin: 0;
   padding: 8px 10px;
   border: 1px solid var(--line);
