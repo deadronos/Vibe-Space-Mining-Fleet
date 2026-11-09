@@ -2,7 +2,7 @@ import './styles.css';
 import { Bridge, on, once } from './bridge';
 import type { BridgeReady, BridgeState, SaveFile } from './protocol';
 import { clearSave, downloadSave, readSave, readSaveFile, writeSave } from './save';
-import { loadUnity } from './unity';
+import { applyRendererChoice, fallBackToWebgl2, loadUnity, type Webgl2Reason } from './unity';
 
 const AUTOSAVE_MS = 30_000;
 
@@ -53,6 +53,8 @@ canvas.addEventListener('mousedown', (e) => {
 // reaching the game.
 menuButton.addEventListener('mousedown', (e) => e.preventDefault());
 
+const webgl2Reason: Webgl2Reason = applyRendererChoice();
+
 async function start(): Promise<void> {
   // "ready" is emitted from the scene's Start(), which can run before the instance promise
   // resolves, so listen first.
@@ -69,6 +71,8 @@ async function start(): Promise<void> {
     },
   );
   const info = await ready;
+  if (webgl2Reason === 'fallback')
+    showToast('WebGPU failed to start in this browser, so the game is running on WebGL2.');
   const bridge = new Bridge(unity);
   loading.classList.add('done');
   menuButton.hidden = false;
@@ -189,6 +193,7 @@ function savedAgo(save: SaveFile): string {
 }
 
 start().catch((e: unknown) => {
+  if (fallBackToWebgl2(webgl2Reason)) return;
   loading.classList.add('done');
   showFatal(`The game could not start: ${e instanceof Error ? e.message : String(e)}`);
 });

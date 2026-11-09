@@ -37,6 +37,48 @@ const BUILD = `${import.meta.env.BASE_URL}unity/Build/unity`;
  */
 const MAX_PIXEL_RATIO = 1.5;
 
+const RENDERER_KEY = 'spacemining.renderer';
+
+/** Why this page load runs without WebGPU, or null when WebGPU is allowed. */
+export type Webgl2Reason = 'url' | 'fallback' | null;
+
+/**
+ * Decides before Unity starts whether WebGPU is off. `?renderer=webgl2` forces it for testing;
+ * a failed WebGPU start sets the session flag and reloads (see `fallBackToWebgl2`). When it is
+ * off, `navigator.gpu` is hidden so Unity picks WebGL2.
+ */
+export function applyRendererChoice(): Webgl2Reason {
+  let reason: Webgl2Reason = null;
+  if (new URLSearchParams(window.location.search).get('renderer') === 'webgl2') reason = 'url';
+  else if (readFlag() === 'webgl2') reason = 'fallback';
+  if (reason) Object.defineProperty(navigator, 'gpu', { value: undefined, configurable: true });
+  return reason;
+}
+
+/**
+ * Called when startup threw while WebGPU was available (Firefox 150 throws from its adapter
+ * code, #44). Remembers the choice for this tab and reloads. Returns false when WebGPU was not
+ * in play or the retry already happened.
+ */
+export function fallBackToWebgl2(reason: Webgl2Reason): boolean {
+  if (reason || !('gpu' in navigator) || !navigator.gpu) return false;
+  try {
+    sessionStorage.setItem(RENDERER_KEY, 'webgl2');
+  } catch {
+    return false;
+  }
+  window.location.reload();
+  return true;
+}
+
+function readFlag(): string | null {
+  try {
+    return sessionStorage.getItem(RENDERER_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export async function loadUnity(
   canvas: HTMLCanvasElement,
   onProgress: (progress: number) => void,

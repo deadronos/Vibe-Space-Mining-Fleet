@@ -68,6 +68,14 @@ After changing the game: Unity menu **Space Mining Fleet → Build Web (into web
 
 Actions can't run Unity without a license, so the Unity output stays committed. If its history gets heavy (about 10 MB per release), Git LFS for `web/public/unity/Build/*.unityweb` or attaching builds to GitHub Releases are the next steps.
 
+## Renderer choice and WebGL2 fallback
+
+Unity picks WebGPU when `navigator.gpu` exists, else WebGL2. The page controls that in `web/src/unity.ts`:
+
+- `?renderer=webgl2` hides `navigator.gpu` before Unity starts. Use it for QA instead of editing browser flags.
+- If startup throws while WebGPU is available (Firefox 150, [#44](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44)), the page sets `sessionStorage["spacemining.renderer"] = "webgl2"` and reloads once. The retried start runs on WebGL2 and shows a toast. The flag lasts for the tab session; clear it (or open a new tab) to try WebGPU again.
+- Limit: this catches a rejected startup. A startup that hangs without throwing is not retried; use `?renderer=webgl2`.
+
 ## Known limits
 
 - Control groups use Shift+1–0 to assign (ADR 0006), because Chrome on Windows and Linux keeps Ctrl+1–9 for tabs. Ctrl/Cmd still works where the browser passes it through.
@@ -83,6 +91,12 @@ v0.5.0, macOS, 9 Nov 2026. Renderer values came from the game menu.
 | Safari 27.2 | WebGPU started | Started | Verified a v3 JSON download on WebGPU and New Game reload on WebGL2. The native picker opened for Import. Import completion remains unverified. |
 | Firefox 150.0 | WebGPU failed during startup ([#44](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/44)) | Started | WebGL2 passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
 | Firefox 158.0 | WebGPU started locally and on Pages | Started | Both paths passed Save, Export, Import (v3 and v2), and New Game (cancel and confirm). |
+
+Update after #44: the fallback above is implemented but the Firefox 150
+reload path has not been run on a real Firefox 150 (only the forced-flag and
+`?renderer=webgl2` switch was checked, in the Claude desktop browser pane, which
+never finished starting Unity even without the change). Re-test on Firefox 150
+before closing #44.
 
 The v2 fixture was exported from the v0.4.1 player. WebGL2 was forced by
 hiding `navigator.gpu` before Unity initialized in Chrome and Safari, and
