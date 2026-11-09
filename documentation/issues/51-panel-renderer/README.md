@@ -10,6 +10,7 @@ Unity 6000.6 replaces the **UI Document** component with **Panel Renderer** ([Un
 | --- | --- |
 | UVCS branch | `/main/feature-51-panel-renderer` |
 | Changeset | `cs:30` |
+| Merged to `/main` | `cs:31` (same 13 entries as cs:30) |
 | Repository | `Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet@iridanblub@unity` |
 
 ## What changed in the Unity project
