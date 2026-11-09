@@ -59,4 +59,9 @@ the page head before the loader runs:
 </script>
 ```
 
+For Sensors selection tests, load a disposable save with one deployed drone
+away from the other ships. A squadron can fly over a drone marker between
+the screenshot and the click. Check the selected class in the HUD before
+sending a class-specific order.
+
 Before you commit a new build, compare its size with the previous one. A package added to the project shows up here.

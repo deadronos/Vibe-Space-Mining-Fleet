@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md).
 
+- 2026-11-09 · web-build · approach · Overlapping Sensors markers made the scout click select another ship. Isolate the drone in a disposable save and confirm its class before ordering. → unity-web-build.md
+
 - 2026-11-09 · web-build · approach · Safari WebDriver needs Allow Remote Automation. Use the installed Safari UI and serve a disposable page without `navigator.gpu` to test WebGL2. → unity-web-build.md
 
 - 2026-11-08 · unity-cli · finding · the Hub's bundled CLI was beta.13 while beta.17 was out; the standalone `~/.unity/bin/unity` self-updates (`self-update`) and agent shells don't have it on PATH → call it by path. → using-unity-mcp.md

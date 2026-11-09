@@ -42,6 +42,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 - `SimSave.version` gates loading. Bump it when the shape changes; a save outside the readable range is refused with a message, not half-loaded.
   - Version 2 (phase 3 logistics) can't read version 1 saves: the page starts a new game and says so.
   - Version 3 (phase 4 combat) still reads version 2 saves. Unity migrates them: full hulls, the starting squadron and a fresh wave timer (ADR 0008).
+  - Version 4 adds surveyed veins and survey orders. Versions 2 and 3 load with no marked veins.
   - The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
 
 ## Develop
