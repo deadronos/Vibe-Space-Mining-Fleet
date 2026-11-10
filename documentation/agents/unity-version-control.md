@@ -59,7 +59,7 @@ Do it like this:
 
 Name the leftover paths explicitly in each command. In zsh, a variable such as `$L="a b"` is not split into words, so `cm shelveset create $L` shelves nothing and the switch then stops at its prompt.
 
-If files are pending (leftovers you're not checking in), `cm switch` asks whether to shelve, bring or cancel: `echo b | "$U" cm switch /main` brings them along. `cm merge` refuses outright. Shelve them (`cm shelveset create <paths> -c="…"`, which prints `sh:<n>`), `cm undo <paths>`, merge and check in, then `cm shelveset apply sh:<n>` to put them back. Never undo pending changes without shelving them first.
+If files are pending (leftovers you're not checking in), `cm switch` asks whether to shelve, bring or cancel: `echo b | "$U" cm switch /main` brings them along. `cm merge` refuses outright. Shelve them (`cm shelveset create <paths> -c="…"`, which prints `sh:<n>`), `cm undo <paths>`, merge and check in, then `cm shelveset apply sh:<n>` to put them back. Never undo pending changes without shelving them first. `cm shelveset create` only takes checked-out files; a file shown as plain "Changed" is refused. After `echo b | cm switch`, files whose content equals the branch show as "Checked-out (unchanged)": `cm undo --unchanged <paths>` releases those without losing anything.
 
 Merge only when the user asks. After the merge, the GitHub side (issue notes, a new web build in `web/public/unity`) is a separate git commit. See [cross-boundary-changes.md](cross-boundary-changes.md).
 
