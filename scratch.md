@@ -1,7 +1,8 @@
 # What to do next
 
 Updated 10 Nov 2026 against v0.12.1 and the open GitHub issues. Shipped so far:
-touch controls and a phone layout (#41, merged, not yet released), carrier
+direct control vs automation, stance scopes and preset rule cards (#8, #20, #19,
+ADR 0016, on branch `feature/8-19-20-automation`, not merged), touch controls and a phone layout (#41, merged, not yet released), carrier
 modules and the HUD pass (#59, v0.12.0), the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
 polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
 revisitable systems with fleet warp, batched drone rendering, and the WebGL2
@@ -20,10 +21,10 @@ fallback for a failed WebGPU start.
    Safari import completion, non-QWERTY hotkeys, the phone and tablet pass,
    and the remaining browser combat cases. Add offline credit on forced
    WebGL2 to the matrix in `documentation/web-shell.md`.
-3. **[#8 Direct control vs automation][8].** A decision, not code. ADR 0007
-   settled Stop and Hold for miners. Still open: whether combat ships fall
-   back to automation after an order, and how stances and rule cards rank
-   against a direct order. [#20][20] and [#19][19] wait on this.
+3. **Merge the automation branch** (#8, #20, #19; ADR 0016). Then play it:
+   do haulers that now flee under fire still finish their runs during long
+   waves, and are the Safe radii (80 from the carrier, 45 from a squadron)
+   right? Close #8, #20 and #19 when it merges.
 4. **[#24 Hazards][24].** The next gameplay slice that needs no decision
    first: scouts and veins exist, so charted hazards have something to build
    on. Start with one hazard type (debris, damage over time) and the storm
@@ -31,8 +32,8 @@ fallback for a failed WebGPU start.
 
 ## Other tracks
 
-- **Automation, after #8.** [#20 stance scopes][20] first (fleet, class,
-  group), then [#19 rule cards][19] with presets only.
+- **Automation, next.** Custom rule cards (conditions, actions, parameters)
+  on top of the preset card model from ADR 0016. Needs a new issue.
 - **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and
   H2][25], which feeds it. [#23 ship modules][23] comes before [#26
   salvage][26], which needs the tractor beam. Build #23 on the
