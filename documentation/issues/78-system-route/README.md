@@ -2,7 +2,7 @@
 
 [GitHub issue #78](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/78). Follow-up: [#79 star map overlay](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/79).
 
-UVCS branch `/main/feature-78-system-route`: changeset `cs:69` (from `cs:68`). Not merged into `/main` yet.
+UVCS branch `/main/feature-78-system-route`: changeset `cs:69` (from `cs:68`), merged into `/main` as `cs:70`.
 
 This stays within [ADR 0010](../../agents/decisions/0010-open-ended-systems-and-warp.md): a linear, seeded, open-ended route with revisitable fields, and no strategic map.
 
