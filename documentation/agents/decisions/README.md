@@ -23,6 +23,7 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0013](0013-hangar-types-as-carrier-modules.md) | Hangar types become carrier modules; implementation deferred to a HUD pass (#59) | Accepted |
 | [0014](0014-keep-committing-unity-build.md) | Keep committing the Unity web build; revisit past ~1 GB of history | Accepted |
 | [0015](0015-touch-context-tap.md) | Touch: a tap orders the selection where a right-click would; long press queues; two fingers orbit and pinch zooms | Accepted |
+| [0016](0016-direct-control-stances-and-rule-cards.md) | Direct orders for every unit, then automation; order > card > unit > group > class > fleet; groups in the sim; preset rule cards | Accepted |
 
 ## Open decisions
 

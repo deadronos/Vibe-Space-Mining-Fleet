@@ -52,7 +52,7 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 
 The Editor's play mode ignores injected input, so the web build is the only place to test RTS controls.
 
-- **Real clicks and keys** (`computer` tool) reach the game and are enough for click-select, hover, HUD buttons and the hotkeys (M, S, H, Esc).
+- **Real clicks and keys** (`computer` tool) reach the game and are enough for click-select, hover, HUD buttons and the hotkeys (M, S, H, Esc). Modifiers don't: Shift+digit and Shift+click from the tool never arrived. For control groups, dispatch `KeyboardEvent`s on the canvas (`keydown` `ShiftLeft`, then `Digit1` with `shiftKey: true`, then the `keyup`s). Wait about 2 s after a click before the screenshot; it can show the frame before the click.
 - **Box-select and drags:** `left_click_drag` presses and releases in one frame, so a drag never starts. Dispatch DOM `MouseEvent`s on the canvas instead (`mousemove`, `mousedown`, `mouseup`, with `button` and `buttons` set), about 80 ms apart, with several `mousemove`s while the button is down. `PointerEvent`s alone don't reach the Input System.
 - **Units move.** The idle camera keeps orbiting, so a unit is elsewhere by the time you click. Box-select a large area, then click the unit's row in the selection list. Check the selected class in the HUD before a class-specific order.
 - **HUD lists move buttons.** A list that grows or wraps shifts what is below it between the screenshot and the click. Take a new screenshot before clicking, and keep buttons above variable-length lists when you design HUD.

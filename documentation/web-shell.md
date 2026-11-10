@@ -70,7 +70,7 @@ Unity picks WebGPU when `navigator.gpu` exists, else WebGL2. The page controls t
 
 ## Known limits
 
-- Control groups use Shift+1–0 to assign (ADR 0006), because Chrome on Windows and Linux keeps Ctrl+1–9 for tabs. Ctrl/Cmd still works where the browser passes it through.
+- Control groups use Shift+1–0 to assign (ADR 0006), because Chrome on Windows and Linux keeps Ctrl+1–9 for tabs. Ctrl/Cmd still works where the browser passes it through. Since ADR 0016 the groups are part of the save, so they survive a reload.
 
 ## Browser QA
 
