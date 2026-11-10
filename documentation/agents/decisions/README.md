@@ -22,6 +22,7 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0012](0012-light-offline-credit.md) | Light offline credit: a share of recent ore income on load, nothing else changes | Accepted |
 | [0013](0013-hangar-types-as-carrier-modules.md) | Hangar types become carrier modules; implementation deferred to a HUD pass (#59) | Accepted |
 | [0014](0014-keep-committing-unity-build.md) | Keep committing the Unity web build; revisit past ~1 GB of history | Accepted |
+| [0015](0015-touch-context-tap.md) | Touch: a tap orders the selection where a right-click would; long press queues; two fingers orbit and pinch zooms | Accepted |
 
 ## Open decisions
 

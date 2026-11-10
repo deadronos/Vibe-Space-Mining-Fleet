@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-10 · web-build · finding · Testing touch with synthetic `TouchEvent`s: the `spacemining:state` event fires before the loading screen fades, and touches sent then still reach the game (they toggled sensors and launched nothing useful). Wait for `#loading.done`. The idle camera drift moves targets between a screenshot and the next tap; aim in the sensors view, where rocks are the brown dots → unity-web-build.md
+
 - 2026-11-10 · uvcs · finding · `cm shelveset create` refused a file `cm status` listed as plain "Changed" (not checked out): "is not changed in current workspace". After `echo b | cm switch`, files whose content matches the branch show as "Checked-out (unchanged)"; `cm undo --unchanged <paths>` releases them losslessly so `cm merge` runs → unity-version-control.md
 
 - 2026-11-10 · github · finding · PR #68 got no `ci.yml` run at all (only GitGuardian), though the workflow has `pull_request`. The push to main after merging ran CI and passed. Check `gh pr checks` lists `check` before treating a PR as green → web-and-github.md

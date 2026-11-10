@@ -54,6 +54,28 @@ canvas.addEventListener('mousedown', (e) => {
 // reaching the game.
 menuButton.addEventListener('mousedown', (e) => e.preventDefault());
 
+// Phones and tablets (#41): the first touch on the game asks for fullscreen, which hides the
+// browser's address bar and its edge gestures, and then for landscape where the browser allows
+// it. Both can be refused; the game works without them. Unity reads the touches itself.
+if (matchMedia('(pointer: coarse)').matches) {
+  canvas.addEventListener(
+    'touchend',
+    () => {
+      if (document.fullscreenElement || !document.fullscreenEnabled) return;
+      document.documentElement
+        .requestFullscreen({ navigationUI: 'hide' })
+        .then(() => {
+          const orientation = screen.orientation as ScreenOrientation & {
+            lock?: (o: string) => Promise<void>;
+          };
+          return orientation.lock?.('landscape');
+        })
+        .catch(() => {});
+    },
+    { once: true },
+  );
+}
+
 const webgl2Reason: Webgl2Reason = applyRendererChoice();
 // Banner errors before "ready" may be a failed WebGPU start; after it, a reload would lose play.
 let started = false;
