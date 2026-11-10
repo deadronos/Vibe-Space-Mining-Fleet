@@ -22,8 +22,12 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
     │   ├── Scripts/Sim/           deterministic sim, asmdef SpaceMining.Sim (no MonoBehaviours)
     │   │                          FleetSim.cs holds the tick and carrier. Partials include .Drones,
     │   │                          .Logistics, .SaveLoad, .Throughput, .Field, .Combat, .Research and .Offline.
+    │   │                          .Squadrons, .Pirates and .Damage hold the combat rules.
+    │   │                          SimSettings, SimEntities, SimCommands and SimEvents hold shared types.
     │   ├── Scripts/               views and glue: FleetSimRunner, Carrier, MiningDrone, Asteroid…
-    │   ├── Scripts/Rts/           selection, orders, overlay
+    │   ├── Scripts/Rts/           SelectionController and OrderController handle RTS input.
+    │   │                          UnitPicker projects and picks units, ContextResolver resolves targets,
+    │   │                          and OrderOverlay draws the move widget, paths and pings.
     │   ├── Scripts/Web/           WebBridge.cs (page ↔ Unity)
     │   ├── Scripts/Config/        ScriptableObject configs
     │   ├── Scripts/Editor/        MiningFleetSceneBuilder.cs, WebBuild.cs

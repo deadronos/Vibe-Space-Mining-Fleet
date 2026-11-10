@@ -8,4 +8,18 @@ The save/load, drone, logistics, throughput, and asteroid sections of `FleetSim.
 
 `scripts/unity-check.sh` compiled and passed 169 of 169 EditMode tests on the feature branch and on the UVCS merge result.
 
-Remaining work includes the combat and sim type splits, the RTS controller extractions, regenerating the demo scene for the overlay component, and checking selection, orders, and touch in a fresh web build.
+## Remaining splits
+
+The remaining splits were checked in as cs:65 on UVCS `/main/feature-73-remaining` and merged into `/main` as cs:66.
+
+- `FleetSim.Squadrons.cs`, `FleetSim.Pirates.cs` and `FleetSim.Damage.cs` take the matching combat sections. Shared queries, tick orchestration, commands and save/load remain in `FleetSim.Combat.cs`.
+- `SimSettings.cs`, `SimEntities.cs`, `SimCommands.cs` and `SimEvents.cs` group the former `SimTypes.cs` declarations by responsibility. Source comparison confirmed that the moved combat bodies and sim type declarations match cs:64.
+- `UnitPicker` handles projection and picking. `ContextResolver` handles context decisions, and `OrderOverlay` renders the move widget, queued paths and pings. The controllers still coordinate input and issue commands.
+- Rebuilt the demo scene through the Unity Editor with the overlay and original visual settings wired in. Restored the equivalent prefab and volume rewrites after checking their scene references.
+
+## Verification of the remaining splits
+
+- `scripts/unity-check.sh` compiled and passed 169 of 169 EditMode tests on the feature branch and on the UVCS merge result.
+- The fresh Unity web build succeeded at 10.3 MB. `pnpm run check` and `pnpm run build` passed.
+- Chrome WebGL2 desktop at 1280 × 800 rendered the move widget. Mouse selection and right-click orders displayed a path and moved a barge, confirmed from the sim save.
+- Chrome WebGL2 at 900 × 550 switched to the touch HUD. Synthetic touch input selected the barge and issued a move order. The path rendered and the sim save confirmed movement. Both runs had zero console errors and five graphics warnings about readback stalls and URP fallbacks.

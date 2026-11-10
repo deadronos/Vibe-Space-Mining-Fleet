@@ -44,7 +44,7 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 2. **Show the browser pane, then load the page.** A hidden built-in pane renders no frames, so the game stalls at "Starting…", and a page that loaded while the pane was hidden does not recover when it is shown: show the pane (`show_pane preview`), then reload. The Chrome DevTools browser is the alternative.
 3. Wait for the `spacemining:ready` event; the loading screen hides when it fires. Check that the console shows no errors.
 4. Read the game state: listen for `spacemining:state` and `spacemining:event` on `window`, or read the HUD in a screenshot. `spaceMining.bridge` in the console is the live bridge.
-5. Drive the game with input (next section), then look at the result.
+5. Drive the game with input (next section), then look at the result. To verify a queued order, poll `spaceMining.bridge.requestSave()` over several frames. A save taken as soon as a button is released can precede the sim tick that applies the order.
 6. To test the WebGL2 path, open the page with `?renderer=webgl2`.
 7. Stop your server when you are done.
 

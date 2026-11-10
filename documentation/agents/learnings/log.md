@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-10 · web-build · finding · A save sampled just after a right-click showed no barge order. Polling `spaceMining.bridge.requestSave()` across sim ticks showed the queued move and changing position → unity-web-build.md
+
 - 2026-11-10 · uvcs · error · Bare `cm status` returned `command not found` in the agent shell. Run `~/.unity/bin/unity cm status` from the Unity project folder → unity-version-control.md
 
 - 2026-11-10 · web-build · finding · In the built-in pane, the `computer` tool's Shift (key `shift+1`, and `modifiers: "shift"` on a click) never reached Unity: no group was assigned. DOM `KeyboardEvent`s with `code: "ShiftLeft"` then `code: "Digit1"` dispatched on the canvas worked. Screenshots also trailed clicks by a second or two; wait 2 s before judging a click → unity-web-build.md
