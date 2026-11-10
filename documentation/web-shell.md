@@ -32,7 +32,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 
 `?bench=N` starts a render benchmark (#30): N drones, no pirate waves, no save loaded or written, and a timing readout. `ready.bench` echoes N, and `state` carries `fps`, `frameMs`, `frameMsP95`, `frameMsMax`, `simMs`, `tickMs` and `syncMs`. Results are in [issues/30-render-baseline](issues/30-render-baseline/README.md).
 
-- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/SimSave.cs`. To change a payload, a command or the save format, follow [agents/cross-boundary-changes.md](agents/cross-boundary-changes.md).
+- Shapes: `web/src/protocol.ts` mirrors the C# payload classes in `WebBridge.cs`, `FleetNotice.cs` and `Sim/Core/SimSave.cs`. To change a payload, a command or the save format, follow [agents/cross-boundary-changes.md](agents/cross-boundary-changes.md).
 - `SendMessage` runs C# synchronously and the reply event fires before it returns, so `Bridge.requestSave()` and `Bridge.load()` subscribe first, then send.
 - In the browser console, `spaceMining.bridge` is the live bridge.
 
@@ -43,7 +43,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 - Autosave every 30 s, when the tab is hidden, and on page unload. On start the page continues from the stored save.
 - Gear menu (top right): Save now, Export (download `.json`), Import (load a `.json`), New game (delete the save and reload).
 - Continuing from the stored save credits refined ore for the time away: half the income rate in the save, nothing under 60 s, capped at 8 h (#58, [ADR 0012](agents/decisions/0012-light-offline-credit.md)). Importing a file does not.
-- `SimSave.version` gates loading: a save outside the readable range is refused with a message, not half-loaded, and the page starts a new game. The current build writes version 7 and reads 2 to 7; Unity migrates the older ones. The history of the versions is in the comment on `SimSave.CurrentVersion` (`Sim/SimSave.cs`).
+- `SimSave.version` gates loading: a save outside the readable range is refused with a message, not half-loaded, and the page starts a new game. The current build writes version 7 and reads 2 to 7; Unity migrates the older ones. The history of the versions is in the comment on `SimSave.CurrentVersion` (`Sim/Core/SimSave.cs`).
 - The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
 
 ## Develop and release

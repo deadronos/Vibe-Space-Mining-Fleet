@@ -30,6 +30,10 @@ One branch per GitHub issue, under `/main`, named after it: `/main/feature-31-fl
 - `cm branch create` takes `-c="…"` for the comment. `--commentary` does not exist.
 - Before you switch, check `cm status`. Switching with pending changes can carry them to the other branch, or block the switch.
 
+## Moving Unity scripts
+
+Create destination folders through the Editor, then add the empty folders and their folder `.meta` files with `cm add`. Run `cm mv` separately for each script and its `.meta`, then confirm that `cm status` lists both paths under **Moved**. Editor moves preserve GUIDs, but UVCS can report them as deletions and additions when the destination folders are new. Adding the folders while they already contain moved files can register those files as additions and block `cm mv` with a duplicate child error.
+
 ## Check-in: the trap
 
 **`cm ci` with a directory and no `--applychanged` checks in only *added* files. Changes to existing files are silently left out.** This has happened here. Check-ins also drift from their notes: the notes for cs:13 list a `Packages/manifest.json` change that the changeset doesn't contain, and the changeset does contain a stray `Screenshots/phase1.png`. Always compare `cm diff` against what you say you checked in.

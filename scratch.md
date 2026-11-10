@@ -36,7 +36,7 @@ fallback for a failed WebGPU start.
 - **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and
   H2][25], which feeds it. [#23 ship modules][23] comes before [#26
   salvage][26], which needs the tractor beam. Build #23 on the
-  module model from #59 (`Sim/Modules.cs`: `ModuleDef` with a `ModuleHost`),
+  module model from #59 (`Sim/Systems/Modules.cs`: `ModuleDef` with a `ModuleHost`),
   so ships and the carrier share it.
 - **Long-term balance.** [#57 prestige][57] stays parked until the research
   tree and offline credit have been played for a while. Use the headless

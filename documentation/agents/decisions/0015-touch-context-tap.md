@@ -47,7 +47,7 @@ On touch, a fingertip counts as about 24 CSS px: picks of ships, raiders and roc
 
 The command bar adds touch-only buttons: **Deselect** (Esc), **Up** and **Down** in move mode (Alt+mouse), and **Carrier** (F). The HUD switches to touch wording and bigger targets once a touch is seen, or on a phone or tablet browser.
 
-Touch gestures live in `Scripts/Rts/TouchInput.cs`. Mouse handling stands aside while touch is in use (a finger is down, was within 0.8 s, or the mouse hasn't moved since).
+Touch gestures live in `Scripts/Rts/Input/TouchInput.cs`. Mouse handling stands aside while touch is in use (a finger is down, was within 0.8 s, or the mouse hasn't moved since).
 
 ## Consequences
 

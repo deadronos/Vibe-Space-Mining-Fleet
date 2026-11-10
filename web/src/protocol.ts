@@ -1,6 +1,6 @@
 // Message shapes shared with Unity. The C# side is
 // Vibe-Space-Mining-Fleet/Assets/_Game/Scripts/Web/WebBridge.cs (payload classes at the bottom)
-// and Sim/SimSave.cs; keep the two in step.
+// and Sim/Core/SimSave.cs; keep the two in step.
 
 /** Commands the page can send (C# WebBridge.BridgeCommand, run by WebBridge.Command). */
 export type BridgeCommand =
