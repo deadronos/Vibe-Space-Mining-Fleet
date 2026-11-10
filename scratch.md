@@ -1,7 +1,7 @@
 # What to do next
 
-Updated 9 Nov 2026 against v0.11.1 and the open GitHub issues. Shipped so far:
-the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
+Updated 10 Nov 2026 against v0.11.1 and the open GitHub issues. Shipped so far:
+carrier modules and the HUD pass (#59, not yet released), the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
 polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
 revisitable systems with fleet warp, batched drone rendering, and the WebGL2
 fallback for a failed WebGPU start.
@@ -23,12 +23,7 @@ fallback for a failed WebGPU start.
    settled Stop and Hold for miners. Still open: whether combat ships fall
    back to automation after an order, and how stances and rule cards rank
    against a direct order. [#20][20] and [#19][19] wait on this.
-4. **[#59 Carrier modules and HUD pass][59].** The largest open item. Split
-   it before starting:
-   - a short UI plan (mock or notes) for the user to agree;
-   - carrier modules (slots, effects, cost, research unlock, saved);
-   - the HUD pass itself, checked on WebGPU and WebGL2.
-5. **[#24 Hazards][24].** The next gameplay slice that needs no decision
+4. **[#24 Hazards][24].** The next gameplay slice that needs no decision
    first: scouts and veins exist, so charted hazards have something to build
    on. Start with one hazard type (debris, damage over time) and the storm
    warning through the existing event log.
@@ -39,8 +34,9 @@ fallback for a failed WebGPU start.
   group), then [#19 rule cards][19] with presets only.
 - **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and
   H2][25], which feeds it. [#23 ship modules][23] comes before [#26
-  salvage][26], which needs the tractor beam. Plan #23 together with the
-  carrier modules in #59 so ships and the carrier share one module model.
+  salvage][26], which needs the tractor beam. Build #23 on the
+  module model from #59 (`Sim/Modules.cs`: `ModuleDef` with a `ModuleHost`),
+  so ships and the carrier share it.
 - **Long-term balance.** [#57 prestige][57] stays parked until the research
   tree and offline credit have been played for a while. Use the headless
   scenario runner (`WarpBalanceScenarios.cs`) to measure late-game pacing
@@ -65,8 +61,11 @@ fallback for a failed WebGPU start.
   before a build.
 - **The web shell has no tests.** `save.ts` and `protocol.ts` would take unit
   tests cheaply; fixture saves from versions 2 to 6 would be the most useful.
-- **Large files.** `FleetSim.cs` (about 1,600 lines) and `HudController.cs`
-  (about 900) are worth splitting before #59.
+- **Large files.** `FleetSim.cs` (about 1,600 lines) is worth splitting.
+  `HudController.cs` was split by panel in #59.
+- **#59 follow-ups.** Play the module numbers and decide whether a fourth
+  slot should exist (`documentation/issues/59-carrier-modules-hud/`). Check
+  the new HUD on a phone as part of [#33][33] and [#41][41].
 
 [8]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
