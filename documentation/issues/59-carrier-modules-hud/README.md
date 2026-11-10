@@ -2,7 +2,7 @@
 
 [GitHub issue #59](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59). Follows [ADR 0013](../../agents/decisions/0013-hangar-types-as-carrier-modules.md) (hangar types become carrier modules) and [ADR 0005](../../agents/decisions/0005-ui-toolkit-hud.md) (UI Toolkit HUD).
 
-**Status:** the UI plan and the module proposal are agreed (10 Nov 2026). Carrier modules are merged to `/main` (cs:48, merge cs:49). The HUD pass is checked in as cs:50 on its branch (not merged to `/main`), and the web build in `web/public/unity` is built from it; see "HUD pass: what changed" for what was verified.
+**Status:** the UI plan and the module proposal are agreed (10 Nov 2026). Carrier modules are merged to `/main` (cs:48, merge cs:49). The HUD pass is merged to `/main` (cs:50, merge cs:51), and the web build in `web/public/unity` is built from it; see "HUD pass: what changed" for what was verified.
 
 - **Plan:** [plan.md](plan.md).
 
@@ -12,7 +12,7 @@
 |---|---|---|
 | UI plan (this note and the mock) | `feature/59-ui-plan` | none |
 | Carrier modules | `feature/59-carrier-modules` | `/main/feature-59-carrier-modules`, from cs:47. Changeset cs:48, merged to `/main` as cs:49 |
-| HUD pass | `feature/59-hud-pass` | `/main/feature-59-hud-pass`, from cs:49. Changeset cs:50, not merged |
+| HUD pass | `feature/59-hud-pass` | `/main/feature-59-hud-pass`, from cs:49. Changeset cs:50, merged to `/main` as cs:51 |
 
 The HUD pass was branched after the modules were merged, because the carrier panel shows module slots.
 
