@@ -2,8 +2,8 @@
 
 [GitHub issue #41](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41). The gesture scheme is [ADR 0015](../../agents/decisions/0015-touch-context-tap.md) (context tap).
 
-- **UVCS branch:** `/main/feature-41-touch-input`, from cs:53. Changeset: cs:54 (not merged to `/main` yet).
-- **Git branch:** `feature/41-touch-input`. It holds these notes, ADR 0015, the page changes and the web build.
+- **UVCS branch:** `/main/feature-41-touch-input`, from cs:53. Changeset: cs:54, merged to `/main` as cs:55.
+- **Git branch:** `feature/41-touch-input`, merged to `main` by PR #69 (6e9d4ad). It holds these notes, ADR 0015, the page changes and the web build.
 
 ## What arrives today
 

@@ -1,7 +1,8 @@
 # What to do next
 
-Updated 10 Nov 2026 against v0.11.1 and the open GitHub issues. Shipped so far:
-carrier modules and the HUD pass (#59, not yet released), the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
+Updated 10 Nov 2026 against v0.12.1 and the open GitHub issues. Shipped so far:
+touch controls and a phone layout (#41, merged, not yet released), carrier
+modules and the HUD pass (#59, v0.12.0), the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
 polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
 revisitable systems with fleet warp, batched drone rendering, and the WebGL2
 fallback for a failed WebGPU start.
@@ -41,9 +42,11 @@ fallback for a failed WebGPU start.
   tree and offline credit have been played for a while. Use the headless
   scenario runner (`WarpBalanceScenarios.cs`) to measure late-game pacing
   first.
-- **Mobile.** [#41][41] follows the device pass in #33. On a real Android
-  phone, find out what input the Unity player sees and whether HUD taps
-  work, then choose gestures and a compact landscape HUD.
+- **Mobile.** [#41][41] is merged (touch gestures per ADR 0015, a compact
+  landscape HUD) but tested only with synthetic touches in desktop Chrome.
+  On a real Android phone, and iOS Safari if possible, check taps, pinch and
+  orbit, fullscreen and frame rate as part of #33. Open points are in
+  `documentation/issues/41-touch-input/`.
 - **Rendering.** [#30][30] is still open although batched rendering is
   merged. Measure 500 drones against its target (above 50 fps on a mid
   laptop in Chrome, WebGPU and WebGL2), then close it or list what is left.
@@ -65,7 +68,7 @@ fallback for a failed WebGPU start.
   `HudController.cs` was split by panel in #59.
 - **#59 follow-ups.** Play the module numbers and decide whether a fourth
   slot should exist (`documentation/issues/59-carrier-modules-hud/`). Check
-  the new HUD on a phone as part of [#33][33] and [#41][41].
+  the new HUD on a real phone as part of [#33][33].
 
 [8]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
