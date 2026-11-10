@@ -56,6 +56,7 @@ The Editor's play mode ignores injected input, so the web build is the only plac
 - **Box-select and drags:** `left_click_drag` presses and releases in one frame, so a drag never starts. Dispatch DOM `MouseEvent`s on the canvas instead (`mousemove`, `mousedown`, `mouseup`, with `button` and `buttons` set), about 80 ms apart, with several `mousemove`s while the button is down. `PointerEvent`s alone don't reach the Input System.
 - **Units move.** The idle camera keeps orbiting, so a unit is elsewhere by the time you click. Box-select a large area, then click the unit's row in the selection list. Check the selected class in the HUD before a class-specific order.
 - **HUD lists move buttons.** A list that grows or wraps shifts what is below it between the screenshot and the click. Take a new screenshot before clicking, and keep buttons above variable-length lists when you design HUD.
+- **Touch (#41):** dispatch `TouchEvent`s on the canvas with `new Touch({identifier, target: canvas, clientX, clientY})`; Unity reads them as a `Touchscreen`. A viewport under 1000 x 600 CSS px gets the compact HUD, and the first touch switches on the touch layout. Wait until `#loading` has the class `done` before touching: earlier touches still reach the game. Targets drift with the idle camera between a screenshot and a tap; in the sensors view nothing drifts, and rocks are the brown dots.
 - **Sensors view:** markers overlap, and a squadron can fly over a drone marker. Load a save with one deployed drone away from the other ships.
 
 ### Seeding and editing saves

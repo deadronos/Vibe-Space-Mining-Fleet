@@ -198,3 +198,26 @@ body {
     monospace;
   pointer-events: none;
 }
+
+/* Touch screens held upright (#41): the HUD is laid out for landscape, so say so. */
+#rotate-hint {
+  display: none;
+}
+
+@media (orientation: portrait) and (pointer: coarse) {
+  #rotate-hint {
+    display: block;
+    position: fixed;
+    left: 50%;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    max-width: calc(100vw - 32px);
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--muted);
+    pointer-events: none;
+    text-align: center;
+  }
+}
