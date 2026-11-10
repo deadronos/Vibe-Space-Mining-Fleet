@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-10 · uvcs · finding · Editor moves into new folders appeared as deletes and adds. Add the empty folders first, then use `cm mv` on each script and its `.meta` → unity-version-control.md
+
 - 2026-11-10 · web-build · finding · A save sampled just after a right-click showed no barge order. Polling `spaceMining.bridge.requestSave()` across sim ticks showed the queued move and changing position → unity-web-build.md
 
 - 2026-11-10 · uvcs · error · Bare `cm status` returned `command not found` in the agent shell. Run `~/.unity/bin/unity cm status` from the Unity project folder → unity-version-control.md

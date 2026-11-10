@@ -20,14 +20,16 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
 └── Vibe-Space-Mining-Fleet/       Unity project. Gitignored. Under UVCS.
     ├── Assets/_Game/
     │   ├── Scripts/Sim/           deterministic sim, asmdef SpaceMining.Sim (no MonoBehaviours)
-    │   │                          FleetSim.cs holds the tick and carrier. Partials include .Drones,
-    │   │                          .Logistics, .SaveLoad, .Throughput, .Field, .Combat, .Research and .Offline.
-    │   │                          .Squadrons, .Pirates and .Damage hold the combat rules.
-    │   │                          SimSettings, SimEntities, SimCommands and SimEvents hold shared types.
-    │   ├── Scripts/               views and glue: FleetSimRunner, Carrier, MiningDrone, Asteroid…
-    │   ├── Scripts/Rts/           SelectionController and OrderController handle RTS input.
-    │   │                          UnitPicker projects and picks units, ContextResolver resolves targets,
-    │   │                          and OrderOverlay draws the move widget, paths and pings.
+    │   │   ├── Core/              FleetSim partials, commands, events, saves and random state
+    │   │   ├── Settings/          sim settings and setup types
+    │   │   ├── Entities/          units and other sim entities
+    │   │   └── Systems/           doctrine, research, modules, spatial grid and benchmark setup
+    │   ├── Scripts/Views/         Carrier, MiningDrone, other unit views, and rendering helpers
+    │   ├── Scripts/World/         Asteroid, AsteroidField, Starfield and FleetCamera
+    │   ├── Scripts/Runtime/       FleetSimRunner, FleetCommander, PerfStats and FleetNotice
+    │   ├── Scripts/Rts/
+    │   │   ├── Input/             selection, orders, picking, context resolution and touch input
+    │   │   └── Overlay/           OrderOverlay draws the move widget, paths and pings
     │   ├── Scripts/Web/           WebBridge.cs (page ↔ Unity)
     │   ├── Scripts/Config/        ScriptableObject configs
     │   ├── Scripts/Editor/        MiningFleetSceneBuilder.cs, WebBuild.cs

@@ -11,7 +11,7 @@ What the bridge and the saves are is described in [../web-shell.md](../web-shell
 | Page → Unity calls | `WebBridge.Command / RequestSave / LoadSave / SettleOffline` | `Bridge` in `web/src/bridge.ts` |
 | Unity → page events | `WebBridge.Emit` → `SpaceMining_Emit` in `Assets/Plugins/WebGL/SpaceMiningBridge.jslib` | `on` / `once` in `bridge.ts`, typed by `BridgeEvents` |
 | Payload shapes | `[Serializable]` classes in `WebBridge.cs` | same names in `web/src/protocol.ts` |
-| Save format | `SimSave` + `SimSave.CurrentVersion` in `Sim/SimSave.cs` | `SaveFile` in `protocol.ts`, storage in `save.ts` (`spacemining.save.v1`) |
+| Save format | `SimSave` + `SimSave.CurrentVersion` in `Sim/Core/SimSave.cs` | `SaveFile` in `protocol.ts`, storage in `save.ts` (`spacemining.save.v1`) |
 | The built player | `WebBuild.cs` | `web/public/unity/`, loaded by `web/src/unity.ts` |
 
 `JsonUtility` does the C# side of the JSON. It has limits:
