@@ -9,7 +9,7 @@ The Unity project `Vibe-Space-Mining-Fleet/` is versioned in UVCS (Plastic SCM),
 | Main branch | `/main` |
 | Ignore list | `Vibe-Space-Mining-Fleet/ignore.conf` (Library, Temp, Logs, UserSettings, csproj/sln…) |
 
-Run `cm` through the Unity CLI, from inside the project folder:
+Run `cm` through the Unity CLI from inside the project folder. The bare `cm` command is unavailable in the agent shell.
 
 ```zsh
 U=~/.unity/bin/unity   # standalone CLI, see driving-unity-editor.md

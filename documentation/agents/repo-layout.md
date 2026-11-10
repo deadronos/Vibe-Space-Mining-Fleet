@@ -20,7 +20,8 @@ Repo root: `~/Github/Vibe-Space-Mining-Fleet`. The Unity project is the subfolde
 └── Vibe-Space-Mining-Fleet/       Unity project. Gitignored. Under UVCS.
     ├── Assets/_Game/
     │   ├── Scripts/Sim/           deterministic sim, asmdef SpaceMining.Sim (no MonoBehaviours)
-    │   │                          FleetSim is one partial class: FleetSim.cs plus .Combat, .Research, .Offline
+    │   │                          FleetSim.cs holds the tick and carrier. Partials include .Drones,
+    │   │                          .Logistics, .SaveLoad, .Throughput, .Field, .Combat, .Research and .Offline.
     │   ├── Scripts/               views and glue: FleetSimRunner, Carrier, MiningDrone, Asteroid…
     │   ├── Scripts/Rts/           selection, orders, overlay
     │   ├── Scripts/Web/           WebBridge.cs (page ↔ Unity)
