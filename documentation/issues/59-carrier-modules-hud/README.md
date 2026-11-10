@@ -2,7 +2,7 @@
 
 [GitHub issue #59](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59). Follows [ADR 0013](../../agents/decisions/0013-hangar-types-as-carrier-modules.md) (hangar types become carrier modules) and [ADR 0005](../../agents/decisions/0005-ui-toolkit-hud.md) (UI Toolkit HUD).
 
-**Status:** the UI plan and the module proposal are agreed (10 Nov 2026). Carrier modules are built, tested in the Editor and checked in as cs:48 on their branch (not merged to `/main`). The HUD pass and the web build are still to do.
+**Status:** the UI plan and the module proposal are agreed (10 Nov 2026). Carrier modules are merged to `/main` (cs:48, merge cs:49). The HUD pass is checked in as cs:50 on its branch (not merged to `/main`), and the web build in `web/public/unity` is built from it; see "HUD pass: what changed" for what was verified.
 
 - **Plan:** [plan.md](plan.md).
 
@@ -11,10 +11,10 @@
 | Piece | Git | UVCS |
 |---|---|---|
 | UI plan (this note and the mock) | `feature/59-ui-plan` | none |
-| Carrier modules | `feature/59-carrier-modules` | `/main/feature-59-carrier-modules`, from cs:47. Changeset cs:48, not merged |
-| HUD pass | `feature/59-hud-pass` | `/main/feature-59-hud-pass` |
+| Carrier modules | `feature/59-carrier-modules` | `/main/feature-59-carrier-modules`, from cs:47. Changeset cs:48, merged to `/main` as cs:49 |
+| HUD pass | `feature/59-hud-pass` | `/main/feature-59-hud-pass`, from cs:49. Changeset cs:50, not merged |
 
-The HUD pass branches from the modules branch once that is merged, because the carrier panel shows module slots.
+The HUD pass was branched after the modules were merged, because the carrier panel shows module slots.
 
 ## Decided by the user (10 Nov 2026)
 
@@ -86,16 +86,52 @@ All in the Unity project, in cs:48 on `/main/feature-59-carrier-modules` (8 file
 - Editor play mode, with ore and Data granted through `script eval`: the Launch Bay fitted after 30 s and the launch interval went from 1.1 to 0.77; the Cargo Bay showed "Fitting"; the third slot cost 800 Data. The screenshot above is from that run.
 - Not checked: the tab's buttons by mouse (input can't be injected into Editor play mode), and the web build on WebGPU or WebGL2. Both wait for the web build at the end of the HUD pass.
 
+## HUD pass: what changed
+
+All in the Unity project, in cs:50 on `/main/feature-59-hud-pass` (14 files added, 8 changed).
+
+- **Layout** (`UI/Hud.uxml`, `UI/Hud.uss`): the layout of the mock. A resource strip on top; the carrier panel (hull, heat, module slots) and the ore chain on the left; a rail of four buttons and the manager panel on the right; the selection list, the command bar and the event log along the bottom, with the group bar above the command bar.
+- **Manager** (`HudController.Manager.cs`): Build, Research and Modules in one panel, closed by default. `B`, `T` and `G` open a tab; the same key closes it; `Esc` closes it (and cancels an active mode in the same press) before it ever clears the selection. Opening the sensors view closes it.
+- **Command bar** (`HudController.Commands.cs`): fleet commands with nothing selected; Move, Stop, Hold and Auto for any selection; Survey with drones; stances and formations with squadrons; Build and Modules with the carrier. A hint line gives the right-click meanings for the selection. `OrderController` gained `ToggleMove`, `StopSelected`, `HoldSelected` and `ResumeSelected`, which the keys and the buttons both call.
+- **Carrier panel:** one button per slot (fitted, fitting with its time left, empty, locked with its Data cost). Any slot opens the Modules tab.
+- **Removing a module** now takes two taps within 3 seconds.
+- **Gone:** the Fleet, Defence and Build panels, the Build/Research tab row, and the five-line controls text. The "still out" list shows in the command bar's hint line while a warp charges.
+- **Code split:** `HudController.cs` (926 lines) became a 288-line core plus one file per panel: `.Status`, `.Build`, `.Selection`, `.Commands`, `.Manager`, `.Markers`, `.Events`, next to the existing `.Research`, `.Modules` and `.Sensors`.
+
+| Carrier selected, Modules tab | Sensors view, squadron selected |
+|---|---|
+| ![](hud-carrier.png) | ![](hud-sensors.png) |
+
+Both are Editor play-mode captures at 1280×720.
+
+### How it was verified
+
+- `scripts/unity-check.sh`: compiled, EditMode 144 of 144 passed.
+- Web build: succeeded, 10.3 MB. `unity.wasm.unityweb` grew by 7.5 KB and `unity.data.unityweb` by 4.5 KB against the v0.11.1 build.
+- Browser, built-in pane at 1280×720, on a clean origin (`localhost:5199`), no console errors on either renderer:
+
+| Check | WebGPU | WebGL2 (`?renderer=webgl2`) |
+|---|---|---|
+| Page loads, HUD shows the renderer name | yes | yes |
+| `G` opens the Modules tab | yes | yes |
+| Click on Launch Bay queues the fitting; the slot shows "queued" | yes | yes |
+| Click on the carrier selects it; the command bar shows the carrier commands | yes | yes |
+| `B` switches the manager to Build; the queue lists "Launch Bay (waiting)" | yes | not tried |
+| Move button turns on move mode, with the MOVE hint | not tried | yes |
+| `Esc`, then `Space`: sensors view, chain folded, manager closed, legend shown | not tried | yes |
+
+- The WebGPU run was on the build before two style fixes (room for the page's gear button on the strip; command buttons wrap on narrow windows). The WebGL2 run was on the final build and shows the strip clear of the gear button.
+- Not checked: a fitting running to the end in the browser (a new game has no ore, and the page has no way to grant it; the Editor run covers it), the two-tap remove by mouse, the Research tab by mouse, a real phone, and window sizes other than 1280×720 and a near-square 800×845.
+
 ## Order of work
 
 1. ~~Agree this plan.~~
 2. ~~Carrier modules in the sim, with EditMode tests and the save bump. The HUD gets only a plain Modules tab so they can be played.~~
-3. Split `HudController.cs` (about 900 lines) by panel, then the HUD pass.
-4. Web build; browser check on WebGPU and on forced WebGL2.
+3. ~~Split `HudController.cs` (about 900 lines) by panel, then the HUD pass.~~
+4. ~~Web build; browser check on WebGPU and on forced WebGL2.~~
 
 ## Open points
 
 - The module numbers above are first guesses. `WarpBalanceScenarios.cs` can measure them once the sim side exists.
 - Whether a fourth slot should exist at all, since it removes the trade-off.
-- A fitted module is removed by one tap, with no refund and no confirmation. The HUD pass should make that harder to do by accident.
 - `FleetConfig` has no `modules` field, so the numbers can only be changed in code (`ModuleSettings.Default`).
