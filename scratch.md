@@ -1,8 +1,8 @@
 # What to do next
 
-Updated 10 Nov 2026 against v0.12.1 and the open GitHub issues. Shipped so far:
+Updated 10 Nov 2026 against v0.13.0 and the open GitHub issues. Shipped so far:
 direct control vs automation, stance scopes and preset rule cards (#8, #20, #19,
-ADR 0016, on branch `feature/8-19-20-automation`, not merged), touch controls and a phone layout (#41, merged, not yet released), carrier
+ADR 0016, merged, released in v0.13.0), touch controls and a phone layout (#41, v0.13.0), carrier
 modules and the HUD pass (#59, v0.12.0), the emissive glow fix (v0.11.1), offline ore credit (#58), the research tree (#56), logistics, RTS controls
 polish, combat, cargo heat, the event log, the Sensors Manager, run structure,
 revisitable systems with fleet warp, batched drone rendering, and the WebGL2
@@ -21,10 +21,9 @@ fallback for a failed WebGPU start.
    Safari import completion, non-QWERTY hotkeys, the phone and tablet pass,
    and the remaining browser combat cases. Add offline credit on forced
    WebGL2 to the matrix in `documentation/web-shell.md`.
-3. **Merge the automation branch** (#8, #20, #19; ADR 0016). Then play it:
-   do haulers that now flee under fire still finish their runs during long
-   waves, and are the Safe radii (80 from the carrier, 45 from a squadron)
-   right? Close #8, #20 and #19 when it merges.
+3. **Play the automation pass** (v0.13.0, ADR 0016): do haulers that now
+   flee under fire still finish their runs during long waves, and are the
+   Safe radii (80 from the carrier, 45 from a squadron) right?
 4. **[#24 Hazards][24].** The next gameplay slice that needs no decision
    first: scouts and veins exist, so charted hazards have something to build
    on. Start with one hazard type (debris, damage over time) and the storm

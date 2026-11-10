@@ -2,8 +2,8 @@
 
 GitHub issues [#8](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/8) (decision), [#20](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/20) (stance scopes) and [#19](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/19) (rule cards). The rules are [ADR 0016](../../agents/decisions/0016-direct-control-stances-and-rule-cards.md).
 
-- **UVCS branch:** `/main/feature-8-19-20-automation`, from cs:55. Changeset: cs:56 (not merged to `/main` yet).
-- **Git branch:** `feature/8-19-20-automation`. It holds ADR 0016, these notes and the web build.
+- **UVCS branch:** `/main/feature-8-19-20-automation`, from cs:55. Changeset: cs:56, merged to `/main` as cs:57.
+- **Git branch:** `feature/8-19-20-automation`, merged to `main` by PR #70 (2b3560a). It holds ADR 0016, these notes and the web build.
 
 ## What changed
 
