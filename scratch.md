@@ -53,9 +53,9 @@ fallback for a failed WebGPU start.
 - **Rendering.** [#30][30] is still open although batched rendering is
   merged. Measure 500 drones against its target (above 50 fps on a mid
   laptop in Chrome, WebGPU and WebGL2), then close it or list what is left.
-- **Art.** [#14][14] decides between procedural hulls and the Foundry glTF
-  models. Try one ship both ways; the result unblocks [#28][28] and
-  [#29][29].
+- **Art.** [#14][14] settled on the Foundry models, imported at edit time
+  (ADR 0017). Next: repair and scout ships as new units on the imported
+  models. [#29][29] is parked; [#28][28] shrinks to the shared rock mesh pool.
 
 ## Housekeeping
 

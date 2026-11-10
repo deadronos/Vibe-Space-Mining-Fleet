@@ -2,6 +2,8 @@
 
 Written 8 Nov 2026. Measured from the current build in `docs/` and from `~/Github/asteroid-fleet`.
 
+> **Update, 11 Nov 2026:** the ships use the Foundry models, imported at edit time rather than loaded at runtime ([ADR 0017](../agents/decisions/0017-foundry-models-at-edit-time.md)). Measured: +15 KB gzipped for five classes, wasm unchanged. Runtime glTFast would add more code to the wasm than the models weigh.
+
 ## Where the size actually is
 
 | File | Size (gzip) | What's in it |
