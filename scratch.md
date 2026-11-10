@@ -38,6 +38,9 @@ fallback for a failed WebGPU start.
   salvage][26], which needs the tractor beam. Build #23 on the
   module model from #59 (`Sim/Systems/Modules.cs`: `ModuleDef` with a `ModuleHost`),
   so ships and the carrier share it.
+- **Route.** [#78][78] opened the route past two systems, with a warp
+  sequence and a look per system. Next: balance beyond system 2, then the
+  [#79 star map overlay][79].
 - **Long-term balance.** [#57 prestige][57] stays parked until the research
   tree and offline credit have been played for a while. Use the headless
   scenario runner (`WarpBalanceScenarios.cs`) to measure late-game pacing
@@ -90,3 +93,5 @@ fallback for a failed WebGPU start.
 [41]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41
 [57]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/57
 [59]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59
+[78]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/78
+[79]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/79
