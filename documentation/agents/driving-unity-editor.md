@@ -20,6 +20,8 @@ F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 "$U" status --no-banner        # expect: ready, this project path, 6000.6.8f1
 ```
 
+If `status` lists no Editor for the project, start one with `"$U" projects open "$P" --no-banner` and poll `"$U" status --no-banner` until it shows `ready` (about 20 s on this machine).
+
 - Always pass `--project-path`. The shell's cwd is often the repo root, not the project.
 - In zsh, keep the flags in an array (`"${F[@]}"`). One quoted string won't split into flags.
 - Shell state does not persist between tool calls, so set `U`, `P` and `F` in every call.

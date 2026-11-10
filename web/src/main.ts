@@ -131,7 +131,8 @@ async function continueFromSave(bridge: Bridge, oldest: number, newest: number):
   }
   showToast(`Continued from save (${formatTime(save.time)} in, ${savedAgo(save)})`);
   // Ore for the time away (#58). Unity applies the minimum, the cap and the rate; the page only
-  // measures the time. An imported file is not settled: its age says nothing about time away.
+  // measures the time. An imported file is not settled, now or on the next load: import stores
+  // it stamped with the import time.
   const away = secondsSince(save.savedAt);
   if (away > 0) bridge.settleOffline(away);
 }
@@ -186,7 +187,9 @@ function wireMenu(bridge: Bridge, info: BridgeReady): void {
     }
     const result = await bridge.load(save);
     if (result.ok) {
-      writeSave(save);
+      // Store it stamped now: the next page load settles time away from `savedAt`, and the
+      // file's own stamp says how old the export is, not how long the player was away (#58).
+      writeSave({ ...save, savedAt: new Date().toISOString() });
       menu.close();
       showToast(`Loaded ${file.name}`);
     } else showToast(`Could not load ${file.name}: ${result.error}`, 'error');
