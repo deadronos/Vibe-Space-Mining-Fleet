@@ -19,10 +19,8 @@ Updated 11 Nov 2026 against v0.15.0 and the open GitHub issues.
 
 ## Housekeeping
 
-- **Umbrella checklists are out of date.** [#35][35], [#36][36], [#37][37] and [#38][38] still show closed issues as unticked (#14, #31, #15 to #18, #21, #27, #32, #34, …) and don't list #56 to #59, #78 or #82.
-- **CI runs no C# tests.** The Unity half is in UVCS and Actions has no licence, so the EditMode tests (252 now) only run locally (`scripts/unity-check.sh`) before a build.
-- **The web shell has no tests.** `save.ts` and `protocol.ts` would take unit tests cheaply; fixture saves from versions 2 to 10 would be the most useful.
-- **#59 follow-ups.** Play the module numbers and decide whether a fourth slot should exist (`documentation/issues/59-carrier-modules-hud/`).
+- **Unity CI is deferred.** Run EditMode tests locally with `scripts/unity-check.sh`.
+- **Carrier module balance.** Play the module numbers and decide whether to keep a fourth slot in [#85](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/85).
 
 ## Deferred: v0.15.0 playtest follow-ups
 
@@ -41,10 +39,6 @@ The live run verified repair and scout selection, their HUD rows, and V to surve
 [29]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/29
 [30]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/30
 [33]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/33
-[35]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/35
-[36]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/36
-[37]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/37
-[38]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/38
 [41]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/41
 [57]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/57
 [78]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/78

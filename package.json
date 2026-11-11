@@ -12,7 +12,8 @@
     "lint": "oxlint --type-aware --deny-warnings",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck"
+    "test": "node --test web/tests/*.test.mjs",
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm test"
   },
   "devDependencies": {
     "oxfmt": "^0.77.0",
