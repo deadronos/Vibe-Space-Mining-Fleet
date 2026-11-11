@@ -7,7 +7,7 @@ GitHub issue: [#14](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/
 | | |
 | --- | --- |
 | UVCS branch | `/main/feature-14-foundry-models` (started as `feature-14-foundry-spike`, renamed) |
-| Changeset | `cs:71` |
+| Changeset | `cs:71`, merged into `/main` as `cs:74` |
 | Repository | `Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet@iridanblub@unity` |
 
 ## What changed in the Unity project
