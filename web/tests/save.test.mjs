@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import { clearSave, parseSave, readSaveFile, readStoredSave, writeSave } from '../src/save.ts';
 
 const currentSave = {
-  version: 11,
+  version: 12,
   time: 120,
   savedAt: '2026-11-11T00:00:00.000Z',
   oreDelivered: 2400,
@@ -12,8 +12,8 @@ const currentSave = {
   hazards: { charted: true, radiationCharted: false },
 };
 
-test('accepts save envelopes for versions 2 through 11 without dropping sim data', () => {
-  for (let version = 2; version <= 11; version++) {
+test('accepts save envelopes for versions 2 through 12 without dropping sim data', () => {
+  for (let version = 2; version <= 12; version++) {
     const envelope = { version, time: 10, rocks: [{ ore: 60 }] };
     assert.deepEqual(parseSave(JSON.stringify(envelope)), envelope);
   }

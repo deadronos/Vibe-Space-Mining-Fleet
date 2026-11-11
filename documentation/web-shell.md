@@ -43,7 +43,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 - Autosave every 30 s, when the tab is hidden, and on page unload. On start the page continues from the stored save.
 - The game menu can save to browser storage, export a `.json` file without writing to browser storage, import a save, or delete the stored save and start a new game.
 - Continuing from the stored save credits refined ore for the time away: half the income rate in the save, nothing under 60 s, capped at 8 h (#58, [ADR 0012](agents/decisions/0012-light-offline-credit.md)). Importing a file does not.
-- The current build writes save version 11 and reads versions 2 through 11. Unity migrates older saves. If the page or Unity rejects the stored save, the menu opens with a recovery message and a download of the original file. The player can keep playing the fresh run while the original stays protected, or explicitly replace it by saving the current game or importing a working save. The version history is in `SimSave.CurrentVersion` (`Sim/Core/SimSave.cs`).
+- The current build writes save version 12 and reads versions 2 through 12. Unity migrates older saves. If the page or Unity rejects the stored save, the menu opens with a recovery message and a download of the original file. The player can keep playing the fresh run while the original stays protected, or explicitly replace it by saving the current game or importing a working save. The version history is in `SimSave.CurrentVersion` (`Sim/Core/SimSave.cs`).
 - The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
 
 ## Develop and release

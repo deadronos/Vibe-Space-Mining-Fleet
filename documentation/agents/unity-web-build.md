@@ -76,6 +76,7 @@ The Editor's play mode ignores injected input, so the web build is the only plac
 - **Built-in pane, background tab:** a tab that is not in front keeps running but slowly, so sim time falls behind wall time. Front the tab you are measuring.
 - **Chrome DevTools browser:** `The browser is already running for …chrome-profile` means it is taken; use the built-in pane.
 - **Playwright CLI:** use the complete element reference from the latest snapshot, including a frame prefix such as `f1e7`. Delete its generated `.playwright-cli/` snapshots afterwards: the repo's format check includes them.
+- **Polling saved state with Playwright:** await `page.evaluate(() => window.spaceMining.bridge.requestSave())` on each iteration and test the returned fields in the script. An async `waitForFunction` predicate returned before the queued warp command took effect.
 - **Playwright CLI confirm dialogs:** `run-code` can return a modal snapshot while its own dialog listener handles the prompt and the script continues. Check the resulting page state before issuing a separate dialog command.
 - **Safari:** WebDriver needs Allow Remote Automation; otherwise use the installed browser UI.
 
