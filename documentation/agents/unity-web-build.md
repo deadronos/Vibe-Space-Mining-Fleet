@@ -48,6 +48,10 @@ Change these in `WebBuild.ApplySettings`, not in the Player Settings window, so 
 6. To test the WebGL2 path, open the page with `?renderer=webgl2`.
 7. Stop your server when you are done.
 
+### Benchmarking WebGL2 on macOS
+
+Before comparing WebGL2 frame times, query the game canvas's WebGL2 context for `WEBGL_debug_renderer_info` and read `UNMASKED_RENDERER_WEBGL`. The default headed Playwright Chrome session used SwiftShader on the M4. For a hardware run, set Chrome's Playwright launch arguments to `["--use-angle=metal"]` and set `ignoreDefaultArgs` to `["--enable-unsafe-swiftshader"]`. The renderer string should identify ANGLE Metal and the Apple GPU.
+
 ### Sending input
 
 The Editor's play mode ignores injected input, so the web build is the only place to test RTS controls.

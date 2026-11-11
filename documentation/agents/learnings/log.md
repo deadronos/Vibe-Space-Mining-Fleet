@@ -2,6 +2,12 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-11 · web-build · finding · Headed Playwright Chrome used SwiftShader for WebGL2 on the M4. Verify the unmasked renderer and launch with ANGLE Metal for hardware benchmarks. → unity-web-build.md
+
+- 2026-11-11 · uvcs · error · `unity cm status --project-path` fails with `Unexpected option --project-path`. Run `unity cm status` from the Unity project directory. → driving-unity-editor.md
+
+- 2026-11-11 · sim · finding · Warp recall leaves auto-launch off at arrival. Route economy checks use `FleetCommand.WarpTo(destination)` and explicitly restart launch before measuring mining. → driving-unity-editor.md
+
 - 2026-11-11 · sim · error · Adding radiation to every SimSetup changed logistics and repair fixture outcomes. The live runner and hazard tests now explicitly enable field hazards. → driving-unity-editor.md
 
 - 2026-11-11 · sim · finding · In a browser survey, an explicit scout order inherited an automatic scan already in progress. Reset the scan state when a new order takes over. → documentation/issues/24-hazards/README.md

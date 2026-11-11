@@ -2,7 +2,7 @@
 
 The Editor for this project is usually open. Drive it live; don't edit scene or asset files by hand and don't start a second Editor.
 
-- **First, in every session that touches the project:** run `"$U" cm status` ([unity-version-control.md](unity-version-control.md)). If it shows changes or a pending merge you didn't make, ask the user before you edit, branch or build: a build includes whatever is in the workspace.
+- **First, in every session that touches the project:** run `"$U" cm status` from the Unity project directory ([unity-version-control.md](unity-version-control.md)). If it shows changes or a pending merge you didn't make, ask the user before you edit, branch or build: a build includes whatever is in the workspace.
 - Unity 6000.6.8f1, URP, Input System, project `Vibe-Space-Mining-Fleet/`.
 - Package `com.unity.pipeline` is installed, which is what the CLI and the MCP server talk to.
 
@@ -22,7 +22,7 @@ F=(--caller plugin --skill unity-cli --project-path "$P" --no-banner)
 
 If `status` lists no Editor for the project, start one with `"$U" projects open "$P" --no-banner` and poll `"$U" status --no-banner` until it shows `ready` (about 20 s on this machine).
 
-- Always pass `--project-path`. The shell's cwd is often the repo root, not the project.
+- Pass `--project-path` to Editor commands. The `cm` passthrough takes native UVCS arguments and uses the current directory.
 - In zsh, keep the flags in an array (`"${F[@]}"`). One quoted string won't split into flags.
 - Shell state does not persist between tool calls, so set `U`, `P` and `F` in every call.
 - Add `--result-only` for compact JSON and `--format json` to parse errors.
@@ -40,6 +40,8 @@ If `status` lists no Editor for the project, start one with `"$U" projects open 
 Before writing a sim check that spans ship classes, read their state definitions. For example, drones aboard use `DroneState.Hangar`, and docked squadrons expose `Docked`.
 
 Headless scenarios that exercise field hazards need `SimSetup.fieldHazards = true`, as set by the live runner. Other fixtures can leave hazards disabled to isolate the mechanic under test.
+
+For route scenarios, queue `FleetCommand.WarpTo(destination)`. If the scenario models resumed mining, queue `SetAutoLaunch` with `true` after arrival. Warp recall turns auto-launch off.
 
 ## Commands this project uses
 
