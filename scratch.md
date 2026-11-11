@@ -6,10 +6,9 @@ Updated 11 Nov 2026 against v0.15.0 and the open GitHub issues.
 
 ## Recommended order
 
-1. **Play-test v0.15.0 by hand.** Selecting repair ships and scouts, their HUD rows, right-click repair and V to survey with a scout were only covered by EditMode tests: input into the agent's preview pane was unreliable. Then tune the starting numbers in `SupportSettings` (repair 1,500 ore / 15 hull/s / 2.5 ore per hull, scouts 800 ore, caps 4 and 3, +50% vein strike) and check that scout survey notices aren't noisy. Small follow-ups from [#82][82]: the scan ring is bright and wide up close, the barge's ore fill reads as a flat lid, and two code minors (`documentation/issues/82-repair-scout-ships/`).
-2. **[#33 Cross-browser and device testing][33].** Close it out: Safari import completion, non-QWERTY hotkeys, the remaining browser combat cases, and a real phone and tablet pass (touch from [#41][41] was only tested with synthetic touches). Add offline credit on forced WebGL2 to the matrix in `documentation/web-shell.md`.
-3. **[#24 Hazards][24].** The next gameplay slice that needs no decision first. Start with one hazard type (debris, damage over time) and the storm warning through the event log. Scouts can chart hazards as they survey, and repair ships give hazard damage an answer in the field.
-4. **[#79 Star map overlay][79].** The route is open-ended now; the map makes it readable. Balance beyond system 2 alongside it (headless runner: `WarpBalanceScenarios.cs`).
+1. **[#33 Cross-browser and device testing][33].** Close it out: Safari import completion, non-QWERTY hotkeys, the remaining browser combat cases, and a real phone and tablet pass (touch from [#41][41] was only tested with synthetic touches). Add offline credit on forced WebGL2 to the matrix in `documentation/web-shell.md`.
+2. **[#24 Hazards][24].** The next gameplay slice that needs no decision first. Start with one hazard type (debris, damage over time) and the storm warning through the event log. Scouts can chart hazards as they survey, and repair ships give hazard damage an answer in the field.
+3. **[#79 Star map overlay][79].** The route is open-ended now; the map makes it readable. Balance beyond system 2 alongside it (headless runner: `WarpBalanceScenarios.cs`).
 
 ## Other tracks
 
@@ -25,6 +24,14 @@ Updated 11 Nov 2026 against v0.15.0 and the open GitHub issues.
 - **CI runs no C# tests.** The Unity half is in UVCS and Actions has no licence, so the EditMode tests (252 now) only run locally (`scripts/unity-check.sh`) before a build.
 - **The web shell has no tests.** `save.ts` and `protocol.ts` would take unit tests cheaply; fixture saves from versions 2 to 10 would be the most useful.
 - **#59 follow-ups.** Play the module numbers and decide whether a fourth slot should exist (`documentation/issues/59-carrier-modules-hud/`).
+
+## Deferred: v0.15.0 playtest follow-ups
+
+The live run verified repair and scout selection, their HUD rows, and V to survey with a scout. See the [playtest report on #82][82-playtest].
+
+- Isolate a right-click repair order against a damaged target and check support hull bars. Measure sustained repair at 15 hull/s and 2.5 ore/hull, then check the caps (4 repair ships, 3 scouts) and the +50% vein strike. The first run supports keeping the 1,500 ore repair ship and 800 ore scout prices for now.
+- Show automatic scout survey notices only when they discover veins, keep feedback for explicit orders, and fix overlapping Events rows at narrow widths. Give support ships a HUD hint that describes their own controls.
+- Check the scan ring's brightness and width up close, improve the barge's flat-looking ore fill, and revisit the two code follow-ups in the [#82 notes](documentation/issues/82-repair-scout-ships/).
 
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
 [22]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/22
@@ -45,3 +52,4 @@ Updated 11 Nov 2026 against v0.15.0 and the open GitHub issues.
 [78]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/78
 [79]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/79
 [82]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/82
+[82-playtest]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/82#issuecomment-6792706241
