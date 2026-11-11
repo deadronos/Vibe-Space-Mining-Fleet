@@ -66,6 +66,8 @@ The Editor's play mode ignores injected input, so the web build is the only plac
 
 ### Tool quirks
 
+- **Close-ups of one unit:** the web camera is hard to aim from tools (it drifts, and `computer` scroll zooms in the opposite direction and only a little). Confirm in the web build that the unit renders, then take the close-up in the Editor: instantiate the prefab, clone `Camera.main` (keep only `UniversalAdditionalCameraData`), render it into an HDR RenderTexture from `script eval`, blit to LDR and save a PNG to `Screenshots/`.
+
 - **Built-in pane, hidden:** real clicks may not reach Unity. Click the canvas once for real, then dispatch DOM events, scaling screenshot coordinates to CSS pixels (`innerWidth` / screenshot width).
 - **Built-in pane, background tab:** a tab that is not in front keeps running but slowly, so sim time falls behind wall time. Front the tab you are measuring.
 - **Chrome DevTools browser:** `The browser is already running for …chrome-profile` means it is taken; use the built-in pane.
