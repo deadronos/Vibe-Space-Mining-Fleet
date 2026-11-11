@@ -2,6 +2,8 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-11 · web-build · error · Async `waitForFunction` returned before warp had been queued in the sim. Poll saved snapshots with awaited `page.evaluate` and check the returned fields. → unity-web-build.md
+
 - 2026-11-11 · web-build · finding · Playwright `run-code` returned a confirm-dialog snapshot while its listener handled the prompt and the script continued. Check the final page before dismissing. → unity-web-build.md
 
 - 2026-11-11 · web-build · finding · Headed Playwright Chrome used SwiftShader for WebGL2 on the M4. Verify the unmasked renderer and launch with ANGLE Metal for hardware benchmarks. → unity-web-build.md
