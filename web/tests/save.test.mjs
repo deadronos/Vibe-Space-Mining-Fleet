@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { clearSave, parseSave, readSave, readSaveFile, writeSave } from '../src/save.ts';
+import { clearSave, parseSave, readSaveFile, readStoredSave, writeSave } from '../src/save.ts';
 
 const currentSave = {
   version: 11,
@@ -28,6 +28,8 @@ test('rejects malformed JSON and missing or invalid envelope fields', () => {
     '{}',
     '{"version":"11","time":1}',
     '{"version":11}',
+    '{"version":11.5,"time":0}',
+    '{"version":11,"time":1e999}',
   ]) {
     assert.equal(parseSave(input), null, input);
   }
@@ -45,10 +47,11 @@ test('stores, reads and clears a save', (t) => {
     setItem: (key, value) => data.set(key, value),
     removeItem: (key) => data.delete(key),
   });
-  assert.equal(writeSave(currentSave), true);
-  assert.deepEqual(readSave(), currentSave);
-  clearSave();
-  assert.equal(readSave(), null);
+  const raw = writeSave(currentSave, null);
+  assert.equal(raw, JSON.stringify(currentSave));
+  assert.equal(readStoredSave(), raw);
+  assert.equal(clearSave(raw), true);
+  assert.equal(readStoredSave(), null);
 });
 
 test('handles unavailable browser storage', (t) => {
@@ -57,9 +60,17 @@ test('handles unavailable browser storage', (t) => {
     setItem: blocked,
     removeItem: blocked,
   });
-  assert.equal(readSave(), null);
-  assert.equal(writeSave(currentSave), false);
-  assert.doesNotThrow(clearSave);
+  assert.equal(readStoredSave(), undefined);
+  assert.equal(writeSave(currentSave, undefined), null);
+  assert.equal(clearSave(undefined), false);
+});
+
+test('preserves raw rejected saves and blocks writes based on an outdated read', (t) => {
+  const raw = '  {broken JSON\n';
+  mockStorage(t, { getItem: () => raw, setItem: assert.fail, removeItem: assert.fail });
+  assert.equal(readStoredSave(), raw);
+  assert.equal(writeSave(currentSave, null), null);
+  assert.equal(clearSave(null), false);
 });
 
 function blocked() {

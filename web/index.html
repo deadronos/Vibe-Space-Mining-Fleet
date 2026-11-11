@@ -49,6 +49,15 @@
     <dialog id="menu" aria-labelledby="menu-title">
       <h2 id="menu-title">Game</h2>
       <p id="menu-info" class="muted"></p>
+      <section id="save-recovery" aria-label="Save recovery" hidden>
+        <p id="save-recovery-message" role="status"></p>
+        <div class="menu-buttons">
+          <button type="button" id="download-original">Download original</button>
+          <button type="button" id="replace-original" class="danger">
+            Replace with current game
+          </button>
+        </div>
+      </section>
       <div class="menu-buttons">
         <button type="button" id="save" title="Save now (also autosaves every 30 s)">
           Save now
@@ -61,6 +70,7 @@
           New game
         </button>
       </div>
+      <div id="menu-feedback" role="status"></div>
       <form method="dialog">
         <button type="submit" id="menu-close">Close</button>
       </form>

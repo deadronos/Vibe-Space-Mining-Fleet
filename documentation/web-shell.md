@@ -41,9 +41,9 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
 - The whole sim is saved, including the RNG state, so a loaded game carries on exactly as the saved one would have (checked: save, load into a sim in a different state, run both 120 s, identical).
 - Saves are about 16–25 KB of JSON in `localStorage` (`spacemining.save.v1`), not in Unity: PlayerPrefs is capped at ~1 MB on the web, and Unity's IndexedDB folder is keyed to the page URL.
 - Autosave every 30 s, when the tab is hidden, and on page unload. On start the page continues from the stored save.
-- Gear menu (top right): Save now, Export (download `.json`), Import (load a `.json`), New game (delete the save and reload).
+- The game menu can save to browser storage, export a `.json` file without writing to browser storage, import a save, or delete the stored save and start a new game.
 - Continuing from the stored save credits refined ore for the time away: half the income rate in the save, nothing under 60 s, capped at 8 h (#58, [ADR 0012](agents/decisions/0012-light-offline-credit.md)). Importing a file does not.
-- `SimSave.version` gates loading: a save outside the readable range is refused with a message, not half-loaded, and the page starts a new game. The current build writes version 7 and reads 2 to 7; Unity migrates the older ones. The history of the versions is in the comment on `SimSave.CurrentVersion` (`Sim/Core/SimSave.cs`).
+- The current build writes save version 11 and reads versions 2 through 11. Unity migrates older saves. If the page or Unity rejects the stored save, the menu opens with a recovery message and a download of the original file. The player can keep playing the fresh run while the original stays protected, or explicitly replace it by saving the current game or importing a working save. The version history is in `SimSave.CurrentVersion` (`Sim/Core/SimSave.cs`).
 - The bridge's `ready` event says `saveVersion` and `minSaveVersion`, and the page loads anything between the two.
 
 ## Develop and release

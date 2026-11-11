@@ -123,6 +123,15 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 6px;
 }
+#save-recovery {
+  margin-bottom: 14px;
+}
+#menu-feedback:not(:empty) {
+  margin-top: 12px;
+}
+#menu-feedback[data-kind='error'] {
+  color: var(--bad);
+}
 #menu button {
   padding: 8px 10px;
   border: 1px solid var(--line);
@@ -134,6 +143,10 @@ body {
 }
 #menu button:hover {
   background: var(--panel-hover);
+}
+#menu button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 #menu button.danger:hover {
   color: var(--bad);

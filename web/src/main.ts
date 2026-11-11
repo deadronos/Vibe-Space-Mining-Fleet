@@ -2,7 +2,15 @@ import './styles.css';
 import { startBench } from './bench';
 import { Bridge, on, once } from './bridge';
 import type { BridgeReady, BridgeState, SaveFile } from './protocol';
-import { clearSave, downloadSave, readSave, readSaveFile, writeSave } from './save';
+import {
+  clearSave,
+  downloadSave,
+  downloadSaveText,
+  parseSave,
+  readSaveFile,
+  readStoredSave,
+  writeSave,
+} from './save';
 import { applyRendererChoice, fallBackToWebgl2, loadUnity, type Webgl2Reason } from './unity';
 
 const AUTOSAVE_MS = 30_000;
@@ -20,9 +28,12 @@ const loadingText = $('loading-text');
 const menuButton = $('menu-button');
 const menu = $('menu') as HTMLDialogElement;
 const menuInfo = $('menu-info');
+const menuFeedback = $('menu-feedback');
 const toast = $('toast');
 const fatal = $('fatal');
 const importFile = $('import-file') as HTMLInputElement;
+const recovery = $('save-recovery');
+const saveButton = $('save') as HTMLButtonElement;
 
 const oreFormat = new Intl.NumberFormat(undefined, { maximumFractionDigits: 0 });
 let toastTimer = 0;
@@ -30,8 +41,15 @@ let lastSavedAt = '';
 let lastState: BridgeState | null = null;
 // Set while starting a new game, so the unload autosave doesn't write the old game back.
 let discarding = false;
+let storedSave: string | null | undefined;
+let rejectedSave: string | null = null;
 
 function showToast(message: string, kind: 'info' | 'error' = 'info'): void {
+  if (menu.open) {
+    menuFeedback.textContent = message;
+    menuFeedback.dataset.kind = kind;
+    return;
+  }
   toast.textContent = message;
   toast.dataset.kind = kind;
   toast.classList.add('show');
@@ -104,7 +122,6 @@ async function start(): Promise<void> {
     showToast('The game could not start with WebGPU, so it restarted on WebGL2.');
   const bridge = new Bridge(unity);
   loading.classList.add('done');
-  menuButton.hidden = false;
   canvas.focus();
 
   on('state', (state) => {
@@ -119,12 +136,15 @@ async function start(): Promise<void> {
   // The render benchmark is a throwaway game: keep the player's save out of it.
   if (info.bench > 0) {
     discarding = true;
+    menuButton.hidden = false;
     const bench = startBench(info);
     Object.assign(window, { spaceMining: { bridge, unity, info, bench } });
     return;
   }
 
   await continueFromSave(bridge, info.minSaveVersion ?? info.saveVersion, info.saveVersion);
+  menuButton.hidden = false;
+  if (rejectedSave !== null) openMenu(info);
 
   const autosave = () => void saveNow(bridge, true);
   window.setInterval(autosave, AUTOSAVE_MS);
@@ -139,18 +159,30 @@ async function start(): Promise<void> {
 
 /** Loads the stored save if this build can read its version (older ones are migrated by Unity). */
 async function continueFromSave(bridge: Bridge, oldest: number, newest: number): Promise<void> {
-  const save = readSave();
-  if (!save) return;
+  const raw = readStoredSave();
+  storedSave = raw;
+  if (typeof raw !== 'string') return;
+  const save = parseSave(raw);
+  if (!save) {
+    protectSave(raw, 'The stored save could not be read.');
+    return;
+  }
   if (save.version < oldest || save.version > newest) {
     const reads = oldest === newest ? `${newest}` : `${oldest} to ${newest}`;
-    showToast(`Stored save is version ${save.version}; this build reads ${reads}. Started fresh.`);
+    protectSave(raw, `The stored save is version ${save.version}. This build reads ${reads}.`);
     return;
   }
-  const result = await bridge.load(save);
-  if (!result.ok) {
-    showToast(`Could not load the save: ${result.error}`, 'error');
+  try {
+    const result = await bridge.load(save);
+    if (!result.ok) {
+      protectSave(raw, result.error);
+      return;
+    }
+  } catch {
+    protectSave(raw, 'The game did not finish loading the stored save.');
     return;
   }
+  lastSavedAt = save.savedAt;
   showToast(`Continued from save (${formatTime(save.time)} in, ${savedAgo(save)})`);
   // Ore for the time away (#58). Unity applies the minimum, the cap and the rate; the page only
   // measures the time. An imported file is not settled, now or on the next load: import stores
@@ -166,60 +198,103 @@ function secondsSince(iso: string): number {
   return Math.max(0, Math.floor((Date.now() - at) / 1000));
 }
 
-async function saveNow(bridge: Bridge, silent: boolean): Promise<SaveFile | null> {
-  if (discarding) return null;
+function protectSave(raw: string, reason: string): void {
+  rejectedSave = raw;
+  recovery.hidden = false;
+  saveButton.disabled = true;
+  $('save-recovery-message').textContent =
+    `${reason} Your original is protected. Download it, import another save, or choose to replace it.`;
+}
+
+function persistSave(save: SaveFile): boolean {
+  const raw = writeSave(save, storedSave);
+  if (raw === null) return false;
+  storedSave = raw;
+  lastSavedAt = save.savedAt;
+  rejectedSave = null;
+  recovery.hidden = true;
+  saveButton.disabled = false;
+  return true;
+}
+
+const storageFailure = 'Could not write to browser storage. Export your current game to keep it.';
+
+async function saveNow(bridge: Bridge, silent: boolean, replace = false): Promise<void> {
+  if (discarding || (rejectedSave !== null && !replace)) return;
   try {
     const save = await bridge.requestSave();
-    const ok = writeSave(save);
-    lastSavedAt = save.savedAt;
-    if (!silent)
-      showToast(
-        ok ? 'Saved' : 'Saved in memory only: browser storage is blocked',
-        ok ? 'info' : 'error',
-      );
-    return save;
+    if (discarding || (rejectedSave !== null && !replace)) return;
+    const ok = persistSave(save);
+    if (!silent) {
+      if (ok) showToast('Saved');
+      else showToast(storageFailure, 'error');
+    }
   } catch (e) {
     if (!silent) showToast(`Save failed: ${(e as Error).message}`, 'error');
-    return null;
   }
 }
 
+function openMenu(info: BridgeReady): void {
+  menuInfo.textContent = menuSummary(info);
+  menuFeedback.textContent = '';
+  menu.showModal();
+}
+
 function wireMenu(bridge: Bridge, info: BridgeReady): void {
-  menuButton.addEventListener('click', () => {
-    menuInfo.textContent = menuSummary(info);
-    menu.showModal();
-  });
+  menuButton.addEventListener('click', () => openMenu(info));
   // Hand the keyboard back to the game when the dialog closes.
   menu.addEventListener('close', () => canvas.focus());
 
-  $('save').addEventListener('click', () => void saveNow(bridge, false));
+  saveButton.addEventListener('click', () => void saveNow(bridge, false));
+  $('download-original').addEventListener('click', () => {
+    if (rejectedSave !== null) downloadSaveText(rejectedSave, 'vibe-space-mining-original.json');
+  });
+  $('replace-original').addEventListener('click', () => {
+    if (window.confirm('Replace the stored save with your current game?'))
+      void saveNow(bridge, false, true);
+  });
   $('export').addEventListener('click', async () => {
-    const save = await saveNow(bridge, true);
-    if (save) downloadSave(save);
+    if (discarding) return;
+    try {
+      downloadSave(await bridge.requestSave());
+    } catch {
+      showToast('Could not export the current game.', 'error');
+    }
   });
   $('import').addEventListener('click', () => importFile.click());
   importFile.addEventListener('change', async () => {
     const file = importFile.files?.[0];
     importFile.value = '';
-    if (!file) return;
-    const save = await readSaveFile(file);
-    if (!save) {
-      showToast(`${file.name} is not a save file`, 'error');
-      return;
-    }
-    const result = await bridge.load(save);
-    if (result.ok) {
-      // Store it stamped now: the next page load settles time away from `savedAt`, and the
-      // file's own stamp says how old the export is, not how long the player was away (#58).
-      writeSave({ ...save, savedAt: new Date().toISOString() });
+    if (!file || discarding) return;
+    try {
+      const save = await readSaveFile(file);
+      if (!save) {
+        showToast(`${file.name} is not a save file`, 'error');
+        return;
+      }
+      if (rejectedSave !== null && !window.confirm('Replace the stored save with this import?'))
+        return;
+      const result = await bridge.load(save);
+      if (!result.ok) {
+        showToast(`Could not load ${file.name}: ${result.error}`, 'error');
+        return;
+      }
+      // Imported files start earning offline credit from the time of import.
+      const ok = persistSave({ ...save, savedAt: new Date().toISOString() });
       menu.close();
-      showToast(`Loaded ${file.name}`);
-    } else showToast(`Could not load ${file.name}: ${result.error}`, 'error');
+      if (ok) showToast(`Loaded ${file.name}`);
+      else showToast(`Loaded ${file.name}. ${storageFailure}`, 'error');
+    } catch {
+      showToast(`Could not load ${file.name}.`, 'error');
+    }
   });
   $('new').addEventListener('click', () => {
-    if (!window.confirm('Delete the saved game and start over?')) return;
+    if (discarding || !window.confirm('Delete the saved game and start over?')) return;
+    if (storedSave !== undefined && !clearSave(storedSave)) {
+      showToast('Could not remove the stored save. Reload and try again.', 'error');
+      return;
+    }
     discarding = true;
-    clearSave();
     window.location.reload();
   });
 }
