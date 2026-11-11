@@ -1,6 +1,6 @@
 {
   "name": "vibe-space-mining-fleet",
-  "version": "0.16.0",
+  "version": "0.16.1",
   "private": true,
   "description": "Web shell around the Unity build: full-window canvas, TypeScript bridge, saves.",
   "type": "module",
