@@ -54,8 +54,8 @@ fallback for a failed WebGPU start.
   merged. Measure 500 drones against its target (above 50 fps on a mid
   laptop in Chrome, WebGPU and WebGL2), then close it or list what is left.
 - **Art.** [#14][14] settled on the Foundry models, imported at edit time
-  (ADR 0017). Next: repair and scout ships as new units on the imported
-  models. [#29][29] is parked; [#28][28] shrinks to the shared rock mesh pool.
+  (ADR 0017). Repair and scout ships are built (ADR 0018,
+  `documentation/issues/repair-scout-ships/`): play-test their numbers. [#29][29] is parked; [#28][28] shrinks to the shared rock mesh pool.
 
 ## Housekeeping
 

@@ -12,7 +12,7 @@ export type BridgeCommand =
   | { type: 'build'; unit: UnitKind };
 
 /** What the carrier can build (C# SpaceMining.Sim.UnitKind). */
-export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery' | 'squadron';
+export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery' | 'squadron' | 'repair' | 'scout';
 
 /** The link that limits income (C# SpaceMining.Sim.Bottleneck). */
 export type Bottleneck =
