@@ -12,7 +12,10 @@ export function parseSave(text: string): SaveFile | null {
     const data: unknown = JSON.parse(text);
     if (typeof data !== 'object' || data === null) return null;
     const save = data as Partial<SaveFile>;
-    return typeof save.version === 'number' && typeof save.time === 'number'
+    return typeof save.version === 'number' &&
+      Number.isInteger(save.version) &&
+      typeof save.time === 'number' &&
+      Number.isFinite(save.time)
       ? (save as SaveFile)
       : null;
   } catch {
@@ -20,39 +23,46 @@ export function parseSave(text: string): SaveFile | null {
   }
 }
 
-export function readSave(): SaveFile | null {
+export function readStoredSave(): string | null | undefined {
   try {
-    const raw = localStorage.getItem(KEY);
-    return raw === null ? null : parseSave(raw);
+    return localStorage.getItem(KEY);
   } catch {
-    return null; // storage blocked (private mode, disabled site data)
+    return undefined;
   }
 }
 
-export function writeSave(save: SaveFile): boolean {
+export function writeSave(save: SaveFile, previous: string | null | undefined): string | null {
   try {
-    localStorage.setItem(KEY, JSON.stringify(save));
+    if (localStorage.getItem(KEY) !== previous) return null;
+    const raw = JSON.stringify(save);
+    localStorage.setItem(KEY, raw);
+    return raw;
+  } catch {
+    return null;
+  }
+}
+
+export function clearSave(previous: string | null | undefined): boolean {
+  try {
+    if (localStorage.getItem(KEY) !== previous) return false;
+    localStorage.removeItem(KEY);
     return true;
   } catch {
     return false;
   }
 }
 
-export function clearSave(): void {
-  try {
-    localStorage.removeItem(KEY);
-  } catch {
-    // nothing stored, nothing to clear
-  }
-}
-
 export function downloadSave(save: SaveFile): void {
   const stamp = (save.savedAt || new Date().toISOString()).slice(0, 19).replaceAll(':', '-');
-  const blob = new Blob([JSON.stringify(save, null, 2)], { type: 'application/json' });
+  downloadSaveText(JSON.stringify(save, null, 2), `vibe-space-mining-${stamp}.json`);
+}
+
+export function downloadSaveText(raw: string, filename: string): void {
+  const blob = new Blob([raw], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `vibe-space-mining-${stamp}.json`;
+  a.download = filename;
   a.click();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
