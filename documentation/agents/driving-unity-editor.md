@@ -37,6 +37,10 @@ If `status` lists no Editor for the project, start one with `"$U" projects open 
 
 **The listing shows tags, and a tag is not always the command name.** The tag is `tests`, but the command is `test` (`test list`, `test run`). The tag is `editor/playmode`, and the command is `editor.playmode start`. When you get `Command Not Found`, search again with `--query`.
 
+Before writing a sim check that spans ship classes, read their state definitions. For example, drones aboard use `DroneState.Hangar`, and docked squadrons expose `Docked`.
+
+Headless scenarios that exercise field hazards need `SimSetup.fieldHazards = true`, as set by the live runner. Other fixtures can leave hazards disabled to isolate the mechanic under test.
+
 ## Commands this project uses
 
 | Task | Command |

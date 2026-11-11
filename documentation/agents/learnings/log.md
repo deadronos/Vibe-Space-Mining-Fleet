@@ -2,6 +2,12 @@
 
 Newest first. Format and rules are in [README.md](README.md). Older promoted entries are in [archive/](archive/). Entries that point to `using-unity-mcp.md` mean [driving-unity-editor.md](../driving-unity-editor.md), its name since 10 Nov 2026.
 
+- 2026-11-11 · sim · error · Adding radiation to every SimSetup changed logistics and repair fixture outcomes. The live runner and hazard tests now explicitly enable field hazards. → driving-unity-editor.md
+
+- 2026-11-11 · sim · finding · In a browser survey, an explicit scout order inherited an automatic scan already in progress. Reset the scan state when a new order takes over. → documentation/issues/24-hazards/README.md
+
+- 2026-11-11 · sim · error · Debris damage initially checked for `DroneState.Docked`, which does not exist. Parked drones use `DroneState.Hangar`. → driving-unity-editor.md
+
 - 2026-11-10 · web-build · finding · Framing one unit for a close-up in the web build failed: the idle camera drifted it off screen, `computer` scroll zoomed the wrong way and barely moved, and a pirate wave arrived. A cloned `Camera.main` rendered into a RenderTexture from `script eval` (scene lights and URP volume included) gave the close-up in one call; use the web build to confirm the unit renders, not to frame it → unity-web-build.md
 
 - 2026-11-10 · uvcs · finding · Editor moves into new folders appeared as deletes and adds. Add the empty folders first, then use `cm mv` on each script and its `.meta` → unity-version-control.md
