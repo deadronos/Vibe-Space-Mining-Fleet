@@ -6,8 +6,8 @@ GitHub issue: [#82](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/
 
 | | |
 | --- | --- |
-| UVCS branch | `/main/feature-repair-scout`, branched from cs:71 (`/main/feature-14-foundry-models`, not merged yet) |
-| Changesets | `cs:72` (the work), `cs:73` (comment paths for #82) |
+| UVCS branch | `/main/feature-repair-scout`, branched from cs:71 (`/main/feature-14-foundry-models`) |
+| Changesets | `cs:72` (the work), `cs:73` (comment paths for #82), merged into `/main` as `cs:75` (after #14 as `cs:74`) |
 | Repository | `Vibe-Space-Mining-Fleet/Vibe-Space-Mining-Fleet@iridanblub@unity` |
 
 ## What changed in the Unity project
