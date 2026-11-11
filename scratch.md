@@ -22,7 +22,7 @@ Save safety shipped in [#86][86] and [#87][87]. Rejected saves can be recovered,
 - **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and H2][25], which feeds it. The H2 harvester (its model is already imported) can be a new support role on `SimSupport` (ADR 0018). [#23 ship modules][23] comes before [#26 salvage][26], which needs the tractor beam; build #23 on the module model from #59 (`ModuleDef` with a `ModuleHost`).
 - **Automation, next.** Custom rule cards (conditions, actions, parameters) on top of the preset cards from ADR 0016, including cards for repair ships and scouts. Needs a new issue.
 - **Long-term balance.** [#57 prestige][57] stays parked until the research tree, offline credit and the open route have been played for a while. Measure late-game pacing with the headless runner first. Decide the 8 h offline cap there too: a starting fleet earns about 20 t/s, so 8 h pays about 290,000 t (`FleetSim.Offline.cs`).
-- **Art.** [#28][28] shrinks to the shared rock mesh pool (Foundry models cover the hulls): retitle or close it. [#29][29] is parked by ADR 0017; close it unless optional content grows to several MB.
+- **Art.** [#28][28] now covers better asteroid rocks: a shared pool of about 16 mesh variants built once rather than a new mesh and collider for every rock on each respawn, plus richer shapes (shards, craters, ridges) and crevice shading. The Foundry models cover the hulls. [#29][29] (runtime glTFast) was closed as parked by ADR 0017; reopen it if optional content grows to several MB.
 
 ## Housekeeping
 
