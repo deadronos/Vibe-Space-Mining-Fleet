@@ -7,8 +7,7 @@ Updated 11 Nov 2026 against v0.15.0 and the open GitHub issues.
 ## Recommended order
 
 1. **[#33 Cross-browser and device testing][33].** Close it out: Safari import completion, non-QWERTY hotkeys, the remaining browser combat cases, and a real phone and tablet pass (touch from [#41][41] was only tested with synthetic touches). Add offline credit on forced WebGL2 to the matrix in `documentation/web-shell.md`.
-2. **[#24 Hazards][24].** The next gameplay slice that needs no decision first. Start with one hazard type (debris, damage over time) and the storm warning through the event log. Scouts can chart hazards as they survey, and repair ships give hazard damage an answer in the field.
-3. **[#79 Star map overlay][79].** The route is open-ended now; the map makes it readable. Balance beyond system 2 alongside it (headless runner: `WarpBalanceScenarios.cs`).
+2. **[#79 Star map overlay][79].** The route is open-ended now; the map makes it readable. Balance beyond system 2 alongside it (headless runner: `WarpBalanceScenarios.cs`).
 
 ## Other tracks
 
@@ -36,7 +35,6 @@ The live run verified repair and scout selection, their HUD rows, and V to surve
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
 [22]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/22
 [23]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/23
-[24]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/24
 [25]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/25
 [26]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/26
 [28]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/28
