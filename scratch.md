@@ -6,11 +6,12 @@ Updated 11 Nov 2026 after the [project review](documentation/reviews/2026-11-11-
 
 ## Recommended order
 
-1. **Preserve player saves.** [#86][86] blocks overwrites after a rejected load and gives the player a recovery path. [#87][87] rejects malformed active asteroid records before changing the running game.
-2. **Make warp arrival and destination risk clear.** [#88][88] adds a visible way to resume mining after recall. [#89][89] measures upgraded fleets, replacement costs and repair spending before tuning deeper systems. Use the results to show ore richness and pirate threat in [#79][79].
-3. **Improve tactical readability and input.** [#90][90] clears the Sensors button, labels hazards and reduces compact HUD obstruction. [#91][91] makes essential HUD controls operable by keyboard. [#92][92] improves small ship and asteroid visibility during orbit and zoom.
-4. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
-5. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
+1. **Make warp arrival and destination risk clear.** [#88][88] adds a visible way to resume mining after recall. [#89][89] measures upgraded fleets, replacement costs and repair spending before tuning deeper systems. Use the results to show ore richness and pirate threat in [#79][79].
+2. **Improve tactical readability and input.** [#90][90] clears the Sensors button, labels hazards and reduces compact HUD obstruction. [#91][91] makes essential HUD controls operable by keyboard. [#92][92] improves small ship and asteroid visibility during orbit and zoom.
+3. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
+4. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
+
+Save safety shipped in [#86][86] and [#87][87]. Rejected saves can be recovered, and malformed asteroid records are rejected before Unity changes the running game.
 
 ## Other tracks
 
