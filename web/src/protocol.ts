@@ -9,7 +9,14 @@ export type BridgeCommand =
   | { type: 'toggleAutoLaunch' }
   | { type: 'setAutoLaunch'; value: boolean }
   | { type: 'resumeAuto' }
-  | { type: 'build'; unit: UnitKind };
+  | { type: 'build'; unit: UnitKind }
+  /**
+   * How much of the top-right corner the game-menu button covers (#90), in CSS px: from the
+   * viewport's right edge to the button's left edge, and from the top to its bottom.
+   */
+  | { type: 'pageInsets'; right: number; bottom: number }
+  /** The game menu opened or closed (#91): Unity leaves the keyboard to the dialog meanwhile. */
+  | { type: 'menuOpen'; value: boolean };
 
 /** What the carrier can build (C# SpaceMining.Sim.UnitKind). */
 export type UnitKind = 'drone' | 'barge' | 'hauler' | 'refinery' | 'squadron' | 'repair' | 'scout';
@@ -127,4 +134,6 @@ export interface BridgeEvents {
   state: BridgeState;
   save: SaveFile;
   loaded: BridgeLoaded;
+  /** The HUD asks the page to open the game menu (its keyboard path to it, #91). */
+  menu: Record<string, never>;
 }

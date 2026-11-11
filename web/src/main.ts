@@ -132,18 +132,21 @@ async function start(): Promise<void> {
     if (notice.kind === 'OfflineCredit') showToast(notice.message);
   });
   wireMenu(bridge, info);
+  on('menu', () => {
+    if (!menu.open) openMenu(info);
+  });
 
   // The render benchmark is a throwaway game: keep the player's save out of it.
   if (info.bench > 0) {
     discarding = true;
-    menuButton.hidden = false;
+    showMenuButton(bridge);
     const bench = startBench(info);
     Object.assign(window, { spaceMining: { bridge, unity, info, bench } });
     return;
   }
 
   await continueFromSave(bridge, info.minSaveVersion ?? info.saveVersion, info.saveVersion);
-  menuButton.hidden = false;
+  showMenuButton(bridge);
   if (rejectedSave !== null) openMenu(info);
 
   const autosave = () => void saveNow(bridge, true);
@@ -234,6 +237,26 @@ async function saveNow(bridge: Bridge, silent: boolean, replace = false): Promis
   }
 }
 
+/**
+ * Shows the gear button and tells the Unity HUD how much of the corner it covers, safe-area
+ * insets included, so the Sensors button and the strip stay clear of it (#90).
+ */
+function showMenuButton(bridge: Bridge): void {
+  menuButton.hidden = false;
+  const report = () => {
+    const rect = menuButton.getBoundingClientRect();
+    if (rect.width === 0) return;
+    bridge.send({
+      type: 'pageInsets',
+      right: Math.max(0, window.innerWidth - rect.left),
+      bottom: Math.max(0, rect.bottom),
+    });
+  };
+  report();
+  window.addEventListener('resize', report);
+  window.visualViewport?.addEventListener('resize', report);
+}
+
 function openMenu(info: BridgeReady): void {
   menuInfo.textContent = menuSummary(info);
   menuFeedback.textContent = '';
@@ -242,7 +265,12 @@ function openMenu(info: BridgeReady): void {
 
 function wireMenu(bridge: Bridge, info: BridgeReady): void {
   menuButton.addEventListener('click', () => openMenu(info));
-  // Hand the keyboard back to the game when the dialog closes.
+  // The dialog has the keyboard while it is open (#91); hand it back to the game when it closes.
+  // The HUD's keyboard cursor, if it was showing, is where it was.
+  new MutationObserver(() => bridge.send({ type: 'menuOpen', value: menu.open })).observe(menu, {
+    attributes: true,
+    attributeFilter: ['open'],
+  });
   menu.addEventListener('close', () => canvas.focus());
 
   saveButton.addEventListener('click', () => void saveNow(bridge, false));

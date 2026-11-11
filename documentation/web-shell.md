@@ -18,6 +18,8 @@ The page replaces Unity's own web template: Unity's `index.html` and `TemplateDa
 ```
 page ──SendMessage("WebBridge", method, json)──► WebBridge.cs
          Command(json)    launch | recall | toggleAutoLaunch | setAutoLaunch | resumeAuto | build {unit}
+                          | pageInsets {right, bottom}: CSS px the gear button covers in the
+                            top-right corner, safe area included; the HUD keeps clear of it (#90)
          RequestSave("")  → emits "save" with the whole sim (SimSave) as JSON
          LoadSave(json)   → emits "loaded" { ok, error, time }
          SettleOffline(s) seconds away since the save; credits ore next frame (#58, ADR 0012)
@@ -28,6 +30,7 @@ WebBridge.cs ──SpaceMining_Emit(type, json)──► SpaceMiningBridge.jslib
                  build queue length, selection, renderer; combat: carrier hull, heat, raiders,
                  squadrons, wave number, seconds to the next wave, carrier losses
          event   fleet notification with kind, severity, message, world position and sim time
+         menu    the HUD's keyboard cursor pressed "Game menu": the page opens its dialog (#91)
 ```
 
 `?bench=N` starts a render benchmark (#30): N drones, no pirate waves, no save loaded or written, and a timing readout. `ready.bench` echoes N, and `state` carries `fps`, `frameMs`, `frameMsP95`, `frameMsMax`, `simMs`, `tickMs` and `syncMs`. Results are in [issues/30-render-baseline](issues/30-render-baseline/README.md).
