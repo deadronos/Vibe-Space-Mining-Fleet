@@ -33,7 +33,7 @@
 
 ### Task 0: Branches and issue
 
-- [ ] **Step 1:** Ask the user whether to open a GitHub issue for this work. If yes, create it (title "Repair and scout ships", body linking `design.md`), rename `documentation/issues/repair-scout-ships/` to `documentation/issues/<n>-repair-scout-ships/`, and use `<n>` in branch names. Without an issue, use `repair-scout` in place of `<n>-repair-scout`.
+- [ ] **Step 1:** Ask the user whether to open a GitHub issue for this work. If yes, create it (title "Repair and scout ships", body linking `design.md`), rename `documentation/issues/82-repair-scout-ships/` to `documentation/issues/<n>-repair-scout-ships/`, and use `<n>` in branch names. Without an issue, use `repair-scout` in place of `<n>-repair-scout`.
 - [ ] **Step 2:** In the Unity project run `~/.unity/bin/unity cm status`. Leftovers expected and not to be checked in: `Screenshots/*.png`, `Data/Plugins/lib_burst_generated.wasm`. Anything else: ask the user.
 - [ ] **Step 3:** If PR #81 and UVCS `/main/feature-14-foundry-models` are merged, branch from `/main`. If not, branch from that feature branch's head (cs:71) so the Foundry importer and models are present: `cm branch create /main/feature-<n>-repair-scout -c="GitHub #<n>: repair and scout ships"` from a workspace switched to cs:71, then `cm switch` to it. Git: `git switch -c feature/<n>-repair-scout` from `feature/14-foundry-models` (or `main` if merged).
 

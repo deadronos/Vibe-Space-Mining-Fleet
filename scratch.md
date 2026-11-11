@@ -54,8 +54,8 @@ fallback for a failed WebGPU start.
   merged. Measure 500 drones against its target (above 50 fps on a mid
   laptop in Chrome, WebGPU and WebGL2), then close it or list what is left.
 - **Art.** [#14][14] settled on the Foundry models, imported at edit time
-  (ADR 0017). Repair and scout ships are built (ADR 0018,
-  `documentation/issues/repair-scout-ships/`): play-test their numbers. [#29][29] is parked; [#28][28] shrinks to the shared rock mesh pool.
+  (ADR 0017). Repair and scout ships are built ([#82][82], ADR 0018,
+  `documentation/issues/82-repair-scout-ships/`): play-test their numbers. [#29][29] is parked; [#28][28] shrinks to the shared rock mesh pool.
 
 ## Housekeeping
 
@@ -95,3 +95,4 @@ fallback for a failed WebGPU start.
 [59]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/59
 [78]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/78
 [79]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/79
+[82]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/82

@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-11-11
-- **Issue:** none yet (see `documentation/issues/repair-scout-ships/`)
+- **Issue:** #82 (notes: `documentation/issues/82-repair-scout-ships/`)
 - **Decided by:** the user (behaviour, vein payoff, under-fire default), Claude (unit model, numbers), in the design review
 
 ## Context

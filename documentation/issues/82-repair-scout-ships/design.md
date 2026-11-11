@@ -1,6 +1,6 @@
 # Repair and scout ships: design
 
-Written 11 Nov 2026 with the user. Builds on #14 (Foundry models, ADR 0017, PR #81). The folder gets its issue number once a GitHub issue exists.
+Written 11 Nov 2026 with the user. Builds on #14 (Foundry models, ADR 0017, PR #81). GitHub issue: #82.
 
 ## Intent
 
