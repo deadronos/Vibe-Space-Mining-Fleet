@@ -25,6 +25,7 @@ Name the files `NNNN-<slug>.md`, numbered in order. A record's status is `Propos
 | [0015](0015-touch-context-tap.md) | Touch: a tap orders the selection where a right-click would; long press queues; two fingers orbit and pinch zooms | Accepted |
 | [0016](0016-direct-control-stances-and-rule-cards.md) | Direct orders for every unit, then automation; order > card > unit > group > class > fleet; groups in the sim; preset rule cards | Accepted |
 | [0017](0017-foundry-models-at-edit-time.md) | Foundry glTF ships imported at edit time by a project importer; no runtime glTF package; carrier keeps its hull | Accepted |
+| [0018](0018-repair-and-scout-ships.md) | Repair ships and scouts as one support unit type with a role; veins pay with a vein strike; save version 10 | Accepted |
 
 ## Open decisions
 
