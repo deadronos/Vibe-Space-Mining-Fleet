@@ -41,6 +41,21 @@ HUD buttons stay unfocusable for UI Toolkit (so a focused button can never also 
 
 On the dark side, drones and rocks that were black silhouettes become visible. Engines, status lights and the hazard rings look the same with the fill on.
 
+### Frame time (v0.16.0)
+
+`?bench=500` (500 drones, 45 s warm-up, 60 s measured), built-in browser pane on the M4. WebGL2 ran on ANGLE Metal (Apple M4), not SwiftShader. "Off" is a temporary build of the same `cs:84` scene with the `CameraFill` object disabled. It was never committed or checked in; the scene was reverted with `cm undo`. The browser was confirmed to load that build (data file 3,170,021 B against the released 3,169,605 B).
+
+| Renderer | Viewport | Fill | fps | Frame ms | p95 ms | Max ms | Drones in flight |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
+| WebGPU | 826 × 873 | on | 60.00 | 16.67 | 17.05 | 18 | 442 |
+| WebGPU | 826 × 873 | off | 60.00 | 16.67 | 17.66 | 19 | 442 |
+| WebGL2 | 826 × 873 | on | 60.00 | 16.67 | 17.05 | 18 | 442 |
+| WebGL2 | 826 × 873 | off | 60.00 | 16.67 | 17.10 | 18 | 442 |
+| WebGPU | 2560 × 1440 | on | 60.00 | 16.67 | 17.03 | 18 | 442 |
+| WebGPU | 2560 × 1440 | off | 60.00 | 16.67 | 17.07 | 18 | 442 |
+
+Every run held the 60 fps display cap with no dropped frames. The fill-on and fill-off runs agree to run-to-run noise. Because of the cap, the M4 can't show the light's GPU cost directly. What these runs show is that it costs no frames, even at 2560 × 1440. A weaker GPU could still show a difference. The player grows by 6.2 KB for all of #90–#92.
+
 ## Verification
 
 - Unity: compiled, EditMode 266 of 266 passed. Web: `pnpm run check` passed (lint, format, typecheck, 6 tests).
@@ -57,7 +72,7 @@ On the dark side, drones and rocks that were black silhouettes become visible. E
 
 ## Open points
 
-- **Frame time** with and without the fill light was not measured. The built-in pane's timings aren't reliable. One extra shadowless directional light per pixel should be cheap, but measure it with `?bench=500` on both renderers (as in #30) before a release.
+- Frame time was measured on the M4 only (above). A mid-range laptop run belongs with the #30 hardware check.
 - **Safe-area insets** were not tested on a notched device. The reserve uses the button's measured rect, which already includes the insets.
 - The compact strip still wraps its stats onto two lines at 844 px, as before this change.
 - The keyboard cursor does not reach Research, Modules or Fleet tab contents (rows inside scroll views), nor selection list rows. Their tabs can still be opened by keyboard (T, G, Y or the rail).
