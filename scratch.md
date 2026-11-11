@@ -7,9 +7,11 @@ Updated 11 Nov 2026 after the [project review](documentation/reviews/2026-11-11-
 ## Recommended order
 
 1. **Show destination risk in the star map.** [#79][79] can use the ore multiplier and first-wave estimate from the [route progression results](documentation/issues/89-route-progression/README.md).
-2. **Improve tactical readability and input.** [#90][90] clears the Sensors button, labels hazards and reduces compact HUD obstruction. [#91][91] makes essential HUD controls operable by keyboard. [#92][92] improves small ship and asteroid visibility during orbit and zoom.
+2. **Measure the camera fill light.** [#92][92] shipped a restrained fill light for small hulls and rocks. Compare frame time with and without it on WebGPU and WebGL2 (`?bench=500`) before closing it. See the [#90–#92 notes](documentation/issues/90-92-tactical-readability/README.md).
 3. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
 4. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
+
+Tactical readability shipped in [#90][90] and [#91][91]: the Sensors button clears the game menu button, hazards are named with their damage rates, the compact group bar collapses, and the HUD has a keyboard cursor (Enter, Tab, Esc).
 
 Warp arrival and route tuning are complete in [#88][88] and [#89][89].
 

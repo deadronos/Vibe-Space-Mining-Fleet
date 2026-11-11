@@ -2,7 +2,7 @@
 
 [Sensors and hazards #90](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/90) · [Keyboard HUD #91](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/91) · [Small hull and rock readability #92](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/92)
 
-Unity changes were checked in as `cs:83` on `/main/feature-90-92-tactical-readability` (not yet merged to `/main`). Save format unchanged.
+Unity changes were checked in as `cs:83` on `/main/feature-90-92-tactical-readability` and merged to `/main` as `cs:84`. The git side is PR #97. Save format unchanged.
 
 ## #90 Sensors button, hazards, compact HUD
 
