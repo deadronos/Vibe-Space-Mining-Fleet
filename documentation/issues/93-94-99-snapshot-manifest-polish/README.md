@@ -28,7 +28,7 @@ Implements [GitHub #93](https://github.com/deadronos/Vibe-Space-Mining-Fleet/iss
 ## Verification
 
 - **Unity EditMode (`./scripts/unity-check.sh`):** `274 of 274 passed`.
-- **UVCS check-in:** `cs:87` on `/main/feature-93-94-99-snapshot-manifest-polish`.
-- **Unity Web build + clean manifest:** `Succeeded size=10.3MB errors=0`, `node scripts/verify-unity-manifest.mjs --require-clean` verified `/main/feature-93-94-99-snapshot-manifest-polish@cs:87 (clean), 4 files`.
+- **UVCS check-in & merge:** `cs:87` on `/main/feature-93-94-99-snapshot-manifest-polish`, merged into `/main` as `cs:88`.
+- **Unity Web build + clean manifest:** `Succeeded size=10.3MB errors=0`, `node scripts/verify-unity-manifest.mjs --require-clean` verified `/main@cs:88 (clean), 4 files`.
 - **Web shell (`pnpm run check` & `pnpm run build`):** `0` lint warnings/errors, `oxfmt --check` passed, `tsc -p .` passed, `11 of 11` Node tests (`save.test.mjs` + `manifest.test.mjs`) passed, Vite production build succeeded.
 - **Browser QA (`http://localhost:5202/`):** Verified `v0.17.0 · WebGPU · Unity 6000.6.8f1` (`1280×800`) and `v0.17.0 · WebGL 2 · Unity 6000.6.8f1` (`844×390`) with `0` console/page errors, confirming support-ship HUD commands/hints, wrapped Events row stacking, Route Map modal layering, scout `ScanRing`, and barge cargo fill.

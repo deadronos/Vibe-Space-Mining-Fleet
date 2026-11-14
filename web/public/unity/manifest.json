@@ -1,9 +1,9 @@
 {
     "unityVersion": "6000.6.8f1",
-    "builtAtUtc": "2026-11-14T08:52:35Z",
+    "builtAtUtc": "2026-11-14T09:17:47Z",
     "uvcs": {
-        "branch": "/main/feature-93-94-99-snapshot-manifest-polish",
-        "changeset": "cs:87",
+        "branch": "/main",
+        "changeset": "cs:88",
         "dirty": false,
         "dirtyItems": []
     },
