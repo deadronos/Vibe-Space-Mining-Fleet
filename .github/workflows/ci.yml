@@ -24,7 +24,7 @@ jobs:
       - run: pnpm run format:check
       - run: pnpm test
       # The Unity build is made locally (Actions has no Unity license) and committed to
-      # web/public/unity; fail early if it is missing.
-      - name: Unity build present
-        run: test -f web/public/unity/Build/unity.loader.js && test -f web/public/unity/Build/unity.wasm.unityweb
+      # web/public/unity; fail early if it or its signed clean manifest (#94) is missing or stale.
+      - name: Unity build and manifest
+        run: node scripts/verify-unity-manifest.mjs --require-clean
       - run: pnpm run build

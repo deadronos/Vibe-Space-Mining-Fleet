@@ -21,9 +21,10 @@ A build takes several minutes. If the call times out, keep reading `WebBuildResu
 - applies the Player settings first (`ApplySettings`);
 - clears the old output;
 - builds;
-- deletes Unity's `index.html` and `TemplateData/`, because `web/index.html` replaces them.
+- deletes Unity's `index.html` and `TemplateData/`, because `web/index.html` replaces them;
+- writes `web/public/unity/manifest.json` (#94) with `unityVersion`, `builtAtUtc`, UVCS `branch` / `changeset` / `dirty` / `dirtyItems`, and SHA-256 hashes + sizes for every file in `Build/`.
 
-The output is `web/public/unity/Build/unity.{loader.js,framework.js.unityweb,wasm.unityweb,data.unityweb}`.
+The output is `web/public/unity/Build/unity.{loader.js,framework.js.unityweb,wasm.unityweb,data.unityweb}` plus `web/public/unity/manifest.json`. Check in UVCS changes before running the final Web build so the committed manifest records `dirty: false` and the exact `cs:<n>`. Verify locally with `node scripts/verify-unity-manifest.mjs` (or `--require-clean`, which CI enforces).
 
 ## Settings, and why
 

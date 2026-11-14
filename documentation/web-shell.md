@@ -8,8 +8,8 @@ Covers GitHub issues #3 (full-window canvas) and #4 (TypeScript ↔ Unity bridge
 | --- | --- |
 | `Vibe-Space-Mining-Fleet/` | Unity project (not in git; Unity Version Control) |
 | `web/index.html`, `web/src/` | The page: full-window canvas, loading screen, gear menu, saves (Vite + TypeScript 7). Game controls and stats are in the Unity HUD (ADR 0005) |
-| `web/public/unity/Build/` | Unity web build, written by Unity and committed to git. Vite copies it to `dist/unity/` untouched |
-| `.github/workflows/` | `ci.yml` (lint, format, typecheck, build) and `deploy.yml` (Pages on `v*` tags) |
+| `web/public/unity/Build/`, `manifest.json` | Unity web build plus build manifest (#94), written by Unity and committed to git. Vite copies them to `dist/unity/` untouched |
+| `.github/workflows/` | `ci.yml` (lint, format, typecheck, tests, manifest check, build) and `deploy.yml` (Pages on `v*` tags) |
 
 The page replaces Unity's own web template: Unity's `index.html` and `TemplateData/` are deleted after each build, and `web/src/unity.ts` calls `createUnityInstance` itself. The canvas is `position: fixed; inset: 0; 100vw × 100dvh`, `matchWebGLToCanvasSize` keeps Unity's back buffer at the canvas size, and the device pixel ratio is capped at 1.5.
 
