@@ -1,0 +1,32 @@
+{
+    "unityVersion": "6000.6.8f1",
+    "builtAtUtc": "2026-11-14T09:17:47Z",
+    "uvcs": {
+        "branch": "/main",
+        "changeset": "cs:88",
+        "dirty": false,
+        "dirtyItems": []
+    },
+    "files": [
+        {
+            "path": "Build/unity.data.unityweb",
+            "size": 3176718,
+            "sha256": "f1aa8b6bf1c63519d5dcbae1f5b8c3972fbbec660c69076e70ee40b2043661ce"
+        },
+        {
+            "path": "Build/unity.framework.js.unityweb",
+            "size": 74656,
+            "sha256": "f9d70f0ea6915e3932acb0b5509950303f60c3a11b67b8fdfa12363a3b77161e"
+        },
+        {
+            "path": "Build/unity.loader.js",
+            "size": 48916,
+            "sha256": "67dd54ffd0f31feed58923ec179b67de8e447942bbab7017c8a87f3cc9e2f461"
+        },
+        {
+            "path": "Build/unity.wasm.unityweb",
+            "size": 7525940,
+            "sha256": "5935775b509a7698fa795a1d5c15443a8952dd2ef7ade5e4826be220c1b00334"
+        }
+    ]
+}

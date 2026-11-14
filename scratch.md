@@ -1,14 +1,14 @@
 # What to do next
 
-Updated 11 Nov 2026 after the [project review](documentation/reviews/2026-11-11-project-review.md).
+Updated 14 Nov 2026 after [#79][79], [#93][93], [#94][94], and [#99][99].
 
-**v0.15.0** brought the Foundry ship models, imported at edit time ([#14][14], ADR 0017), and repair ships, scouts and vein strikes ([#82][82], ADR 0018, save version 10). **v0.14.0** opened the route past two systems with a warp sequence and a look per system ([#78][78]). Earlier: direct control vs automation with stance scopes and preset rule cards (ADR 0016), touch controls and a phone layout, carrier modules, offline ore credit, the research tree, logistics, combat, cargo heat, the event log, the Sensors Manager, batched drone rendering and the WebGL2 fallback.
+**v0.17.0** shipped the star map ([#79][79]). Earlier **v0.15.0** brought the Foundry ship models, imported at edit time ([#14][14], ADR 0017), and repair ships, scouts and vein strikes ([#82][82], ADR 0018, save version 10); **v0.14.0** opened the route past two systems with a warp sequence and a look per system ([#78][78]).
 
 ## Recommended order
 
-1. **Show destination risk in the star map.** [#79][79] can use the ore multiplier and first-wave estimate from the [route progression results](documentation/issues/89-route-progression/README.md).
-2. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones (and recheck the #92 camera fill light) on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
-3. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
+1. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones (and recheck the #92 camera fill light) on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
+
+Simulation boundaries and build manifest verification shipped in [#93][93] and [#94][94] (`CaptureField()` builds `SystemSave` directly, `FleetSim` collections expose `IReadOnlyList<T>`, `WebBuild` writes `web/public/unity/manifest.json`, and `scripts/verify-unity-manifest.mjs` runs in CI). The **v0.15.0** playtest polish items shipped in [#99][99].
 
 Tactical readability shipped in [#90][90], [#91][91], and [#92][92]: the Sensors button clears the game menu button, hazards are named with their damage rates, the compact group bar collapses, the HUD has a keyboard cursor (Enter, Tab, Esc), and a restrained camera fill light lifts dark-side hulls and rocks at 60 fps on M4 ([results](documentation/issues/90-92-tactical-readability/README.md#frame-time-v0160)).
 
@@ -28,13 +28,9 @@ Save safety shipped in [#86][86] and [#87][87]. Rejected saves can be recovered,
 - **Unity CI is deferred.** Run EditMode tests locally with `scripts/unity-check.sh`.
 - **Carrier module balance.** Play the module numbers and decide whether to keep a fourth slot in [#85](https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/85).
 
-## Deferred: v0.15.0 playtest follow-ups
+## Closed follow-ups (#99)
 
-The live run verified repair and scout selection, their HUD rows, and V to survey with a scout. See the [playtest report on #82][82-playtest].
-
-- Isolate a right-click repair order against a damaged target and check support hull bars. Measure sustained repair at 15 hull/s and 2.5 ore/hull, then check the caps (4 repair ships, 3 scouts) and the +50% vein strike. The first run supports keeping the 1,500 ore repair ship and 800 ore scout prices for now.
-- Show automatic scout survey notices only when they discover veins, keep feedback for explicit orders, and fix overlapping Events rows at narrow widths. Give support ships a HUD hint that describes their own controls.
-- Check the scan ring's brightness and width up close, improve the barge's flat-looking ore fill, and revisit the two code follow-ups in the [#82 notes](documentation/issues/82-repair-scout-ships/).
+The [#82][82] playtest follow-ups (quiet automatic empty surveys, explicit order feedback, wrapped Event rows without overlap, support-specific HUD hints, slimmer faded scan ring, heaped barge cargo fill, and isolated EditMode checks) are resolved in [#99][99]. Let [#82][82] code follow-ups stay tracked under [#99][99] or `support` docs ([notes](documentation/issues/93-94-99-snapshot-manifest-polish/README.md)).
 
 [14]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/14
 [22]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/22
@@ -59,3 +55,4 @@ The live run verified repair and scout selection, their HUD rows, and V to surve
 [92]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/92
 [93]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/93
 [94]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/94
+[99]: https://github.com/deadronos/Vibe-Space-Mining-Fleet/issues/99
