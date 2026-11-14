@@ -7,11 +7,10 @@ Updated 11 Nov 2026 after the [project review](documentation/reviews/2026-11-11-
 ## Recommended order
 
 1. **Show destination risk in the star map.** [#79][79] can use the ore multiplier and first-wave estimate from the [route progression results](documentation/issues/89-route-progression/README.md).
-2. **Close out the camera fill light.** [#92][92] shipped in v0.16.0. With 500 drones on the M4, it held 60 fps with no frame-time change on WebGPU and WebGL2, including at 2560 × 1440 ([results](documentation/issues/90-92-tactical-readability/README.md#frame-time-v0160)). Recheck on the mid-range laptop in #30.
-3. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
-4. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
+2. **Finish browser and performance verification.** In [#33][33], finish Safari imports, non-QWERTY hotkeys, browser combat, physical phone and tablet testing, and offline credit on forced WebGL2. In [#30][30], verify 500 drones (and recheck the #92 camera fill light) on a mid-range laptop using both hardware renderers, then profile Sensors, large selections and combat. The M4 review measured 60 FPS in the normal flight view on both renderers.
+3. **Tighten simulation and build boundaries.** [#93][93] separates route snapshots from full saves and moves a consumer to read-only sim state. [#94][94] adds a Unity source changeset and player file checksums that CI can verify.
 
-Tactical readability shipped in [#90][90] and [#91][91]: the Sensors button clears the game menu button, hazards are named with their damage rates, the compact group bar collapses, and the HUD has a keyboard cursor (Enter, Tab, Esc).
+Tactical readability shipped in [#90][90], [#91][91], and [#92][92]: the Sensors button clears the game menu button, hazards are named with their damage rates, the compact group bar collapses, the HUD has a keyboard cursor (Enter, Tab, Esc), and a restrained camera fill light lifts dark-side hulls and rocks at 60 fps on M4 ([results](documentation/issues/90-92-tactical-readability/README.md#frame-time-v0160)).
 
 Warp arrival and route tuning are complete in [#88][88] and [#89][89].
 
