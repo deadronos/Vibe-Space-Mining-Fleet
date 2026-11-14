@@ -109,6 +109,7 @@ URP switches the `_EMISSION` keyword off whenever it validates a material whose 
 ## When it goes wrong
 
 - **`No Pipeline instance found for project`:** a domain reload is still running (after `recompile`, or after `AssetDatabase.Refresh()` through `script eval`). Run `"$U" status --until-ready --project-path "$P" --no-banner`, then retry. `scripts/unity-check.sh` waits for you.
+- **New `.cs` file missing from compile (`Assembly-CSharp.rsp` omits it):** if creating a new script alongside edits leaves callers failing to resolve its symbols even after `AssetDatabase.Refresh()` and `CleanBuildCache`, rename it via `UnityEditor.AssetDatabase.RenameAsset(...)` (so `CompilationPipeline` re-registers the `MonoScript`) or create/import the new file before adding callers.
 - **Connection refused or timeouts right after an edit:** the Editor may be in Safe Mode because of compile errors. `"$U" status` lists them. Fix them, and the Editor recovers.
 - **A long import or build:** pass a larger `--timeout` (seconds), or `--detach` and poll with `job`.
 - **Still failing:** tell the user what you ran and what failed. Don't loop on retries, don't switch to another Editor, and don't fall back to editing files by hand.
