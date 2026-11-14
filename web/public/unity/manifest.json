@@ -1,32 +1,32 @@
 {
     "unityVersion": "6000.6.8f1",
-    "builtAtUtc": "2026-11-14T09:17:47Z",
+    "builtAtUtc": "2026-11-14T10:32:53Z",
     "uvcs": {
-        "branch": "/main",
-        "changeset": "cs:88",
+        "branch": "/main/feature-28-asteroid-rocks",
+        "changeset": "cs:90",
         "dirty": false,
         "dirtyItems": []
     },
     "files": [
         {
             "path": "Build/unity.data.unityweb",
-            "size": 3176718,
-            "sha256": "f1aa8b6bf1c63519d5dcbae1f5b8c3972fbbec660c69076e70ee40b2043661ce"
+            "size": 3205947,
+            "sha256": "b8cccc6d3bc93a3ed0ebe55c5dc62c80fb439d47651439e131b4f87bc1dbf79d"
         },
         {
             "path": "Build/unity.framework.js.unityweb",
             "size": 74656,
-            "sha256": "f9d70f0ea6915e3932acb0b5509950303f60c3a11b67b8fdfa12363a3b77161e"
+            "sha256": "4fc2ef09fc1f96cb73aa74a49c38c677940f3edd2f02f442b15eed2b9049c377"
         },
         {
             "path": "Build/unity.loader.js",
             "size": 48916,
-            "sha256": "67dd54ffd0f31feed58923ec179b67de8e447942bbab7017c8a87f3cc9e2f461"
+            "sha256": "f4606635956f67abf868da2386547408103911a8699b0efd0b62375e9374b7fb"
         },
         {
             "path": "Build/unity.wasm.unityweb",
-            "size": 7525940,
-            "sha256": "5935775b509a7698fa795a1d5c15443a8952dd2ef7ade5e4826be220c1b00334"
+            "size": 7535760,
+            "sha256": "df564c058dd81100d726a4de3d14424b94014b40478fe25a2a3af8473354999e"
         }
     ]
 }
