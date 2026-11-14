@@ -1,8 +1,8 @@
 # What to do next
 
-Updated 14 Nov 2026 after [#79][79], [#93][93], [#94][94], and [#99][99].
+Updated 14 Nov 2026 after [#28][28], [#79][79], [#93][93], [#94][94], and [#99][99].
 
-**v0.17.0** shipped the star map ([#79][79]). Earlier **v0.15.0** brought the Foundry ship models, imported at edit time ([#14][14], ADR 0017), and repair ships, scouts and vein strikes ([#82][82], ADR 0018, save version 10); **v0.14.0** opened the route past two systems with a warp sequence and a look per system ([#78][78]).
+**v0.18.0** shipped the shared asteroid variant pool and richer rock shapes ([#28][28]). Earlier **v0.17.0** shipped the star map ([#79][79]), **v0.15.0** brought the Foundry ship models, imported at edit time ([#14][14], ADR 0017), and repair ships, scouts and vein strikes ([#82][82], ADR 0018, save version 10); **v0.14.0** opened the route past two systems with a warp sequence and a look per system ([#78][78]).
 
 ## Recommended order
 
@@ -21,7 +21,7 @@ Save safety shipped in [#86][86] and [#87][87]. Rejected saves can be recovered,
 - **Carrier systems.** [#22 energy pool][22] comes before [#25 gas giants and H2][25], which feeds it. The H2 harvester (its model is already imported) can be a new support role on `SimSupport` (ADR 0018). [#23 ship modules][23] comes before [#26 salvage][26], which needs the tractor beam; build #23 on the module model from #59 (`ModuleDef` with a `ModuleHost`).
 - **Automation, next.** Custom rule cards (conditions, actions, parameters) on top of the preset cards from ADR 0016, including cards for repair ships and scouts. Needs a new issue.
 - **Long-term balance.** [#57 prestige][57] stays parked until the research tree, offline credit and the open route have been played for a while. Measure late-game pacing with the headless runner first. Decide the 8 h offline cap there too: a starting fleet earns about 20 t/s, so 8 h pays about 290,000 t (`FleetSim.Offline.cs`).
-- **Art.** [#28][28] now covers better asteroid rocks: a shared pool of about 16 mesh variants built once rather than a new mesh and collider for every rock on each respawn, plus richer shapes (shards, craters, ridges) and crevice shading. The Foundry models cover the hulls. [#29][29] (runtime glTFast) was closed as parked by ADR 0017; reopen it if optional content grows to several MB.
+- **Art.** [#28][28] shipped the 16-variant pooled asteroid rocks with richer shapes and crevice shading. The Foundry models cover the hulls. [#29][29] (runtime glTFast) was closed as parked by ADR 0017; reopen it if optional content grows to several MB.
 
 ## Housekeeping
 

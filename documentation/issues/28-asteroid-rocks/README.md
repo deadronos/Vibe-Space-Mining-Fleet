@@ -21,13 +21,13 @@ Implements [GitHub #28](https://github.com/deadronos/Vibe-Space-Mining-Fleet/iss
 ## UVCS
 
 - Branch: `/main/feature-28-asteroid-rocks`
-- Changesets: `cs:89` (code, shader, material, scene, tests), `cs:90` (`Data/Plugins/lib_burst_generated.wasm` after WebGL build)
+- Changesets: `cs:89` (code, shader, material, scene, tests), `cs:90` (`Data/Plugins/lib_burst_generated.wasm` after WebGL build), merged into `/main` as `cs:91`.
 
 ## Verification
 
 - **Unity EditMode (`./scripts/unity-check.sh`):** `compiled`, `EditMode 278 of 278 passed` (274 existing + 4 new in `AsteroidTests`).
 - **Unity Editor Play Mode:** Verified `poolReady=True`, `activeRocks=45`, `uniqueMeshes=15`, `508.6 fps`, and `AsteroidMeshPool.BuildAll()` warm build timing `14.93 ms` (`21.47 ms` cold including template construction).
-- **Unity Web build + clean manifest:** `Succeeded size=10.4MB errors=0` (`unity.data.unityweb` 3,205,947 B, `unity.wasm.unityweb` 7,535,760 B — +39 KB total over `cs:88`, no new packages). `node scripts/verify-unity-manifest.mjs --require-clean` passed (`/main/feature-28-asteroid-rocks@cs:90 (clean), 4 files`).
+- **Unity Web build + clean manifest:** `Succeeded size=10.4MB errors=0` (`unity.data.unityweb` 3,205,947 B, `unity.wasm.unityweb` 7,535,760 B — +39 KB total over `cs:88`, no new packages). `node scripts/verify-unity-manifest.mjs --require-clean` passed (`/main@cs:91 (clean), 4 files`).
 - **Web shell (`pnpm run check` & `pnpm run build`):** `oxlint` `0` warnings/errors, `oxfmt --check` passed, `tsc -p .` passed, `11 of 11` Node tests passed, Vite production build succeeded.
 - **Browser QA (`http://localhost:5202/`):**
   - Default `WebGPU` (`v0.17.0 · WebGPU · Unity 6000.6.8f1`): `60.00 fps`, `frameMs=16.67` (`p95=17.00`, `max=18.00`), `simMs=0.08`, `syncMs=0.28`, `0` console/page errors; mining lasers lock onto faceted rock surfaces with sparks.
@@ -36,4 +36,4 @@ Implements [GitHub #28](https://github.com/deadronos/Vibe-Space-Mining-Fleet/iss
 
 ## Open points
 
-- UVCS branch `/main/feature-28-asteroid-rocks` (`cs:90`) is ready to merge to `/main` when requested.
+- None.
